@@ -9,7 +9,7 @@ indeks: 310774
 
 Napisać uniwersalną procedurę w Matlabie o odpowiednich parametrach wejścia i wyjścia (solwer), rozwiązującą układ $n$ równań liniowych $Ax = b$, wykorzystując podaną metodę. Nie sprawdzać w procedurze, czy dana macierz $A$ spełnia wymagania stosowalności metody. Obliczyć błąd rozwiązania $\varepsilon = ∥A\tilde{x} − b∥_2$ (skorzystać z funkcji `norm` Matlaba).
 
-Proszę zastosować następnie swoją procedurę w programie do rozwiązania obydwu (jeśli można) lub jednego z układów równań dla podanych niżej macierzy $A$ i wektorów $b$, przyjmując: $$n = 5, 10, 25, 50, 100, 200$$.
+Proszę zastosować następnie swoją procedurę w programie do rozwiązania obydwu (jeśli można) lub jednego z układów równań dla podanych niżej macierzy $A$ i wektorów $b$, przyjmując: $$n = 5, 10, 25, 50, 100, 200$$
 
 Metoda: faktoryzacji $LDL^T$
 
