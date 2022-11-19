@@ -131,7 +131,7 @@ $$
 Program w matlab:
 
 ```matlab
-function x = solveLinarEquationWithLowerTriangularMatrix(A, b)
+function x = solveLinearEquationWithLowerTriangularMatrix(A, b)
     [n, ~] = size(A);
     x = zeros(n, 1);
 
@@ -161,7 +161,7 @@ $$
 Program w matlab:
 
 ```matlab
-function x = solveLinarEquationWithUpperTriangularMatrix(A, b)
+function x = solveLinearEquationWithUpperTriangularMatrix(A, b)
     [n, ~] = size(A);
     x = zeros(n, 1);
     
@@ -195,9 +195,108 @@ Proszę wykonać wykres (wykresy) zależności błędu $\varepsilon$ od liczby r
 
 ## Rozwiązanie
 
-**Solver równania $Ax = b$ :**
+**Solver równania $Ax = b$**
+
+Wyznaczenie wyniku na podstawie rozwiązania układów równań z macierzami trójkątnymi:
+
+$$
+Ax = LDL^T x = L(DL^T x) = b
+$$
+
+$$
+y = DL^T x
+$$
+
+$$
+Ax = Ly = b
+$$
+
+
+
+Program:
+```matlab
+function x = solveUsingLDLtDecomposition(A, b)
+        % A = LDL'
+        [L, D] = LDLtDecomposition(A);
+        % First solve equation Ly = b for y
+        % L - lower triangular matrix
+        y = solveLinearEquationWithLowerTriangularMatrix(L, b);
+        % Then solve equation DL' x = y for x
+        % DL' - upper triangular matrix
+        x = solveLinearEquationWithUpperTriangularMatrix(D * L', y);
+end
 ```
 
+**Metoda faktoryzacji $LDL^T$**
+
+Algorytm:
+
+$$
+d_{ii} = a_{ii} - \sum_{k = 1}^{i-1} \overline{l}_{ik}^2 d_{kk}
+$$
+
+$$
+\overline{l}_{ji} = (a_{ji} -  \sum_{k=1}^{i-1} \overline{l}_{jk} d_{kk} \overline{l}_{ik}) / d_{ii}, i = 1, ..., n, j = i + 1, ..., n
+$$
+
+Program:
+```matlab
+function [L, D] = LDLtDecomposition(A)
+    [n, ~] = size(A);
+    L = zeros(n, n);
+    D = zeros(n, n);
+    
+    for i = 1 : n
+        L(i, i) = 1;
+        D(i, i) = A(i, i);
+
+        for k = 1 : i - 1
+            D(i, i) = D(i, i) - L(i, k) ^ 2 * D(k, k);
+        end
+        
+        for j = i + 1 : n
+            L(j, i) = A(j, i);
+            for k = 1 : i - 1
+                L(j, i) = L(j, i) - L(j, k) * D(k, k) * L(i, k);
+            end
+            L(j, i) = L(j, i) / D(i, i);
+        end
+    end
+end
+```
+## Wykres
+
+![](./plot_1_1.png)
+
+Program:
+
+```matlab
+function plot_1_1()
+    sizes = [5 10 25 50 100 200];
+
+    epsilonsA = zeros(size(sizes));
+    epsilonsB = epsilonsA;
+
+    i = 1;
+    for n = sizes
+        [A, b] = prepareParametersA(n);
+        epsilonsA(i) = solveAndCalculateEpsilon(A, b);
+        [A, b] = prepareParametersB(n);
+        epsilonsB(i) = solveAndCalculateEpsilon(A, b);
+        i = i + 1;
+    end
+    
+    plot(sizes, epsilonsA, sizes, epsilonsB);
+    title('Błąd Epsilon od liczby równań n');
+    xlabel('n');
+    ylabel('epsilon');
+    legend('A', 'B');
+end
+
+function epsilon = solveAndCalculateEpsilon(A, b)
+        x = solveUsingLDLtDecomposition(A, b);
+        epsilon = norm(A * x - b, 2);
+end
 ```
 
 # Zadanie 2
