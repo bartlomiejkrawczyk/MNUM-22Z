@@ -125,7 +125,7 @@ x_1 = \frac{b_1}{a_{11}}
 $$
 
 $$
-x_k = \frac{b_k - \sum _{j = 1}^{k - 1} {a_{kj} x_j}}{a_{kk}}, k = 2, 3, ..., n
+x_k = \frac{b_k - \sum_{j = 1}^{k - 1} {a_{kj} x_j}}{a_{kk}}, k = 2, 3, ..., n
 $$
 
 Program w matlab:
@@ -155,7 +155,7 @@ x_n = \frac{b_n}{a_{nn}}
 $$
 
 $$
-x_k = \frac{b_k - \sum _{j = k + 1}^{n} {a_{kj} x_j}}{a_{kk}}, k = n - 1, n - 2, ..., 1
+x_k = \frac{b_k - \sum_{j = k + 1}^{n} {a_{kj} x_j}}{a_{kk}}, k = n - 1, n - 2, ..., 1
 $$
 
 Program w matlab:
