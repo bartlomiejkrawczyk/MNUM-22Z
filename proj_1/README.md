@@ -4,6 +4,115 @@ student: Bartłomiej Krawczyk
 indeks: 310774
 ```
 
+# Dane
+
+### A):
+$$
+\begin{equation}
+  a_{ij} = \begin{cases}
+    -10, & \text{dla $j = i$} \\
+    3, & \text{dla $j = i - 1$ lub $j = i + 1$} \\
+    0, & \text{dla pozostałych}
+  \end{cases}
+\end{equation}
+$$
+
+$$
+\begin{equation}
+  b_{ij} = 2.5 - 0.5i
+\end{equation}
+$$
+
+**Funkcja generująca macierz A oraz wektor b:**
+
+```matlab
+function [A,b] = prepareParametersA(n)
+    A = zeros(n, n);
+    b = zeros(n, 1);
+
+    for i = 1 : n
+        A(i, i) = -10;
+        b(i, 1) = 2.5 - 0.5 * i;
+    end
+    
+    for i = 2 : n
+        A(i, i - 1) = 3;
+        A(i - 1, i) = 3;
+    end
+end
+```
+
+Przykładowa macierz $A$ dla $n = 5$:
+```s
+   -10     3     0     0     0
+     3   -10     3     0     0
+     0     3   -10     3     0
+     0     0     3   -10     3
+     0     0     0     3   -10
+```
+
+Przykładowy wektor $b$ dla $n = 5$:
+```s
+    2.0000
+    1.5000
+    1.0000
+    0.5000
+         0
+```
+
+### B):
+$$
+\begin{equation}
+  a_{ij} = \begin{cases}
+    4n^2 + (2i + 3) n, & \text{dla $j = i$} \\
+    2 (i + j) + 1, & \text{dla $j \neq i $} \\
+  \end{cases}
+\end{equation}
+$$
+
+$$
+\begin{equation}
+  b_{ij} = 2.5 + 0.6i
+\end{equation}
+$$
+
+**Funkcja generująca macierz A oraz wektor b:**
+
+```matlab
+function [A,b] = prepareParametersB(n)
+    A = zeros(n, n);
+    b = zeros(n, 1);
+
+    for i = 1 : n
+        for j = 1 : n
+            A(i, j) = 2 * (i + j) + 1;
+        end
+    end
+    
+    for i = 1 : n
+        A(i, i) = 4 * n ^ 2 + (2 * i + 3) * n;
+        b(i, 1) = 2.5 + 0.6 * i;
+    end
+end
+```
+
+Przykładowa macierz $A$ dla $n = 5$:
+```s
+   125     7     9    11    13
+     7   135    11    13    15
+     9    11   145    15    17
+    11    13    15   155    19
+    13    15    17    19   165
+```
+
+Przykładowy wektor $b$ dla $n = 5$:
+```s
+    3.1000
+    3.7000
+    4.3000
+    4.9000
+    5.5000
+```
 
 # Zadanie 1
 
