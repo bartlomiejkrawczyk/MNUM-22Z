@@ -114,6 +114,69 @@ Przykładowy wektor $b$ dla $n = 5$:
     5.5000
 ```
 
+# Funkcje pomocnicze
+
+**Rozwiązywanie układu równań z macierzą trójkątną dolną**
+
+Algorytm:
+
+$$
+x_1 = \frac{b_1}{a_{11}}
+$$
+
+$$
+x_k = \frac{b_k - \sum_{j = 1}^{k - 1} {a_{kj} x_j}}{a_{kk}}, k = 2, 3, ..., n
+$$
+
+Program w matlab:
+
+```matlab
+function x = solveLinarEquationWithLowerTriangularMatrix(A, b)
+    [n, ~] = size(A);
+    x = zeros(n, 1);
+
+    for k = 1 : n
+        x(k, 1) = b(k, 1);
+        
+        for j = 1 : k - 1
+            x(k, 1) = x(k, 1) - A(k, j) * x(j, 1);
+        end
+
+        x(k, 1) = x(k, 1) / A(k, k);
+    end
+end
+```
+**Rozwiązywanie układu równań z macierzą trójkątną górną**
+
+Algorytm:
+
+$$
+x_n = \frac{b_n}{a_{nn}}
+$$
+
+$$
+x_k = \frac{b_k - \sum_{j = k + 1}^{n} {a_{kj} x_j}}{a_{kk}}, k = n - 1, n - 2, ..., 1
+$$
+
+Program w matlab:
+
+```matlab
+function x = solveLinarEquationWithUpperTriangularMatrix(A, b)
+    [n, ~] = size(A);
+    x = zeros(n, 1);
+    
+    for k = n : -1 : 1
+        x(k, 1) = b(k, 1);
+        
+        for j = k + 1 : n
+            x(k, 1) = x(k, 1) - A(k, j) * x(j, 1);
+        end
+
+        x(k, 1) = x(k, 1) / A(k, k);
+    end
+end
+```
+
 # Zadanie 1
 
 ## Treść
@@ -132,32 +195,10 @@ Proszę wykonać wykres (wykresy) zależności błędu $\varepsilon$ od liczby r
 
 ## Rozwiązanie
 
-
-
-$$
-\begin{align}
-y = a
-\end{align}
-$$
-
-```matlab
-function x = solve_linar_equation_with_triangular_matrix_upper(A, b)
-
-    [n, ~] = size(A);
-    x = zeros(n, 1);
-    
-    for k = n : -1 : 1
-        x(k, 1) = b(k, 1);
-        
-        for j = k + 1 : n
-            x(k, 1) = x(k, 1) - A(k, j) * x(j, 1);
-        end
-
-        x(k, 1) = x(k, 1) / A(k, k);
-    end
-end
+**Solver równania $Ax = b$ :**
 ```
 
+```
 
 # Zadanie 2
 
