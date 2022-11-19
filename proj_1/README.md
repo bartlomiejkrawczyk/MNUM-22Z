@@ -7,17 +7,20 @@ indeks: 310774
 
 # Zadanie 1
 
-Napisać uniwersalną procedurę w Matlabie o odpowiednich parametrach wejścia i wyjścia (solwer), rozwiązującą układ n równań liniowych Ax = b, wykorzystując podaną metodę. Nie
-sprawdzać w procedurze, czy dana macierz A spełnia wymagania stosowalności metody. Obliczyć błąd rozwiązania ε = ∥Ax˜ − b∥2 (skorzystać z funkcji norm Matlaba).
-Proszę zastosować następnie swoją procedurę w programie do rozwiązania obydwu (jeśli można)
-lub jednego z układów równań dla podanych niżej macierzy A i wektorów b, przyjmując n =
-5, 10, 25, 50, 100, 200.
+Napisać uniwersalną procedurę w Matlabie o odpowiednich parametrach wejścia i wyjścia (solwer), rozwiązującą układ $n$ równań liniowych $Ax = b$, wykorzystując podaną metodę. Nie sprawdzać w procedurze, czy dana macierz $A$ spełnia wymagania stosowalności metody. Obliczyć błąd rozwiązania $\varepsilon = ∥A\tilde{x} − b∥_2$ (skorzystać z funkcji `norm` Matlaba).
+
+Proszę zastosować następnie swoją procedurę w programie do rozwiązania obydwu (jeśli można) lub jednego z układów równań dla podanych niżej macierzy $A$ i wektorów $b$, przyjmując: $$n = 5, 10, 25, 50, 100, 200$$.
+
 Metoda: faktoryzacji $LDL^T$
-Proszę wykonać wykres (wykresy) zależności błędu ε od liczby równań n.
+
+Proszę wykonać wykres (wykresy) zależności błędu $\varepsilon$ od liczby równań $n$.
+
+
+
 
 $$
 \begin{align}
-y = a^T
+y = a
 \end{align}
 $$
 
