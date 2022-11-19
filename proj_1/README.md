@@ -236,7 +236,7 @@ d_{ii} = a_{ii} - \sum_{k = 1}^{i-1} \overline{l}_{ik}^2 d_{kk}
 $$
 
 $$
-\overline{l}_{ji} = (a_{ji} -  \sum_{k=1}^{i-1} \overline{l}_{jk} d_{kk} \overline{l}_{ik}) / d_{ii}, i = 1, ..., n, j = i + 1, ..., n
+\overline{l}_{ji} = (a_{ji} -  \sum_{k=1}^{i-1} {\overline{l}_{jk} d_{kk} \overline{l}_{ik}}) / d_{ii}, i = 1, ..., n, j = i + 1, ..., n
 $$
 
 Program:
