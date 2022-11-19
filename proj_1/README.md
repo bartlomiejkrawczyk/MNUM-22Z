@@ -275,27 +275,41 @@ function plot_1_1()
     sizes = [5 10 25 50 100 200];
 
     epsilonsA = zeros(size(sizes));
+    timesA = epsilonsA;
     epsilonsB = epsilonsA;
+    timesB = epsilonsA;
 
     i = 1;
     for n = sizes
         [A, b] = prepareParametersA(n);
-        epsilonsA(i) = solveAndCalculateEpsilon(A, b);
+        [epsilonsA(i), timesA(i)] = solveAndCalculateEpsilon(A, b);
         [A, b] = prepareParametersB(n);
-        epsilonsB(i) = solveAndCalculateEpsilon(A, b);
+        [epsilonsB(i), timesB(i)] = solveAndCalculateEpsilon(A, b);
         i = i + 1;
     end
+
+    tiledlayout(2, 1);
     
+    nexttile
     plot(sizes, epsilonsA, sizes, epsilonsB);
     title('Błąd Epsilon od liczby równań n');
     xlabel('n');
     ylabel('epsilon');
     legend('A', 'B');
+
+    nexttile
+    plot(sizes, timesA, sizes, timesB);
+    title('Czas wykonania od liczby równań n');
+    xlabel('n');
+    ylabel('czas');
+    legend('A', 'B');
 end
 
-function epsilon = solveAndCalculateEpsilon(A, b)
-        x = solveUsingLDLtDecomposition(A, b);
-        epsilon = norm(A * x - b, 2);
+function [epsilon, time] = solveAndCalculateEpsilon(A, b)
+    tic
+    x = solveUsingLDLtDecomposition(A, b);
+    time = toc;
+    epsilon = norm(A * x - b, 2);
 end
 ```
 
@@ -318,6 +332,130 @@ Proszę zastosować tę procedurę do rozwiązania właściwego układu równań
 Proszę sprawdzić dokładność rozwiązania licząc także błąd $\varepsilon$ i dla każdego układu równań wykonać rysunek zależności tego błędu od liczby równań $n$. Jeśli był rozwiązywany ten sam układ równań, co w p. 1, proszę porównać czasy obliczeń dla różnych algorytmów i wymiarów zadań.
 
 ## Rozwiązanie
+
+**Dekompozycja A = L + D + U**
+
+- L - elementy macierzy A pod diagonalą, zera dla pozostałych
+- D - elementy macierzy A na diagonali, zera dla pozostałych
+- U - elementy macierzy A nad diagonalą, zera dla pozostałych
+
+```matlab
+function [L, D, U] = LDUDecomposition(A)
+    % L = tril(A, -1);
+    % D = diag(diag(A));
+    % U = triu(A, 1);
+
+    [n, ~] = size(A);
+
+    L = zeros(n, n);
+    D = zeros(n, n);
+    U = zeros(n, n);
+
+    for i = 1 : n
+        D(i, i) = A(i, i);
+        L(i, 1 : i - 1) = A(i, 1 : i - 1);
+        U(i, n: -1 : i + 1) = A(i, n : -1 : i + 1);
+    end
+end
+```
+
+**Metoda iteracyjna Jacobiego:**
+
+Algorytm:
+
+$$
+x_j^{(i+1)} = - \frac{1}{d_{jj}} (\sum_{k = 1}^{n}{(l_{jk} + u_{jk})x_k^{(i)} - b_j}), j = 1,2, ..., n
+$$
+
+Program:
+
+```matlab
+function x = solveUsingJacobiMethod(A, b, delta)
+    [n, ~] = size(A);
+
+    [L, D, U] = LDUDecomposition(A);
+
+    % assume x0 consists of zeros
+    x1 = b ./ diag(D);
+    x2 = calculateNextX(L, D, U, b, n, x1);
+
+    while norm(x1 - x2, 2) >= delta
+        x1 = x2;
+        x2 = calculateNextX(L, D, U, b, n, x1);
+    end
+
+    x = x2;
+end
+
+function x2 = calculateNextX(L, D, U, b, n, x1)
+    x2 = zeros(n, 1);
+
+    for j = 1 : n
+
+        for k = 1 : n
+            x2(j, 1) = x2(j, 1) + (L(j, k) + U(j, k)) * x1(k, 1);
+        end
+        
+        x2(j, 1) = - (x2(j, 1) - b(j, 1)) / D(j, j);
+    end
+end
+```
+
+## Wykres
+
+![](./plot_1_2.png)
+
+```matlab
+function plot_1_2()
+    sizes = [5 10 25 50 100 200];
+
+    epsilonsA = zeros(size(sizes));
+    timesA = epsilonsA;
+    epsilonsB = epsilonsA;
+    timesB = epsilonsA;
+
+    i = 1;
+    for n = sizes
+        [A, b] = prepareParametersA(n);
+        [epsilonsA(i), timesA(i)] = solveAndCalculateEpsilon(A, b);
+        [A, b] = prepareParametersB(n);
+        [epsilonsB(i), timesB(i)] = solveAndCalculateEpsilon(A, b);
+        i = i + 1;
+    end
+
+    tiledlayout(3, 1);
+    
+    nexttile
+    plot(sizes, epsilonsA, sizes, epsilonsB);
+    title('Błąd Epsilon od liczby równań n');
+    xlabel('n');
+    ylabel('epsilon');
+    legend('A', 'B');
+
+    nexttile
+    plot(sizes, epsilonsA);
+    title('Błąd Epsilon od liczby równań n');
+    xlabel('n');
+    ylabel('epsilon');
+    legend('A');
+
+    nexttile
+    plot(sizes, timesA, sizes, timesB);
+    title('Czas wykonania od liczby równań n');
+    xlabel('n');
+    ylabel('czas');
+    legend('A', 'B');
+end
+
+function [epsilon, time] = solveAndCalculateEpsilon(A, b)
+        delta = 1e-8;
+        tic
+        x = solveUsingJacobiMethod(A, b, delta);
+        time = toc;
+        epsilon = norm(A * x - b, 2);
+end
+```
+
 
 # Zadanie 3
 
