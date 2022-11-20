@@ -114,69 +114,6 @@ Przykładowy wektor $b$ dla $n = 5$:
     5.5000
 ```
 
-# Funkcje pomocnicze
-
-**Rozwiązywanie układu równań z macierzą trójkątną dolną**
-
-Algorytm:
-
-$$
-x_1 = \frac{b_1}{a_{11}}
-$$
-
-$$
-x_k = \frac{b_k - \sum_{j = 1}^{k - 1} {a_{kj} x_j}}{a_{kk}}, k = 2, 3, ..., n
-$$
-
-Program w matlab:
-
-```matlab
-function x = solveLinearEquationWithLowerTriangularMatrix(A, b)
-    [n, ~] = size(A);
-    x = zeros(n, 1);
-
-    for k = 1 : n
-        x(k, 1) = b(k, 1);
-        
-        for j = 1 : k - 1
-            x(k, 1) = x(k, 1) - A(k, j) * x(j, 1);
-        end
-
-        x(k, 1) = x(k, 1) / A(k, k);
-    end
-end
-```
-**Rozwiązywanie układu równań z macierzą trójkątną górną**
-
-Algorytm:
-
-$$
-x_n = \frac{b_n}{a_{nn}}
-$$
-
-$$
-x_k = \frac{b_k - \sum_{j = k + 1}^{n} {a_{kj} x_j}}{a_{kk}}, k = n - 1, n - 2, ..., 1
-$$
-
-Program w matlab:
-
-```matlab
-function x = solveLinearEquationWithUpperTriangularMatrix(A, b)
-    [n, ~] = size(A);
-    x = zeros(n, 1);
-    
-    for k = n : -1 : 1
-        x(k, 1) = b(k, 1);
-        
-        for j = k + 1 : n
-            x(k, 1) = x(k, 1) - A(k, j) * x(j, 1);
-        end
-
-        x(k, 1) = x(k, 1) / A(k, k);
-    end
-end
-```
-
 # Zadanie 1
 
 ## Treść
@@ -210,6 +147,8 @@ $$
 $$
 Ax = Ly = b
 $$
+
+gdzie macierze $L$ i $DL^T$ są macierzami trójkątnymi
 
 
 
@@ -264,6 +203,68 @@ function [L, D] = LDLtDecomposition(A)
     end
 end
 ```
+
+**Rozwiązywanie układu równań $Ax = b$ z macierzą trójkątną dolną**
+
+Algorytm:
+
+$$
+x_1 = \frac{b_1}{a_{11}}
+$$
+
+$$
+x_k = \frac{b_k - \sum_{j = 1}^{k - 1} {a_{kj} x_j}}{a_{kk}}, k = 2, 3, ..., n
+$$
+
+Program w matlab:
+
+```matlab
+function x = solveLinearEquationWithLowerTriangularMatrix(A, b)
+    [n, ~] = size(A);
+    x = zeros(n, 1);
+
+    for k = 1 : n
+        x(k, 1) = b(k, 1);
+        
+        for j = 1 : k - 1
+            x(k, 1) = x(k, 1) - A(k, j) * x(j, 1);
+        end
+
+        x(k, 1) = x(k, 1) / A(k, k);
+    end
+end
+```
+**Rozwiązywanie układu równań $Ax = b$ z macierzą trójkątną górną**
+
+Algorytm:
+
+$$
+x_n = \frac{b_n}{a_{nn}}
+$$
+
+$$
+x_k = \frac{b_k - \sum_{j = k + 1}^{n} {a_{kj} x_j}}{a_{kk}}, k = n - 1, n - 2, ..., 1
+$$
+
+Program w matlab:
+
+```matlab
+function x = solveLinearEquationWithUpperTriangularMatrix(A, b)
+    [n, ~] = size(A);
+    x = zeros(n, 1);
+    
+    for k = n : -1 : 1
+        x(k, 1) = b(k, 1);
+        
+        for j = k + 1 : n
+            x(k, 1) = x(k, 1) - A(k, j) * x(j, 1);
+        end
+
+        x(k, 1) = x(k, 1) / A(k, k);
+    end
+end
+```
+
 ## Wykres
 
 ![](./plot_1_1.png)
@@ -360,6 +361,10 @@ end
 ```
 
 **Metoda iteracyjna Jacobiego:**
+
+$$
+Dx^{(i + 1)} = -(L + U)x^{(i)} + b, i = 0, 1, 2, ...
+$$
 
 Algorytm:
 
@@ -461,7 +466,7 @@ end
 
 ## Treść
 
-Dla podanych w tabeli danych pomiarowych (próbek) metodą najmniejszych kwadratów należy wyznaczyć funkcję wielomianową y = f(x) (tzn. wektor współczynników) najlepiej aproksymującą te dane.
+Dla podanych w tabeli danych pomiarowych (próbek) **metodą najmniejszych kwadratów** należy wyznaczyć funkcję wielomianową y = f(x) (tzn. wektor współczynników) najlepiej aproksymującą te dane.
 
 | $x_i$ | $y_i$   |
 |-------|---------|
@@ -483,11 +488,228 @@ W sprawozdaniu proszę przedstawić na rysunku otrzymaną funkcję na tle danych
 
 Do rozwiązania zadania najmniejszych kwadratów proszę wykorzystać najpierw **układ równań normalnych**, a potem **rozkład SVD**.
 
-Do rozwiązywania układu równań i dekompozycji użyć solwerów Matlaba.. Porównać efektywność obydwu podejść.
+Do rozwiązywania układu równań i dekompozycji użyć solwerów Matlaba. Porównać efektywność obydwu podejść.
 
 Do liczenia wartości wielomianu użyć funkcji `polyval`.
 
 Proszę obliczyć błąd aproksymacji w dwóch normach: euklidesowej oraz maksimum (nieskończoność). W obydwu przypadkach skorzystać z funkcji `norm` Matlaba.
 
-## Rozwiązanie
+
+## Ogólny start rozwiązania
+
+Postać funkcji wielomianowej:
+$$
+f(x) = \sum_{i=0}^{n} a_i x^i
+$$
+
+Macierz z wyliczonymi wartościami stojącymi przy poszczególnych współczynnikach funkcji:
+$$
+A = \begin{bmatrix}
+x_0^0 & x_0^1 & ... & x_0^n\\
+x_1^0 & x_1^1 & ... & x_1^n\\
+x_2^0 & x_2^1 & ... & x_2^n\\
+... & ... & ... & ... \\
+x_N^0 & x_N^1 & ... & x_N^n\\
+\end{bmatrix}
+$$
+
+Wektor szukanych współczynników funkcji wielomianowej:
+$$
+a = [a_0 a_1 ... a_n]^T
+$$
+
+Wektor wyników:
+$$
+y = f(x_j), j = 0, 1, ..., N
+$$
+
+W tak zapisanym zadaniu chcemy minimalizować funkcję:
+
+$$
+H(a) = (||y - Aa||_2)^2
+$$
+
+Dalej będziemy rozwiązywać zadanie **LZNK**
+
+$$
+A a = y
+$$
+
+Program wyliczający macierz $A$:
+
+```matlab
+function A = prepareMatrixWithAppliedFunctions(x, n)
+    A = zeros(length(x), n + 1);
+    for i = 1 : length(x)
+        for j = 0 : n
+            A(i, j + 1) = x(i)^j;
+        end
+    end
+end
+```
+
+## Rozwiązanie z wykorzystaniem układu równań normalnych
+
+
+Rozwiązujemy równanie:
+
+$$
+A^TAa = A^Ty
+$$
+
+Program:
+
+```matlab
+function a = approximationUsingNormalEquations(x, y, n)
+    A = prepareMatrixWithAppliedFunctions(x, n);
+    a = linsolve(A' * A, A' * y);
+end
+```
+
+
+## Wykres
+
+![](./plog_1_3_1.png)
+
+Program:
+```matlab
+function plot_1_3_1()
+    degrees = [3 5 7 9 10];
+    [x, y] = prepareParameters3();
+
+    hold on
+    plot(x, y, 'o');
+    for d = degrees
+        plotApproximatedPolynomialNormalEquations(x, y, d);
+    end
+    hold off
+    title('Układ równań normalnych');
+    xlabel('x');
+    ylabel('y');
+    legend('dane', '3', '5', '7', '9', '10');
+end
+
+function plotApproximatedPolynomialNormalEquations(x, y, degree)
+    minX = min(x);
+    maxX = max(x);
+    sampleX = minX : (maxX - minX) / 1000 : maxX;
+    a = approximationUsingNormalEquations(x, y, degree);
+    plot(sampleX, polyval(flip(a), sampleX));
+end
+```
+
+![](./epsilon_1_3_1.png)
+
+Program:
+
+```matlab
+function epsilon_1_3_1()
+    degrees = [3 5 7 9 10];
+    [x, y] = prepareParameters3();
+
+    tiledlayout(2, 1);
+
+    nexttile;
+    hold on
+    for d = degrees
+        plotApproximatedPolynomialNormalEquations(x, y, d, 2);
+    end
+    hold off
+    title('Norma Euklidesowa');
+    xlabel('stopień');
+    ylabel('epsilon');
+    legend('dane', '3', '5', '7', '9', '10');
+
+
+    nexttile;
+        hold on
+    for d = degrees
+        plotApproximatedPolynomialNormalEquations(x, y, d, Inf);
+    end
+    hold off
+    title('Norma Nieskończoność');
+    xlabel('stopień');
+    ylabel('epsilon');
+    legend('dane', '3', '5', '7', '9', '10');
+end
+
+function plotApproximatedPolynomialNormalEquations(x, y, degree, n)
+    a = approximationUsingNormalEquations(x, y, degree);
+    result = polyval(flip(a), x);
+    epsilon = norm(result - y, n);
+    scatter(degree, epsilon);
+end
+```
+
+
+## Rozwiązanie z wykorzystaniem rozkładu SVD
+
+$$
+||y - Aa||_2 = ||y - U \Sigma V^T a||_2 = ||U^Ty - \Sigma (V^T a)||_2 = ||\tilde{y} - \Sigma \tilde{a}||_2
+$$
+
+$$
+\tilde{y} = U^Ty
+$$
+
+$$
+\tilde{a} = V^Ta
+$$
+
+Rozwiązanie jednoznaczne o minimalnej normie otrzymamy przyjmując:
+
+$$
+\hat{\tilde{a}} = \begin{bmatrix}
+\tilde{y}_1 / \sigma_1 \\
+...\\
+\tilde{y}_k / \sigma_k \\
+0\\
+...  \\
+0
+\end{bmatrix}
+$$
+
+gdzie:
+
+$k$ - rządz macierzy $A$
+
+Algorytm:
+
+$$
+\hat{a} = V\begin{bmatrix}
+\tilde{y}_1 / \sigma_1 \\
+...\\
+\tilde{y}_k / \sigma_k \\
+0\\
+...  \\
+0
+\end{bmatrix}
+$$
+
+Program:
+```matlab
+function a = approximationUsingSvd(x, y, n)
+    A = prepareMatrixWithAppliedFunctions(x, n);
+    [U, SIGMA, V] = svd(A);
+    s = diag(SIGMA);
+    k = rank(A);
+    y_ = U' * y;
+    a_ = [y_(1:k, 1) ./ s(1:k, 1); zeros(n - k, 1)];
+    a = V * a_;
+end
+```
+
+## Wykres
+
+Program do generowania wykresów z SVD jest bardzo podobny do tego z układem równań normalnych.
+
+![](./plot_1_3_2.png)
+
+
+
+![](./epsilon_1_3_2.png)
+
+
+
+
 
