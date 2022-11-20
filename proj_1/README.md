@@ -569,7 +569,7 @@ end
 
 ## Wykres
 
-![](./plog_1_3_1.png)
+![](./plot_1_3_1.png)
 
 Program:
 ```matlab
