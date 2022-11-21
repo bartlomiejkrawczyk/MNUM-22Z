@@ -4,6 +4,8 @@ student: Bartłomiej Krawczyk
 indeks: 310774
 ```
 
+<!-- https://snip.mathpix.com/2barti2/notes/f1b9f837-1234-4295-99ed-258c7a7ed446/edit -->
+
 # Dane
 
 ### A):
@@ -168,6 +170,8 @@ end
 
 **Metoda faktoryzacji $LDL^T$**
 
+Algorytm faktoryzacji najłatwiej osiągnąć poprzez przedstawienie macierzy $A$ jako iloczyn macierzy $L$ oraz $DL^T$. Kolejno rozwiązując równania skalarne jesteśmy w stanie przedstawić to działanie w postaci algorytmu.
+
 Algorytm:
 
 $$
@@ -205,6 +209,8 @@ end
 ```
 
 **Rozwiązywanie układu równań $Ax = b$ z macierzą trójkątną dolną**
+
+Kolejno rozwiązujemy po jednym układzie równań z jedną niewiadomą. Za każdym razem wyliczamy po jednej zmiennej i w kolejnych krokach podstawiamy wyliczone wartości do reszty równań, aby także mieć równanie z jedną niewiadomą.
 
 Algorytm:
 
@@ -314,6 +320,12 @@ function [epsilon, time] = solveAndCalculateEpsilon(A, b)
 end
 ```
 
+## Wnioski:
+
+Wykorzystanie faktoryzacji $LDL^T$ do rozwiązania układów równań sprawdziło się całkiem nieźle. Błąd $\varepsilon = ∥A\tilde{x} − b∥_2$ nawet dla bardzo dużych układów równań nie przekroczył poziomu $10^{-12}$. Błąd przy coraz to większych macierzach wydaje się rosnąć liniowo.
+
+Obie testowane macierze są symetryczne, także można było zastosować faktoryzację $LDL^T$.
+
 # Zadanie 2
 
 ## Treść
@@ -361,6 +373,18 @@ end
 ```
 
 **Metoda iteracyjna Jacobiego:**
+
+$$
+A = L + D + U
+$$
+
+Jesteśmy w stanie zapisać równanie $Ax = b$ w postaci:
+
+$$
+Dx = -(L + U)x + b
+$$
+
+Z czego wynikła **metoda Jacobiego**:
 
 $$
 Dx^{(i + 1)} = -(L + U)x^{(i)} + b, i = 0, 1, 2, ...
@@ -461,6 +485,15 @@ function [epsilon, time] = solveAndCalculateEpsilon(A, b)
 end
 ```
 
+## Wnioski:
+
+W przypadku obu macierzy A) oraz B) występuje silna diagonalna dominacja. Wynika z tego, że można zastosować metodę Jacobiego do obu układów równań - metoda będzie zbieżna.
+
+Wyniki z wykorzystaniem metody Jacobiego są gorsze niż w przypadku metody z faktoryzacją $LDL^T$. Błąd w przypadku A) oraz B) jest o kilka rzędów wielkości większy. W przypadku A) maksymalny błąd jest rzędu $10^{-7}$, a w przypadku B) jest rzędu $10^{-3}$.
+
+Ponadto błąd rozwiązania w przypadku A) nie rośnie proporcjonalnie do ilości równań, a zdaje się zachowywać chaotycznie. Podejrzewam, że wynika to z zadanego warunku stop $10^{-8}$. Gdy osiągamy zadaną dokładność algorytm przerywa i w każdym przypadku może to zrobić w innej iteracji.
+
+Czas wyliczeń w przypadku B) jest na korzyść rozwiązania metodą iteracyjną, a w przypadku A) jest dokładnie na odwrót.
 
 # Zadanie 3
 
@@ -671,7 +704,7 @@ $$
 
 gdzie:
 
-$k$ - rządz macierzy $A$
+$k$ - rząd macierzy $A$
 
 Algorytm:
 
@@ -711,5 +744,7 @@ Program do generowania wykresów z SVD jest bardzo podobny do tego z układem r�
 
 
 
+## Wnioski
 
+Metoda z wykorzystaniem układu równań normalnych, a także rozkładu SVD.
 
