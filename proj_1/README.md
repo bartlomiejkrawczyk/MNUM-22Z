@@ -746,5 +746,10 @@ Program do generowania wykresów z SVD jest bardzo podobny do tego z układem r�
 
 ## Wnioski
 
-Metoda z wykorzystaniem układu równań normalnych, a także rozkładu SVD.
+Obie metody z wykorzystaniem układu równań normalnych oraz rozkładu SVD poradziły sobie bardzo dobrze z tym zadaniem. 
 
+W przypadku aproksymowania funkcją wielomianową o wyższych stopniach widać, że funkcja bardzo dostosowuje się do danych. Błąd aproksymacji jest lepszy jednak występuje przeuczenie.
+
+W przypadku tych danych najlepiej aproksymuje funkcja o stopniu 7 - nie widać jeszcze zbytniego przeuczenia, a błąd jest mniejszy niż aproksymacja funkcjami o niższych stopniach.
+
+Wielomiany o stopniach 3 oraz 5 także poradziły sobie całkiem nieźle.
