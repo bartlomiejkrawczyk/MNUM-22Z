@@ -21,14 +21,14 @@ $$
 
 $$
 \begin{equation}
-  b_{ij} = 2.5 - 0.5i
+  b_{i} = 2.5 - 0.5i
 \end{equation}
 $$
 
 **Funkcja generująca macierz A oraz wektor b:**
 
 ```matlab
-function [A,b] = prepareParametersA(n)
+function [A,b] = paramsA(n)
     A = zeros(n, n);
     b = zeros(n, 1);
 
@@ -62,6 +62,11 @@ Przykładowy wektor $b$ dla $n = 5$:
          0
 ```
 
+Cechy macierzy:
+- symetryczna
+- trójdiagonalna
+- silna diagonalna dominacja (wierszowa i kolumnowa)
+
 ### B):
 $$
 \begin{equation}
@@ -74,14 +79,14 @@ $$
 
 $$
 \begin{equation}
-  b_{ij} = 2.5 + 0.6i
+  b_{i} = 2.5 + 0.6i
 \end{equation}
 $$
 
 **Funkcja generująca macierz A oraz wektor b:**
 
 ```matlab
-function [A,b] = prepareParametersB(n)
+function [A,b] = paramsB(n)
     A = zeros(n, n);
     b = zeros(n, 1);
 
@@ -115,6 +120,28 @@ Przykładowy wektor $b$ dla $n = 5$:
     4.9000
     5.5000
 ```
+
+Cechy macierzy:
+- symetryczna
+- silna diagonalna dominacja (wierszowa i kolumnowa)
+
+Dominację diagonalną dla macierzy symetrycznej sprawdzałem programem:
+```matlab
+function d = testDiagDom(A)
+    % Test whether symmetric matrix is diagonally dominant
+    % A - symmetric matrix
+    % d - is matrix digonally dominant
+    [n, ~] = size(A);
+    d = true;
+    for i = 1 : n
+        if (sum(abs(A(i, :))) - abs(A(i, i))) > abs(A(i, i))
+            d = false;
+        end
+    end
+end
+```
+
+Silna dominacja diagonalna wystąpiła w obu testowanych wariantach dla wszystkich testowanych wymiarów. 
 
 # Zadanie 1
 
@@ -150,27 +177,57 @@ $$
 Ax = Ly = b
 $$
 
-gdzie macierze $L$ i $DL^T$ są macierzami trójkątnymi
+gdzie macierze $L$ i $DL^T$ są macierzami trójkątnymi.
 
-
+Najpierw rozwiązujemy układ $Ly=b$ w poszukiwaniu $y$, a następnie podstawiamy wyliczoną wartość do układu $DL'x=y$ i rozwiązujemy w poszukiwaniu $x$.
 
 Program:
 ```matlab
-function x = solveUsingLDLtDecomposition(A, b)
+function x = solveLDLt(A, b)
+        % solve using LDL' decomposition
         % A = LDL'
-        [L, D] = LDLtDecomposition(A);
+        [L, D] = LDLt(A);
         % First solve equation Ly = b for y
         % L - lower triangular matrix
-        y = solveLinearEquationWithLowerTriangularMatrix(L, b);
+        y = solveLowerTrigMatrix(L, b);
         % Then solve equation DL' x = y for x
         % DL' - upper triangular matrix
-        x = solveLinearEquationWithUpperTriangularMatrix(D * L', y);
+        x = solveUpperTrigMatrix(D * L', y);
 end
 ```
 
 **Metoda faktoryzacji $LDL^T$**
 
-Algorytm faktoryzacji najłatwiej osiągnąć poprzez przedstawienie macierzy $A$ jako iloczyn macierzy $L$ oraz $DL^T$. Kolejno rozwiązując równania skalarne jesteśmy w stanie przedstawić to działanie w postaci algorytmu.
+Algorytm faktoryzacji najłatwiej osiągnąć poprzez przedstawienie macierzy $A$ jako iloczyn macierzy $L$ oraz $DL^T$. 
+
+$L$ - macierz trójkątna dolna z $1$ na diagonali
+
+$D$ - macierz diagonalna
+
+$$
+\begin{bmatrix}
+    a_{11} & a_{12} & ... & a_{1n} \\
+    a_{21} & a_{22} & ... & a_{2n} \\
+    ... & ... & ... & ... \\
+    a_{n1} & a_{n2} & ... & a_{nn} \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+    1 & 0 & ... & 0 \\
+    \overline{l}_{21} & 1 & ... & 0 \\
+    ... & ... & ... & ... \\
+    \overline{l}_{n1} & \overline{l}_{n2} & ... & 1 \\
+\end{bmatrix}
+ \begin{bmatrix}
+    d_{11} & d_{12} \overline{l}_{21} & ... & d_{1n} \overline{l}_{n1} \\
+    0 & d_{22} & ... & d_{2n} \overline{l}_{n2} \\
+    ... & ... & ... & ... \\
+    0 & 0 & ... & d_{nn} \\
+\end{bmatrix}
+$$
+
+Kolejno rozwiązując równania skalarne jesteśmy w stanie przedstawić to działanie w postaci algorytmu.
+
 
 Algorytm:
 
@@ -184,7 +241,7 @@ $$
 
 Program:
 ```matlab
-function [L, D] = LDLtDecomposition(A)
+function [L, D] = LDLt(A)
     [n, ~] = size(A);
     L = zeros(n, n);
     D = zeros(n, n);
@@ -225,7 +282,8 @@ $$
 Program w matlab:
 
 ```matlab
-function x = solveLinearEquationWithLowerTriangularMatrix(A, b)
+function x = solveLowerTrigMatrix(A, b)
+    % solve linear equation with lower triangular matrix
     [n, ~] = size(A);
     x = zeros(n, 1);
 
@@ -255,7 +313,8 @@ $$
 Program w matlab:
 
 ```matlab
-function x = solveLinearEquationWithUpperTriangularMatrix(A, b)
+function x = solveUpperTrigMatrix(A, b)
+    % solve linear equation with upper triangular matrix
     [n, ~] = size(A);
     x = zeros(n, 1);
     
@@ -288,9 +347,9 @@ function plot_1_1()
 
     i = 1;
     for n = sizes
-        [A, b] = prepareParametersA(n);
+        [A, b] = paramsA(n);
         [epsilonsA(i), timesA(i)] = solveAndCalculateEpsilon(A, b);
-        [A, b] = prepareParametersB(n);
+        [A, b] = paramsB(n);
         [epsilonsB(i), timesB(i)] = solveAndCalculateEpsilon(A, b);
         i = i + 1;
     end
@@ -314,17 +373,19 @@ end
 
 function [epsilon, time] = solveAndCalculateEpsilon(A, b)
     tic
-    x = solveUsingLDLtDecomposition(A, b);
+    x = solveLDLt(A, b);
     time = toc;
     epsilon = norm(A * x - b, 2);
 end
 ```
 
+## Komentarz:
+
+Obie testowane macierze są symetryczne, także można było zastosować faktoryzację $LDL^T$.
+
 ## Wnioski:
 
 Wykorzystanie faktoryzacji $LDL^T$ do rozwiązania układów równań sprawdziło się całkiem nieźle. Błąd $\varepsilon = ∥A\tilde{x} − b∥_2$ nawet dla bardzo dużych układów równań nie przekroczył poziomu $10^{-12}$. Błąd przy coraz to większych macierzach wydaje się rosnąć liniowo.
-
-Obie testowane macierze są symetryczne, także można było zastosować faktoryzację $LDL^T$.
 
 # Zadanie 2
 
@@ -353,7 +414,7 @@ Proszę sprawdzić dokładność rozwiązania licząc także błąd $\varepsilon
 - U - elementy macierzy A nad diagonalą, zera dla pozostałych
 
 ```matlab
-function [L, D, U] = LDUDecomposition(A)
+function [L, D, U] = LDU(A)
     % L = tril(A, -1);
     % D = diag(diag(A));
     % U = triu(A, 1);
@@ -387,7 +448,7 @@ $$
 Z czego wynikła **metoda Jacobiego**:
 
 $$
-Dx^{(i + 1)} = -(L + U)x^{(i)} + b, i = 0, 1, 2, ...
+x^{(i + 1)} = -D^{-1}(L + U)x^{(i)} + D^{-1}b, i = 0, 1, 2, ...
 $$
 
 Algorytm:
@@ -399,24 +460,24 @@ $$
 Program:
 
 ```matlab
-function x = solveUsingJacobiMethod(A, b, delta)
+function x = solveJacobi(A, b, delta)
     [n, ~] = size(A);
 
-    [L, D, U] = LDUDecomposition(A);
+    [L, D, U] = LDU(A);
 
     % assume x0 consists of zeros
     x1 = b ./ diag(D);
-    x2 = calculateNextX(L, D, U, b, n, x1);
+    x2 = nextX(L, D, U, b, n, x1);
 
     while norm(x1 - x2, 2) >= delta
         x1 = x2;
-        x2 = calculateNextX(L, D, U, b, n, x1);
+        x2 = nextX(L, D, U, b, n, x1);
     end
 
     x = x2;
 end
 
-function x2 = calculateNextX(L, D, U, b, n, x1)
+function x2 = nextX(L, D, U, b, n, x1)
     x2 = zeros(n, 1);
 
     for j = 1 : n
@@ -445,9 +506,9 @@ function plot_1_2()
 
     i = 1;
     for n = sizes
-        [A, b] = prepareParametersA(n);
+        [A, b] = paramsA(n);
         [epsilonsA(i), timesA(i)] = solveAndCalculateEpsilon(A, b);
-        [A, b] = prepareParametersB(n);
+        [A, b] = paramsB(n);
         [epsilonsB(i), timesB(i)] = solveAndCalculateEpsilon(A, b);
         i = i + 1;
     end
@@ -479,27 +540,87 @@ end
 function [epsilon, time] = solveAndCalculateEpsilon(A, b)
         delta = 1e-8;
         tic
-        x = solveUsingJacobiMethod(A, b, delta);
+        x = solveJacobi(A, b, delta);
         time = toc;
         epsilon = norm(A * x - b, 2);
 end
 ```
 
+## Komentarz:
+
+Warunkiem dostatecznym zbieżności metody Jacobiego jest silna diagonalna dominacja macierzy $A$. W przypadku obu macierzy A) oraz B) występuje silna diagonalna dominacja. Wynika z tego, że można zastosować metodę Jacobiego do rozwiązania układów równań z obu punktów - metoda będzie zbieżna.
+
 ## Wnioski:
 
-W przypadku obu macierzy A) oraz B) występuje silna diagonalna dominacja. Wynika z tego, że można zastosować metodę Jacobiego do obu układów równań - metoda będzie zbieżna.
+Wyniki z wykorzystaniem metody Jacobiego są znacznie gorsze niż w przypadku metody z faktoryzacją $LDL^T$. Błąd w przypadku A) oraz B) jest o kilka rzędów wielkości większy. W przypadku A) maksymalny błąd jest rzędu $10^{-7}$, a w przypadku B) jest rzędu $10^{-3}$.
 
-Wyniki z wykorzystaniem metody Jacobiego są gorsze niż w przypadku metody z faktoryzacją $LDL^T$. Błąd w przypadku A) oraz B) jest o kilka rzędów wielkości większy. W przypadku A) maksymalny błąd jest rzędu $10^{-7}$, a w przypadku B) jest rzędu $10^{-3}$.
+Ponadto błąd rozwiązania w przypadku A) nie rośnie proporcjonalnie do ilości równań. Podejrzewam, że wynika to z zadanego warunku stopu $10^{-8}$. Gdy osiągamy zadaną odległość między kolejnymi przybliżeniami rozwiązania algorytm przerywa i w każdym przypadku może to zrobić w innej iteracji.
 
-Ponadto błąd rozwiązania w przypadku A) nie rośnie proporcjonalnie do ilości równań, a zdaje się zachowywać chaotycznie. Podejrzewam, że wynika to z zadanego warunku stop $10^{-8}$. Gdy osiągamy zadaną dokładność algorytm przerywa i w każdym przypadku może to zrobić w innej iteracji.
+Czas wyliczeń w przypadku B) jest na korzyść rozwiązania metodą iteracyjną, a w przypadku A) jest na odwrót.
 
-Czas wyliczeń w przypadku B) jest na korzyść rozwiązania metodą iteracyjną, a w przypadku A) jest dokładnie na odwrót.
+![](./time.png)
+
+Program do liczenia czasu:
+```matlab
+function time()
+    sizes = [5 10 25 50 100 200];
+
+    timesA = zeros(size(sizes));
+    timesB = timesA;
+
+    i = 1;
+    for n = sizes
+        [A, b] = paramsA(n);
+        timesA(i) = timeSolveLDLt(A, b);
+        [A, b] = paramsB(n);
+        timesB(i) = timeSolveLDLt(A, b);
+        i = i + 1;
+    end
+
+    tiledlayout(2, 1);
+    
+    nexttile
+    plot(sizes, timesA, sizes, timesB);
+    title('LDLt');
+    xlabel('n');
+    ylabel('czas');
+    legend('A', 'B');
+
+    i = 1;
+    for n = sizes
+        [A, b] = paramsA(n);
+        timesA(i) = timeSolveJacobi(A, b);
+        [A, b] = paramsB(n);
+        timesB(i) = timeSolveJacobi(A, b);
+        i = i + 1;
+    end
+
+    nexttile
+    plot(sizes, timesA, sizes, timesB);
+    title('Jacobi');
+    xlabel('n');
+    ylabel('czas');
+    legend('A', 'B');
+end
+
+function time = timeSolveLDLt(A, b)
+    tic
+    solveLDLt(A, b);
+    time = toc;
+end
+
+function time = timeSolveJacobi(A, b)
+    tic
+    solveJacobi(A, b, 1e-8);
+    time = toc;
+end
+```
 
 # Zadanie 3
 
 ## Treść
 
-Dla podanych w tabeli danych pomiarowych (próbek) **metodą najmniejszych kwadratów** należy wyznaczyć funkcję wielomianową y = f(x) (tzn. wektor współczynników) najlepiej aproksymującą te dane.
+Dla podanych w tabeli danych pomiarowych (próbek) **metodą najmniejszych kwadratów** należy wyznaczyć funkcję wielomianową $y = f(x)$ (tzn. wektor współczynników) najlepiej aproksymującą te dane.
 
 | $x_i$ | $y_i$   |
 |-------|---------|
@@ -526,6 +647,16 @@ Do rozwiązywania układu równań i dekompozycji użyć solwerów Matlaba. Por�
 Do liczenia wartości wielomianu użyć funkcji `polyval`.
 
 Proszę obliczyć błąd aproksymacji w dwóch normach: euklidesowej oraz maksimum (nieskończoność). W obydwu przypadkach skorzystać z funkcji `norm` Matlaba.
+
+## Dane
+
+Program:
+```matlab
+function [x,y] = params3()
+    x = [-10 : 2 : 10]';
+    y = [-42.417 -23.440 -11.160 -4.128 -0.725 0.942 -2.069 -3.908 -4.705 -5.438 -3.578]';
+end
+```
 
 
 ## Ogólny start rozwiązania
@@ -571,7 +702,7 @@ $$
 Program wyliczający macierz $A$:
 
 ```matlab
-function A = prepareMatrixWithAppliedFunctions(x, n)
+function A = applyFunction(x, n)
     A = zeros(length(x), n + 1);
     for i = 1 : length(x)
         for j = 0 : n
@@ -593,8 +724,8 @@ $$
 Program:
 
 ```matlab
-function a = approximationUsingNormalEquations(x, y, n)
-    A = prepareMatrixWithAppliedFunctions(x, n);
+function a = approxNormal(x, y, n)
+    A = applyFunction(x, n);
     a = linsolve(A' * A, A' * y);
 end
 ```
@@ -608,72 +739,61 @@ Program:
 ```matlab
 function plot_1_3_1()
     degrees = [3 5 7 9 10];
-    [x, y] = prepareParameters3();
+    [x, y] = params3();
 
+    tiledlayout(2, 2);
+
+    nexttile([1 2]);
     hold on
     plot(x, y, 'o');
     for d = degrees
-        plotApproximatedPolynomialNormalEquations(x, y, d);
+        plotApproximatedPolynomial(x, y, d);
     end
     hold off
     title('Układ równań normalnych');
     xlabel('x');
     ylabel('y');
     legend('dane', '3', '5', '7', '9', '10');
-end
-
-function plotApproximatedPolynomialNormalEquations(x, y, degree)
-    minX = min(x);
-    maxX = max(x);
-    sampleX = minX : (maxX - minX) / 1000 : maxX;
-    a = approximationUsingNormalEquations(x, y, degree);
-    plot(sampleX, polyval(flip(a), sampleX));
-end
-```
-
-![](./epsilon_1_3_1.png)
-
-Program:
-
-```matlab
-function epsilon_1_3_1()
-    degrees = [3 5 7 9 10];
-    [x, y] = prepareParameters3();
-
-    tiledlayout(2, 1);
 
     nexttile;
     hold on
     for d = degrees
-        plotApproximatedPolynomialNormalEquations(x, y, d, 2);
+        plotApproximatedError(x, y, d, 2);
     end
     hold off
     title('Norma Euklidesowa');
     xlabel('stopień');
     ylabel('epsilon');
-    legend('dane', '3', '5', '7', '9', '10');
+    legend('3', '5', '7', '9', '10');
 
 
     nexttile;
-        hold on
+    hold on
     for d = degrees
-        plotApproximatedPolynomialNormalEquations(x, y, d, Inf);
+        plotApproximatedError(x, y, d, Inf);
     end
     hold off
     title('Norma Nieskończoność');
     xlabel('stopień');
     ylabel('epsilon');
-    legend('dane', '3', '5', '7', '9', '10');
+    legend('3', '5', '7', '9', '10');
 end
 
-function plotApproximatedPolynomialNormalEquations(x, y, degree, n)
-    a = approximationUsingNormalEquations(x, y, degree);
+function plotApproximatedPolynomial(x, y, degree)
+    minX = min(x);
+    maxX = max(x);
+    sampleX = minX : (maxX - minX) / 1000 : maxX;
+    a = approxNormal(x, y, degree);
+    plot(sampleX, polyval(flip(a), sampleX));
+end
+
+function plotApproximatedError(x, y, degree, n)
+    a = approxNormal(x, y, degree);
     result = polyval(flip(a), x);
     epsilon = norm(result - y, n);
     scatter(degree, epsilon);
 end
 ```
-
 
 ## Rozwiązanie z wykorzystaniem rozkładu SVD
 
@@ -721,8 +841,8 @@ $$
 
 Program:
 ```matlab
-function a = approximationUsingSvd(x, y, n)
-    A = prepareMatrixWithAppliedFunctions(x, n);
+function a = approxSvd(x, y, n)
+    A = applyFunction(x, n);
     [U, SIGMA, V] = svd(A);
     s = diag(SIGMA);
     k = rank(A);
@@ -739,17 +859,12 @@ Program do generowania wykresów z SVD jest bardzo podobny do tego z układem r�
 ![](./plot_1_3_2.png)
 
 
-
-![](./epsilon_1_3_2.png)
-
-
-
 ## Wnioski
 
 Obie metody z wykorzystaniem układu równań normalnych oraz rozkładu SVD poradziły sobie bardzo dobrze z tym zadaniem. 
 
 W przypadku aproksymowania funkcją wielomianową o wyższych stopniach widać, że funkcja bardzo dostosowuje się do danych. Błąd aproksymacji jest lepszy jednak występuje przeuczenie.
 
-W przypadku tych danych najlepiej aproksymuje funkcja o stopniu 7 - nie widać jeszcze zbytniego przeuczenia, a błąd jest mniejszy niż aproksymacja funkcjami o niższych stopniach.
+W przypadku tych danych wydaje się, że najlepiej aproksymuje funkcja o stopniu 7 - nie widać jeszcze zbytniego przeuczenia, a błąd jest mniejszy niż aproksymacja funkcjami o niższych stopniach.
 
 Wielomiany o stopniach 3 oraz 5 także poradziły sobie całkiem nieźle.
