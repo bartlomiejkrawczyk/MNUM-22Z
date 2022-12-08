@@ -12,8 +12,8 @@ indeks: 310774
 $$
 \begin{equation}
   a_{ij} = \begin{cases}
-    -10, & \text{dla $j = i$} \\
-    3, & \text{dla $j = i - 1$ lub $j = i + 1$} \\
+    -10, & \text{dla $j = i$}\\
+    3, & \text{dla $j = i - 1$ lub $j = i + 1$}\\
     0, & \text{dla pozostałych}
   \end{cases}
 \end{equation}
@@ -68,11 +68,12 @@ Cechy macierzy:
 - silna diagonalna dominacja (wierszowa i kolumnowa)
 
 ### B):
+
 $$
 \begin{equation}
   a_{ij} = \begin{cases}
-    4n^2 + (2i + 3) n, & \text{dla $j = i$} \\
-    2 (i + j) + 1, & \text{dla $j \neq i $} \\
+    4n^2 + (2i + 3) n, & \text{dla $j = i$}\\
+    2 (i + j) + 1, & \text{dla $j \neq i $}\\
   \end{cases}
 \end{equation}
 $$
@@ -672,7 +673,7 @@ A = \begin{bmatrix}
 x_0^0 & x_0^1 & ... & x_0^n\\
 x_1^0 & x_1^1 & ... & x_1^n\\
 x_2^0 & x_2^1 & ... & x_2^n\\
-... & ... & ... & ... \\
+... & ... & ... & ...\\
 x_N^0 & x_N^1 & ... & x_N^n\\
 \end{bmatrix}
 $$
@@ -813,11 +814,11 @@ Rozwiązanie jednoznaczne o minimalnej normie otrzymamy przyjmując:
 
 $$
 \hat{\tilde{a}} = \begin{bmatrix}
-\tilde{y}_1 / \sigma_1 \\
+\tilde{y}_1 / \sigma_1\\
 ...\\
-\tilde{y}_k / \sigma_k \\
+\tilde{y}_k / \sigma_k\\
 0\\
-...  \\
+... \\
 0
 \end{bmatrix}
 $$
@@ -830,11 +831,11 @@ Algorytm:
 
 $$
 \hat{a} = V\begin{bmatrix}
-\tilde{y}_1 / \sigma_1 \\
+\tilde{y}_1 / \sigma_1\\
 ...\\
-\tilde{y}_k / \sigma_k \\
+\tilde{y}_k / \sigma_k\\
 0\\
-...  \\
+... \\
 0
 \end{bmatrix}
 $$

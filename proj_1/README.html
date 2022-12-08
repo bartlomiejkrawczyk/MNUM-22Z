@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>README.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      </script>
+    <script type="text/javascript"
+        src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        </script>
+
+    <style>
+        /* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+        /*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+        body {
+            font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+            font-size: var(--vscode-markdown-font-size, 14px);
+            padding: 0 26px;
+            line-height: var(--vscode-markdown-line-height, 22px);
+            word-wrap: break-word;
+        }
+
+        #code-csp-warning {
+            position: fixed;
+            top: 0;
+            right: 0;
+            color: white;
+            margin: 16px;
+            text-align: center;
+            font-size: 12px;
+            font-family: sans-serif;
+            background-color: #444444;
+            cursor: pointer;
+            padding: 6px;
+            box-shadow: 1px 1px 1px rgba(0, 0, 0, .25);
+        }
+
+        #code-csp-warning:hover {
+            text-decoration: none;
+            background-color: #007acc;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, .25);
+        }
+
+        body.scrollBeyondLastLine {
+            margin-bottom: calc(100vh - 22px);
+        }
+
+        body.showEditorSelection .code-line {
+            position: relative;
+        }
+
+        body.showEditorSelection .code-active-line:before,
+        body.showEditorSelection .code-line:hover:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: -12px;
+            height: 100%;
+        }
+
+        body.showEditorSelection li.code-active-line:before,
+        body.showEditorSelection li.code-line:hover:before {
+            left: -30px;
+        }
+
+        .vscode-light.showEditorSelection .code-active-line:before {
+            border-left: 3px solid rgba(0, 0, 0, 0.15);
+        }
+
+        .vscode-light.showEditorSelection .code-line:hover:before {
+            border-left: 3px solid rgba(0, 0, 0, 0.40);
+        }
+
+        .vscode-light.showEditorSelection .code-line .code-line:hover:before {
+            border-left: none;
+        }
+
+        .vscode-dark.showEditorSelection .code-active-line:before {
+            border-left: 3px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .vscode-dark.showEditorSelection .code-line:hover:before {
+            border-left: 3px solid rgba(255, 255, 255, 0.60);
+        }
+
+        .vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+            border-left: none;
+        }
+
+        .vscode-high-contrast.showEditorSelection .code-active-line:before {
+            border-left: 3px solid rgba(255, 160, 0, 0.7);
+        }
+
+        .vscode-high-contrast.showEditorSelection .code-line:hover:before {
+            border-left: 3px solid rgba(255, 160, 0, 1);
+        }
+
+        .vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+            border-left: none;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        a:focus,
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: 1px solid -webkit-focus-ring-color;
+            outline-offset: -1px;
+        }
+
+        hr {
+            border: 0;
+            height: 2px;
+            border-bottom: 2px solid;
+        }
+
+        h1 {
+            padding-bottom: 0.3em;
+            line-height: 1.2;
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-weight: normal;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        table>thead>tr>th {
+            text-align: left;
+            border-bottom: 1px solid;
+        }
+
+        table>thead>tr>th,
+        table>thead>tr>td,
+        table>tbody>tr>th,
+        table>tbody>tr>td {
+            padding: 5px 10px;
+        }
+
+        table>tbody>tr+tr>td {
+            border-top: 1px solid;
+        }
+
+        blockquote {
+            margin: 0 7px 0 5px;
+            padding: 0 16px 0 10px;
+            border-left-width: 5px;
+            border-left-style: solid;
+        }
+
+        code {
+            font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+            font-size: 1em;
+            line-height: 1.357em;
+        }
+
+        body.wordWrap pre {
+            white-space: pre-wrap;
+        }
+
+        pre:not(.hljs),
+        pre.hljs code>div {
+            padding: 16px;
+            border-radius: 3px;
+            overflow: auto;
+        }
+
+        pre code {
+            color: var(--vscode-editor-foreground);
+            tab-size: 4;
+        }
+
+        /** Theming */
+
+        .vscode-light pre {
+            background-color: rgba(220, 220, 220, 0.4);
+        }
+
+        .vscode-dark pre {
+            background-color: rgba(10, 10, 10, 0.4);
+        }
+
+        .vscode-high-contrast pre {
+            background-color: rgb(0, 0, 0);
+        }
+
+        .vscode-high-contrast h1 {
+            border-color: rgb(0, 0, 0);
+        }
+
+        .vscode-light table>thead>tr>th {
+            border-color: rgba(0, 0, 0, 0.69);
+        }
+
+        .vscode-dark table>thead>tr>th {
+            border-color: rgba(255, 255, 255, 0.69);
+        }
+
+        .vscode-light h1,
+        .vscode-light hr,
+        .vscode-light table>tbody>tr+tr>td {
+            border-color: rgba(0, 0, 0, 0.18);
+        }
+
+        .vscode-dark h1,
+        .vscode-dark hr,
+        .vscode-dark table>tbody>tr+tr>td {
+            border-color: rgba(255, 255, 255, 0.18);
+        }
+    </style>
+
+    <style>
+        /* Tomorrow Theme */
+        /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+        /* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+        /* Tomorrow Comment */
+        .hljs-comment,
+        .hljs-quote {
+            color: #8e908c;
+        }
+
+        /* Tomorrow Red */
+        .hljs-variable,
+        .hljs-template-variable,
+        .hljs-tag,
+        .hljs-name,
+        .hljs-selector-id,
+        .hljs-selector-class,
+        .hljs-regexp,
+        .hljs-deletion {
+            color: #c82829;
+        }
+
+        /* Tomorrow Orange */
+        .hljs-number,
+        .hljs-built_in,
+        .hljs-builtin-name,
+        .hljs-literal,
+        .hljs-type,
+        .hljs-params,
+        .hljs-meta,
+        .hljs-link {
+            color: #f5871f;
+        }
+
+        /* Tomorrow Yellow */
+        .hljs-attribute {
+            color: #eab700;
+        }
+
+        /* Tomorrow Green */
+        .hljs-string,
+        .hljs-symbol,
+        .hljs-bullet,
+        .hljs-addition {
+            color: #718c00;
+        }
+
+        /* Tomorrow Blue */
+        .hljs-title,
+        .hljs-section {
+            color: #4271ae;
+        }
+
+        /* Tomorrow Purple */
+        .hljs-keyword,
+        .hljs-selector-tag {
+            color: #8959a8;
+        }
+
+        .hljs {
+            display: block;
+            overflow-x: auto;
+            color: #4d4d4c;
+            padding: 0.5em;
+        }
+
+        .hljs-emphasis {
+            font-style: italic;
+        }
+
+        .hljs-strong {
+            font-weight: bold;
+        }
+    </style>
+
+    <style>
+        /*
+ * Markdown PDF CSS
+ */
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+            padding: 0 12px;
+        }
+
+        pre {
+            background-color: #f8f8f8;
+            border: 1px solid #cccccc;
+            border-radius: 3px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+        }
+
+        pre:not(.hljs) {
+            padding: 23px;
+            line-height: 19px;
+        }
+
+        blockquote {
+            background: rgba(127, 127, 127, 0.1);
+            border-color: rgba(0, 122, 204, 0.5);
+        }
+
+        .emoji {
+            height: 1.4em;
+        }
+
+        code {
+            font-size: 14px;
+            line-height: 19px;
+        }
+
+        /* for inline code */
+        :not(pre):not(.hljs)>code {
+            color: #C9AE75;
+            /* Change the old color so it seems less like an error */
+            font-size: inherit;
+        }
+
+        /* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+        .page {
+            page-break-after: always;
+        }
+    </style>
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+
+<body>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+                ? 'dark'
+                : 'default'
+        });
+    </script>
+    <h1 id="metody-numeryczne---projekt-i">Metody Numeryczne - Projekt I</h1>
+    <pre class="hljs"><code><div>student: Bartłomiej Krawczyk
+indeks: 310774
+</div></code></pre>
+    <!-- https://snip.mathpix.com/2barti2/notes/f1b9f837-1234-4295-99ed-258c7a7ed446/edit -->
+    <h1 id="dane">Dane</h1>
+    <h3 id="a">A):</h3>
+    <p>$$
+        \begin{equation}
+        a_{ij} = \begin{cases}
+        -10, &amp; \text{dla $j = i$}\\
+        3, &amp; \text{dla $j = i - 1$ lub $j = i + 1$}\\
+        0, &amp; \text{dla pozostałych}
+        \end{cases}
+        \end{equation}
+        $$</p>
+    <p>$$
+        \begin{equation}
+        b_{i} = 2.5 - 0.5i
+        \end{equation}
+        $$</p>
+    <p><strong>Funkcja generująca macierz A oraz wektor b:</strong></p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[A,b]</span> = <span class="hljs-title">paramsA</span><span class="hljs-params">(n)</span></span>
+    A = <span class="hljs-built_in">zeros</span>(n, n);
+    b = <span class="hljs-built_in">zeros</span>(n, <span class="hljs-number">1</span>);
+
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span> : n
+        A(<span class="hljs-built_in">i</span>, <span class="hljs-built_in">i</span>) = <span class="hljs-number">-10</span>;
+        b(<span class="hljs-built_in">i</span>, <span class="hljs-number">1</span>) = <span class="hljs-number">2.5</span> - <span class="hljs-number">0.5</span> * <span class="hljs-built_in">i</span>;
+    <span class="hljs-keyword">end</span>
+    
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">2</span> : n
+        A(<span class="hljs-built_in">i</span>, <span class="hljs-built_in">i</span> - <span class="hljs-number">1</span>) = <span class="hljs-number">3</span>;
+        A(<span class="hljs-built_in">i</span> - <span class="hljs-number">1</span>, <span class="hljs-built_in">i</span>) = <span class="hljs-number">3</span>;
+    <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <p>Przykładowa macierz $A$ dla $n = 5$:</p>
+    <pre class="hljs"><code><div>   -10     3     0     0     0
+     3   -10     3     0     0
+     0     3   -10     3     0
+     0     0     3   -10     3
+     0     0     0     3   -10
+</div></code></pre>
+    <p>Przykładowy wektor $b$ dla $n = 5$:</p>
+    <pre class="hljs"><code><div>    2.0000
+    1.5000
+    1.0000
+    0.5000
+         0
+</div></code></pre>
+    <p>Cechy macierzy:</p>
+    <ul>
+        <li>symetryczna</li>
+        <li>trójdiagonalna</li>
+        <li>silna diagonalna dominacja (wierszowa i kolumnowa)</li>
+    </ul>
+    <h3 id="b">B):</h3>
+    <p>$$
+        \begin{equation}
+        a_{ij} = \begin{cases}
+        4n^2 + (2i + 3) n, &amp; \text{dla $j = i$}\\
+        2 (i + j) + 1, &amp; \text{dla $j \neq i $}\\
+        \end{cases}
+        \end{equation}
+        $$</p>
+    <p>$$
+        \begin{equation}
+        b_{i} = 2.5 + 0.6i
+        \end{equation}
+        $$</p>
+    <p><strong>Funkcja generująca macierz A oraz wektor b:</strong></p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[A,b]</span> = <span class="hljs-title">paramsB</span><span class="hljs-params">(n)</span></span>
+    A = <span class="hljs-built_in">zeros</span>(n, n);
+    b = <span class="hljs-built_in">zeros</span>(n, <span class="hljs-number">1</span>);
+
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span> : n
+        <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span> = <span class="hljs-number">1</span> : n
+            A(<span class="hljs-built_in">i</span>, <span class="hljs-built_in">j</span>) = <span class="hljs-number">2</span> * (<span class="hljs-built_in">i</span> + <span class="hljs-built_in">j</span>) + <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+    
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span> : n
+        A(<span class="hljs-built_in">i</span>, <span class="hljs-built_in">i</span>) = <span class="hljs-number">4</span> * n ^ <span class="hljs-number">2</span> + (<span class="hljs-number">2</span> * <span class="hljs-built_in">i</span> + <span class="hljs-number">3</span>) * n;
+        b(<span class="hljs-built_in">i</span>, <span class="hljs-number">1</span>) = <span class="hljs-number">2.5</span> + <span class="hljs-number">0.6</span> * <span class="hljs-built_in">i</span>;
+    <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <p>Przykładowa macierz $A$ dla $n = 5$:</p>
+    <pre class="hljs"><code><div>   125     7     9    11    13
+     7   135    11    13    15
+     9    11   145    15    17
+    11    13    15   155    19
+    13    15    17    19   165
+</div></code></pre>
+    <p>Przykładowy wektor $b$ dla $n = 5$:</p>
+    <pre class="hljs"><code><div>    3.1000
+    3.7000
+    4.3000
+    4.9000
+    5.5000
+</div></code></pre>
+    <p>Cechy macierzy:</p>
+    <ul>
+        <li>symetryczna</li>
+        <li>silna diagonalna dominacja (wierszowa i kolumnowa)</li>
+    </ul>
+    <p>Dominację diagonalną dla macierzy symetrycznej sprawdzałem programem:</p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">d</span> = <span class="hljs-title">testDiagDom</span><span class="hljs-params">(A)</span></span>
+    <span class="hljs-comment">% Test whether symmetric matrix is diagonally dominant</span>
+    <span class="hljs-comment">% A - symmetric matrix</span>
+    <span class="hljs-comment">% d - is matrix digonally dominant</span>
+    [n, ~] = <span class="hljs-built_in">size</span>(A);
+    d = <span class="hljs-built_in">true</span>;
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span> : n
+        <span class="hljs-keyword">if</span> (sum(<span class="hljs-built_in">abs</span>(A(<span class="hljs-built_in">i</span>, :))) - <span class="hljs-built_in">abs</span>(A(<span class="hljs-built_in">i</span>, <span class="hljs-built_in">i</span>))) &gt; <span class="hljs-built_in">abs</span>(A(<span class="hljs-built_in">i</span>, <span class="hljs-built_in">i</span>))
+            d = <span class="hljs-built_in">false</span>;
+        <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <p>Silna dominacja diagonalna wystąpiła w obu testowanych wariantach dla wszystkich testowanych wymiarów.</p>
+    <h1 id="zadanie-1">Zadanie 1</h1>
+    <h2 id="tre%C5%9B%C4%87">Treść</h2>
+    <p>Napisać uniwersalną procedurę w Matlabie o odpowiednich parametrach wejścia i wyjścia (solwer), rozwiązującą
+        układ $n$ równań liniowych $Ax = b$, wykorzystując podaną metodę.</p>
+    <blockquote>
+        <p>Nie sprawdzać w procedurze, czy dana macierz $A$ spełnia wymagania stosowalności metody.</p>
+    </blockquote>
+    <p>Obliczyć błąd rozwiązania $\varepsilon = ∥A\tilde{x} − b∥_2$ (skorzystać z funkcji <code>norm</code> Matlaba).
+    </p>
+    <p>Proszę zastosować następnie swoją procedurę w programie do rozwiązania obydwu (jeśli można) lub jednego z układów
+        równań dla podanych niżej macierzy $A$ i wektorów $b$, przyjmując: $n = 5, 10, 25, 50, 100, 200$.</p>
+    <p>Metoda: faktoryzacji $LDL^T$</p>
+    <p>Proszę wykonać wykres (wykresy) zależności błędu $\varepsilon$ od liczby równań $n$.</p>
+    <h2 id="rozwi%C4%85zanie">Rozwiązanie</h2>
+    <p><strong>Solver równania $Ax = b$</strong></p>
+    <p>Wyznaczenie wyniku na podstawie rozwiązania układów równań z macierzami trójkątnymi:</p>
+    <p>$$
+        Ax = LDL^T x = L(DL^T x) = b
+        $$</p>
+    <p>$$
+        y = DL^T x
+        $$</p>
+    <p>$$
+        Ax = Ly = b
+        $$</p>
+    <p>gdzie macierze $L$ i $DL^T$ są macierzami trójkątnymi.</p>
+    <p>Najpierw rozwiązujemy układ $Ly=b$ w poszukiwaniu $y$, a następnie podstawiamy wyliczoną wartość do układu
+        $DL'x=y$ i rozwiązujemy w poszukiwaniu $x$.</p>
+    <p>Program:</p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">x</span> = <span class="hljs-title">solveLDLt</span><span class="hljs-params">(A, b)</span></span>
+        <span class="hljs-comment">% solve using LDL' decomposition</span>
+        <span class="hljs-comment">% A = LDL'</span>
+        [L, D] = LDLt(A);
+        <span class="hljs-comment">% First solve equation Ly = b for y</span>
+        <span class="hljs-comment">% L - lower triangular matrix</span>
+        y = solveLowerTrigMatrix(L, b);
+        <span class="hljs-comment">% Then solve equation DL' x = y for x</span>
+        <span class="hljs-comment">% DL' - upper triangular matrix</span>
+        x = solveUpperTrigMatrix(D * L', y);
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <p><strong>Metoda faktoryzacji $LDL^T$</strong></p>
+    <p>Algorytm faktoryzacji najłatwiej osiągnąć poprzez przedstawienie macierzy $A$ jako iloczyn macierzy $L$ oraz
+        $DL^T$.</p>
+    <p>$L$ - macierz trójkątna dolna z $1$ na diagonali</p>
+    <p>$D$ - macierz diagonalna</p>
+    <p>$$\begin{bmatrix}
+        a_{11} &amp; a_{12} &amp; ... &amp; a_{1n} \\
+        a_{21} &amp; a_{22} &amp; ... &amp; a_{2n} \\
+        ... &amp; ... &amp; ... &amp; ... \\
+        a_{n1} &amp; a_{n2} &amp; ... &amp; a_{nn} \\
+        \end{bmatrix} =
+        \begin{bmatrix}
+        1 &amp; 0 &amp; ... &amp; 0 \\
+        \overline{l}_{21} &amp; 1 &amp; ... &amp; 0 \\
+        ... &amp; ... &amp; ... &amp; ... \\
+        \overline{l}_{n1} &amp; \overline{l}_{n2} &amp; ... &amp; 1 \\
+        \end{bmatrix}
+        \begin{bmatrix}
+        d_{11} &amp; d_{12} \overline{l}_{21} &amp; ... &amp; d_{1n} \overline{l}_{n1} \\
+        0 &amp; d_{22} &amp; ... &amp; d_{2n} \overline{l}_{n2} \\
+        ... &amp; ... &amp; ... &amp; ... \\
+        0 &amp; 0 &amp; ... &amp; d_{nn} \\
+        \end{bmatrix}
+        $$</p>
+    <p>Kolejno rozwiązując równania skalarne jesteśmy w stanie przedstawić to działanie w postaci algorytmu.</p>
+    <p>Algorytm:</p>
+    <p>$$
+        d_{ii} = a_{ii} - \sum_{k = 1}^{i-1} {\overline{l}_{ik}^2 d_{kk}}
+        $$</p>
+    <p>$$
+        \overline{l}_{ji} = ({a_{ji} - \sum_{k=1}^{i-1} {\overline{l}_{jk} d_{kk} \overline{l}_{ik}}})
+        / d_{ii}, i = 1, ..., n, j = i + 1, ..., n
+        $$</p>
+    <p>Program:</p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[L, D]</span> = <span class="hljs-title">LDLt</span><span class="hljs-params">(A)</span></span>
+    [n, ~] = <span class="hljs-built_in">size</span>(A);
+    L = <span class="hljs-built_in">zeros</span>(n, n);
+    D = <span class="hljs-built_in">zeros</span>(n, n);
+    
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span> : n
+        L(<span class="hljs-built_in">i</span>, <span class="hljs-built_in">i</span>) = <span class="hljs-number">1</span>;
+        D(<span class="hljs-built_in">i</span>, <span class="hljs-built_in">i</span>) = A(<span class="hljs-built_in">i</span>, <span class="hljs-built_in">i</span>);
+
+        <span class="hljs-keyword">for</span> k = <span class="hljs-number">1</span> : <span class="hljs-built_in">i</span> - <span class="hljs-number">1</span>
+            D(<span class="hljs-built_in">i</span>, <span class="hljs-built_in">i</span>) = D(<span class="hljs-built_in">i</span>, <span class="hljs-built_in">i</span>) - L(<span class="hljs-built_in">i</span>, k) ^ <span class="hljs-number">2</span> * D(k, k);
+        <span class="hljs-keyword">end</span>
+        
+        <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span> = <span class="hljs-built_in">i</span> + <span class="hljs-number">1</span> : n
+            L(<span class="hljs-built_in">j</span>, <span class="hljs-built_in">i</span>) = A(<span class="hljs-built_in">j</span>, <span class="hljs-built_in">i</span>);
+            <span class="hljs-keyword">for</span> k = <span class="hljs-number">1</span> : <span class="hljs-built_in">i</span> - <span class="hljs-number">1</span>
+                L(<span class="hljs-built_in">j</span>, <span class="hljs-built_in">i</span>) = L(<span class="hljs-built_in">j</span>, <span class="hljs-built_in">i</span>) - L(<span class="hljs-built_in">j</span>, k) * D(k, k) * L(<span class="hljs-built_in">i</span>, k);
+            <span class="hljs-keyword">end</span>
+            L(<span class="hljs-built_in">j</span>, <span class="hljs-built_in">i</span>) = L(<span class="hljs-built_in">j</span>, <span class="hljs-built_in">i</span>) / D(<span class="hljs-built_in">i</span>, <span class="hljs-built_in">i</span>);
+        <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <p><strong>Rozwiązywanie układu równań $Ax = b$ z macierzą trójkątną dolną</strong></p>
+    <p>Kolejno rozwiązujemy po jednym układzie równań z jedną niewiadomą. Za każdym razem wyliczamy po jednej zmiennej i
+        w kolejnych krokach podstawiamy wyliczone wartości do reszty równań, aby także mieć równanie z jedną niewiadomą.
+    </p>
+    <p>Algorytm:</p>
+    <p>$$
+        x_1 = \frac{b_1}{a_{11}}
+        $$</p>
+    <p>$$
+        x_k = \frac{b_k - \sum_{j = 1}^{k - 1} {a_{kj} x_j}}{a_{kk}}, k = 2, 3, ..., n
+        $$</p>
+    <p>Program w matlab:</p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">x</span> = <span class="hljs-title">solveLowerTrigMatrix</span><span class="hljs-params">(A, b)</span></span>
+    <span class="hljs-comment">% solve linear equation with lower triangular matrix</span>
+    [n, ~] = <span class="hljs-built_in">size</span>(A);
+    x = <span class="hljs-built_in">zeros</span>(n, <span class="hljs-number">1</span>);
+
+    <span class="hljs-keyword">for</span> k = <span class="hljs-number">1</span> : n
+        x(k, <span class="hljs-number">1</span>) = b(k, <span class="hljs-number">1</span>);
+        
+        <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span> = <span class="hljs-number">1</span> : k - <span class="hljs-number">1</span>
+            x(k, <span class="hljs-number">1</span>) = x(k, <span class="hljs-number">1</span>) - A(k, <span class="hljs-built_in">j</span>) * x(<span class="hljs-built_in">j</span>, <span class="hljs-number">1</span>);
+        <span class="hljs-keyword">end</span>
+
+        x(k, <span class="hljs-number">1</span>) = x(k, <span class="hljs-number">1</span>) / A(k, k);
+    <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <p><strong>Rozwiązywanie układu równań $Ax = b$ z macierzą trójkątną górną</strong></p>
+    <p>Algorytm:</p>
+    <p>$$
+        x_n = \frac{b_n}{a_{nn}}
+        $$</p>
+    <p>$$
+        x_k = \frac{b_k - \sum_{j = k + 1}^{n} {a_{kj} x_j}}{a_{kk}}, k = n - 1, n - 2, ..., 1
+        $$</p>
+    <p>Program w matlab:</p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">x</span> = <span class="hljs-title">solveUpperTrigMatrix</span><span class="hljs-params">(A, b)</span></span>
+    <span class="hljs-comment">% solve linear equation with upper triangular matrix</span>
+    [n, ~] = <span class="hljs-built_in">size</span>(A);
+    x = <span class="hljs-built_in">zeros</span>(n, <span class="hljs-number">1</span>);
+    
+    <span class="hljs-keyword">for</span> k = n : <span class="hljs-number">-1</span> : <span class="hljs-number">1</span>
+        x(k, <span class="hljs-number">1</span>) = b(k, <span class="hljs-number">1</span>);
+        
+        <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span> = k + <span class="hljs-number">1</span> : n
+            x(k, <span class="hljs-number">1</span>) = x(k, <span class="hljs-number">1</span>) - A(k, <span class="hljs-built_in">j</span>) * x(<span class="hljs-built_in">j</span>, <span class="hljs-number">1</span>);
+        <span class="hljs-keyword">end</span>
+
+        x(k, <span class="hljs-number">1</span>) = x(k, <span class="hljs-number">1</span>) / A(k, k);
+    <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2 id="wykres">Wykres</h2>
+    <p><img src="./plot_1_1.png" alt=""></p>
+    <p>Program:</p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">plot_1_1</span><span class="hljs-params">()</span></span>
+    sizes = [<span class="hljs-number">5</span> <span class="hljs-number">10</span> <span class="hljs-number">25</span> <span class="hljs-number">50</span> <span class="hljs-number">100</span> <span class="hljs-number">200</span>];
+
+    epsilonsA = <span class="hljs-built_in">zeros</span>(<span class="hljs-built_in">size</span>(sizes));
+    timesA = epsilonsA;
+    epsilonsB = epsilonsA;
+    timesB = epsilonsA;
+
+    <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">for</span> n = sizes
+        [A, b] = paramsA(n);
+        [epsilonsA(<span class="hljs-built_in">i</span>), timesA(<span class="hljs-built_in">i</span>)] = solveAndCalculateEpsilon(A, b);
+        [A, b] = paramsB(n);
+        [epsilonsB(<span class="hljs-built_in">i</span>), timesB(<span class="hljs-built_in">i</span>)] = solveAndCalculateEpsilon(A, b);
+        <span class="hljs-built_in">i</span> = <span class="hljs-built_in">i</span> + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">end</span>
+
+    tiledlayout(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>);
+    
+    nexttile
+    <span class="hljs-built_in">plot</span>(sizes, epsilonsA, sizes, epsilonsB);
+    title(<span class="hljs-string">'Błąd Epsilon od liczby równań n'</span>);
+    xlabel(<span class="hljs-string">'n'</span>);
+    ylabel(<span class="hljs-string">'epsilon'</span>);
+    <span class="hljs-built_in">legend</span>(<span class="hljs-string">'A'</span>, <span class="hljs-string">'B'</span>);
+
+    nexttile
+    <span class="hljs-built_in">plot</span>(sizes, timesA, sizes, timesB);
+    title(<span class="hljs-string">'Czas wykonania od liczby równań n'</span>);
+    xlabel(<span class="hljs-string">'n'</span>);
+    ylabel(<span class="hljs-string">'czas'</span>);
+    <span class="hljs-built_in">legend</span>(<span class="hljs-string">'A'</span>, <span class="hljs-string">'B'</span>);
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[epsilon, time]</span> = <span class="hljs-title">solveAndCalculateEpsilon</span><span class="hljs-params">(A, b)</span></span>
+    tic
+    x = solveLDLt(A, b);
+    time = toc;
+    epsilon = norm(A * x - b, <span class="hljs-number">2</span>);
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2 id="komentarz">Komentarz:</h2>
+    <p>Obie testowane macierze są symetryczne, także można było zastosować faktoryzację $LDL^T$.</p>
+    <h2 id="wnioski">Wnioski:</h2>
+    <p>Wykorzystanie faktoryzacji $LDL^T$ do rozwiązania układów równań sprawdziło się całkiem nieźle. Błąd $\varepsilon
+        = ∥A\tilde{x} − b∥_2$ nawet dla bardzo dużych układów równań nie przekroczył poziomu $10^{-12}$. Błąd przy coraz
+        to większych macierzach wydaje się rosnąć liniowo.</p>
+    <h1 id="zadanie-2">Zadanie 2</h1>
+    <h2 id="tre%C5%9B%C4%87">Treść</h2>
+    <p>Napisać uniwersalną procedurę w Matlabie o odpowiednich parametrach wejścia i wyjścia, rozwiązującą układ $n$
+        równań liniowych $Ax = b$, wykorzystując metodę <strong>iteracyjną Jacobiego</strong>.</p>
+    <blockquote>
+        <p>Nie sprawdzać w procedurze, czy dana macierz $A$ spełnia wymagania stosowalności metody.</p>
+    </blockquote>
+    <p>Jej parametry wejściowe powinny zawierać m.in. wartość graniczną $\delta$ błędu między kolejnymi przybliżeniami
+        rozwiązania, liczonego jako <strong>norma euklidesowa z ich różnicy</strong> (skorzystać z funkcji
+        <code>norm</code> Matlaba). Przyjąć jako kryterium stopu warunek: δ = 10−8 ≜ 1e − 8.
+    </p>
+    <p>$$
+        \delta = 10^{-8} \triangleq 1e-8
+        $$</p>
+    <p>Proszę zastosować tę procedurę do rozwiązania właściwego układu równań spośród przedstawionych poniżej dla $n =
+        5, 10, 25, 50, 100, 200$.</p>
+    <p>Proszę sprawdzić dokładność rozwiązania licząc także błąd $\varepsilon$ i dla każdego układu równań wykonać
+        rysunek zależności tego błędu od liczby równań $n$. Jeśli był rozwiązywany ten sam układ równań, co w p. 1,
+        proszę porównać czasy obliczeń dla różnych algorytmów i wymiarów zadań.</p>
+    <h2 id="rozwi%C4%85zanie">Rozwiązanie</h2>
+    <p><strong>Dekompozycja A = L + D + U</strong></p>
+    <ul>
+        <li>L - elementy macierzy A pod diagonalą, zera dla pozostałych</li>
+        <li>D - elementy macierzy A na diagonali, zera dla pozostałych</li>
+        <li>U - elementy macierzy A nad diagonalą, zera dla pozostałych</li>
+    </ul>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[L, D, U]</span> = <span class="hljs-title">LDU</span><span class="hljs-params">(A)</span></span>
+    <span class="hljs-comment">% L = tril(A, -1);</span>
+    <span class="hljs-comment">% D = diag(diag(A));</span>
+    <span class="hljs-comment">% U = triu(A, 1);</span>
+
+    [n, ~] = <span class="hljs-built_in">size</span>(A);
+
+    L = <span class="hljs-built_in">zeros</span>(n, n);
+    D = <span class="hljs-built_in">zeros</span>(n, n);
+    U = <span class="hljs-built_in">zeros</span>(n, n);
+
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span> : n
+        D(<span class="hljs-built_in">i</span>, <span class="hljs-built_in">i</span>) = A(<span class="hljs-built_in">i</span>, <span class="hljs-built_in">i</span>);
+        L(<span class="hljs-built_in">i</span>, <span class="hljs-number">1</span> : <span class="hljs-built_in">i</span> - <span class="hljs-number">1</span>) = A(<span class="hljs-built_in">i</span>, <span class="hljs-number">1</span> : <span class="hljs-built_in">i</span> - <span class="hljs-number">1</span>);
+        U(<span class="hljs-built_in">i</span>, n: <span class="hljs-number">-1</span> : <span class="hljs-built_in">i</span> + <span class="hljs-number">1</span>) = A(<span class="hljs-built_in">i</span>, n : <span class="hljs-number">-1</span> : <span class="hljs-built_in">i</span> + <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <p><strong>Metoda iteracyjna Jacobiego:</strong></p>
+    <p>$$
+        A = L + D + U
+        $$</p>
+    <p>Jesteśmy w stanie zapisać równanie $Ax = b$ w postaci:</p>
+    <p>$$
+        Dx = -(L + U)x + b
+        $$</p>
+    <p>Z czego wynikła <strong>metoda Jacobiego</strong>:</p>
+    <p>$$
+        x^{(i + 1)} = -D^{-1}(L + U)x^{(i)} + D^{-1}b, i = 0, 1, 2, ...
+        $$</p>
+    <p>Algorytm:</p>
+    <p>$$
+        x_j^{(i+1)} = - \frac{1}{d_{jj}} (\sum_{k = 1}^{n}{(l_{jk} + u_{jk})x_k^{(i)} - b_j}), j = 1,2, ..., n
+        $$</p>
+    <p>Program:</p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">x</span> = <span class="hljs-title">solveJacobi</span><span class="hljs-params">(A, b, delta)</span></span>
+    [n, ~] = <span class="hljs-built_in">size</span>(A);
+
+    [L, D, U] = LDU(A);
+
+    <span class="hljs-comment">% assume x0 consists of zeros</span>
+    x1 = b ./ <span class="hljs-built_in">diag</span>(D);
+    x2 = nextX(L, D, U, b, n, x1);
+
+    <span class="hljs-keyword">while</span> norm(x1 - x2, <span class="hljs-number">2</span>) &gt;= delta
+        x1 = x2;
+        x2 = nextX(L, D, U, b, n, x1);
+    <span class="hljs-keyword">end</span>
+
+    x = x2;
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">x2</span> = <span class="hljs-title">nextX</span><span class="hljs-params">(L, D, U, b, n, x1)</span></span>
+    x2 = <span class="hljs-built_in">zeros</span>(n, <span class="hljs-number">1</span>);
+
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span> = <span class="hljs-number">1</span> : n
+
+        <span class="hljs-keyword">for</span> k = <span class="hljs-number">1</span> : n
+            x2(<span class="hljs-built_in">j</span>, <span class="hljs-number">1</span>) = x2(<span class="hljs-built_in">j</span>, <span class="hljs-number">1</span>) + (L(<span class="hljs-built_in">j</span>, k) + U(<span class="hljs-built_in">j</span>, k)) * x1(k, <span class="hljs-number">1</span>);
+        <span class="hljs-keyword">end</span>
+        
+        x2(<span class="hljs-built_in">j</span>, <span class="hljs-number">1</span>) = - (x2(<span class="hljs-built_in">j</span>, <span class="hljs-number">1</span>) - b(<span class="hljs-built_in">j</span>, <span class="hljs-number">1</span>)) / D(<span class="hljs-built_in">j</span>, <span class="hljs-built_in">j</span>);
+    <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2 id="wykres">Wykres</h2>
+    <p><img src="./plot_1_2.png" alt=""></p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">plot_1_2</span><span class="hljs-params">()</span></span>
+    sizes = [<span class="hljs-number">5</span> <span class="hljs-number">10</span> <span class="hljs-number">25</span> <span class="hljs-number">50</span> <span class="hljs-number">100</span> <span class="hljs-number">200</span>];
+
+    epsilonsA = <span class="hljs-built_in">zeros</span>(<span class="hljs-built_in">size</span>(sizes));
+    timesA = epsilonsA;
+    epsilonsB = epsilonsA;
+    timesB = epsilonsA;
+
+    <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">for</span> n = sizes
+        [A, b] = paramsA(n);
+        [epsilonsA(<span class="hljs-built_in">i</span>), timesA(<span class="hljs-built_in">i</span>)] = solveAndCalculateEpsilon(A, b);
+        [A, b] = paramsB(n);
+        [epsilonsB(<span class="hljs-built_in">i</span>), timesB(<span class="hljs-built_in">i</span>)] = solveAndCalculateEpsilon(A, b);
+        <span class="hljs-built_in">i</span> = <span class="hljs-built_in">i</span> + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">end</span>
+
+    tiledlayout(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>);
+    
+    nexttile
+    <span class="hljs-built_in">plot</span>(sizes, epsilonsA, sizes, epsilonsB);
+    title(<span class="hljs-string">'Błąd Epsilon od liczby równań n'</span>);
+    xlabel(<span class="hljs-string">'n'</span>);
+    ylabel(<span class="hljs-string">'epsilon'</span>);
+    <span class="hljs-built_in">legend</span>(<span class="hljs-string">'A'</span>, <span class="hljs-string">'B'</span>);
+
+    nexttile
+    <span class="hljs-built_in">plot</span>(sizes, epsilonsA);
+    title(<span class="hljs-string">'Błąd Epsilon od liczby równań n'</span>);
+    xlabel(<span class="hljs-string">'n'</span>);
+    ylabel(<span class="hljs-string">'epsilon'</span>);
+    <span class="hljs-built_in">legend</span>(<span class="hljs-string">'A'</span>);
+
+    nexttile
+    <span class="hljs-built_in">plot</span>(sizes, timesA, sizes, timesB);
+    title(<span class="hljs-string">'Czas wykonania od liczby równań n'</span>);
+    xlabel(<span class="hljs-string">'n'</span>);
+    ylabel(<span class="hljs-string">'czas'</span>);
+    <span class="hljs-built_in">legend</span>(<span class="hljs-string">'A'</span>, <span class="hljs-string">'B'</span>);
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[epsilon, time]</span> = <span class="hljs-title">solveAndCalculateEpsilon</span><span class="hljs-params">(A, b)</span></span>
+        delta = <span class="hljs-number">1e-8</span>;
+        tic
+        x = solveJacobi(A, b, delta);
+        time = toc;
+        epsilon = norm(A * x - b, <span class="hljs-number">2</span>);
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2 id="komentarz">Komentarz:</h2>
+    <p>Warunkiem dostatecznym zbieżności metody Jacobiego jest silna diagonalna dominacja macierzy $A$. W przypadku obu
+        macierzy A) oraz B) występuje silna diagonalna dominacja. Wynika z tego, że można zastosować metodę Jacobiego do
+        rozwiązania układów równań z obu punktów - metoda będzie zbieżna.</p>
+    <h2 id="wnioski">Wnioski:</h2>
+    <p>Wyniki z wykorzystaniem metody Jacobiego są znacznie gorsze niż w przypadku metody z faktoryzacją $LDL^T$. Błąd w
+        przypadku A) oraz B) jest o kilka rzędów wielkości większy. W przypadku A) maksymalny błąd jest rzędu $10^{-7}$,
+        a w przypadku B) jest rzędu $10^{-3}$.</p>
+    <p>Ponadto błąd rozwiązania w przypadku A) nie rośnie proporcjonalnie do ilości równań. Podejrzewam, że wynika to z
+        zadanego warunku stopu $10^{-8}$. Gdy osiągamy zadaną odległość między kolejnymi przybliżeniami rozwiązania
+        algorytm przerywa i w każdym przypadku może to zrobić w innej iteracji.</p>
+    <p>Czas wyliczeń w przypadku B) jest na korzyść rozwiązania metodą iteracyjną, a w przypadku A) jest na odwrót.</p>
+    <p><img src="./time.png" alt=""></p>
+    <p>Program do liczenia czasu:</p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">time</span><span class="hljs-params">()</span></span>
+    sizes = [<span class="hljs-number">5</span> <span class="hljs-number">10</span> <span class="hljs-number">25</span> <span class="hljs-number">50</span> <span class="hljs-number">100</span> <span class="hljs-number">200</span>];
+
+    timesA = <span class="hljs-built_in">zeros</span>(<span class="hljs-built_in">size</span>(sizes));
+    timesB = timesA;
+
+    <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">for</span> n = sizes
+        [A, b] = paramsA(n);
+        timesA(<span class="hljs-built_in">i</span>) = timeSolveLDLt(A, b);
+        [A, b] = paramsB(n);
+        timesB(<span class="hljs-built_in">i</span>) = timeSolveLDLt(A, b);
+        <span class="hljs-built_in">i</span> = <span class="hljs-built_in">i</span> + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">end</span>
+
+    tiledlayout(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>);
+    
+    nexttile
+    <span class="hljs-built_in">plot</span>(sizes, timesA, sizes, timesB);
+    title(<span class="hljs-string">'LDLt'</span>);
+    xlabel(<span class="hljs-string">'n'</span>);
+    ylabel(<span class="hljs-string">'czas'</span>);
+    <span class="hljs-built_in">legend</span>(<span class="hljs-string">'A'</span>, <span class="hljs-string">'B'</span>);
+
+    <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">for</span> n = sizes
+        [A, b] = paramsA(n);
+        timesA(<span class="hljs-built_in">i</span>) = timeSolveJacobi(A, b);
+        [A, b] = paramsB(n);
+        timesB(<span class="hljs-built_in">i</span>) = timeSolveJacobi(A, b);
+        <span class="hljs-built_in">i</span> = <span class="hljs-built_in">i</span> + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">end</span>
+
+    nexttile
+    <span class="hljs-built_in">plot</span>(sizes, timesA, sizes, timesB);
+    title(<span class="hljs-string">'Jacobi'</span>);
+    xlabel(<span class="hljs-string">'n'</span>);
+    ylabel(<span class="hljs-string">'czas'</span>);
+    <span class="hljs-built_in">legend</span>(<span class="hljs-string">'A'</span>, <span class="hljs-string">'B'</span>);
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">time</span> = <span class="hljs-title">timeSolveLDLt</span><span class="hljs-params">(A, b)</span></span>
+    tic
+    solveLDLt(A, b);
+    time = toc;
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">time</span> = <span class="hljs-title">timeSolveJacobi</span><span class="hljs-params">(A, b)</span></span>
+    tic
+    solveJacobi(A, b, <span class="hljs-number">1e-8</span>);
+    time = toc;
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h1 id="zadanie-3">Zadanie 3</h1>
+    <h2 id="tre%C5%9B%C4%87">Treść</h2>
+    <p>Dla podanych w tabeli danych pomiarowych (próbek) <strong>metodą najmniejszych kwadratów</strong> należy
+        wyznaczyć funkcję wielomianową $y = f(x)$ (tzn. wektor współczynników) najlepiej aproksymującą te dane.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>$x_i$</th>
+                <th>$y_i$</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>-10</td>
+                <td>-42.417</td>
+            </tr>
+            <tr>
+                <td>-8</td>
+                <td>-23.440</td>
+            </tr>
+            <tr>
+                <td>-6</td>
+                <td>-11.160</td>
+            </tr>
+            <tr>
+                <td>-4</td>
+                <td>-4.128</td>
+            </tr>
+            <tr>
+                <td>-2</td>
+                <td>-0.725</td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>0.942</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>-2.069</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>-3.908</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>-4.705</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>-5.438</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>-3.578</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>Proszę przetestować wielomiany stopni: $3, 5, 7, 9, 10$. Kod aproksymujący powinien być uniwersalną procedurą w
+        Matlabie o odpowiednich parametrach wejścia i wyjścia.</p>
+    <p>W sprawozdaniu proszę przedstawić na rysunku otrzymaną funkcję na tle danych (funkcję aproksymującą proszę
+        próbkować przynajmniej 10 razy częściej niż dane).</p>
+    <p>Do rozwiązania zadania najmniejszych kwadratów proszę wykorzystać najpierw <strong>układ równań
+            normalnych</strong>, a potem <strong>rozkład SVD</strong>.</p>
+    <p>Do rozwiązywania układu równań i dekompozycji użyć solwerów Matlaba. Porównać efektywność obydwu podejść.</p>
+    <p>Do liczenia wartości wielomianu użyć funkcji <code>polyval</code>.</p>
+    <p>Proszę obliczyć błąd aproksymacji w dwóch normach: euklidesowej oraz maksimum (nieskończoność). W obydwu
+        przypadkach skorzystać z funkcji <code>norm</code> Matlaba.</p>
+    <h2 id="dane">Dane</h2>
+    <p>Program:</p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[x,y]</span> = <span class="hljs-title">params3</span><span class="hljs-params">()</span></span>
+    x = [<span class="hljs-number">-10</span> : <span class="hljs-number">2</span> : <span class="hljs-number">10</span>]';
+    y = [<span class="hljs-number">-42.417</span> <span class="hljs-number">-23.440</span> <span class="hljs-number">-11.160</span> <span class="hljs-number">-4.128</span> <span class="hljs-number">-0.725</span> <span class="hljs-number">0.942</span> <span class="hljs-number">-2.069</span> <span class="hljs-number">-3.908</span> <span class="hljs-number">-4.705</span> <span class="hljs-number">-5.438</span> <span class="hljs-number">-3.578</span>]';
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2 id="og%C3%B3lny-start-rozwi%C4%85zania">Ogólny start rozwiązania</h2>
+    <p>Postać funkcji wielomianowej:
+        $$
+        f(x) = \sum_{i=0}^{n} a_i x^i
+        $$</p>
+    <p>Macierz z wyliczonymi wartościami stojącymi przy poszczególnych współczynnikach funkcji:
+        $$
+        A = \begin{bmatrix}
+        x_0^0 &amp; x_0^1 &amp; ... &amp; x_0^n\\
+        x_1^0 &amp; x_1^1 &amp; ... &amp; x_1^n\\
+        x_2^0 &amp; x_2^1 &amp; ... &amp; x_2^n\\
+        ... &amp; ... &amp; ... &amp; ...\\
+        x_N^0 &amp; x_N^1 &amp; ... &amp; x_N^n\\
+        \end{bmatrix}
+        $$</p>
+    <p>Wektor szukanych współczynników funkcji wielomianowej:
+        $$
+        a = [a_0 a_1 ... a_n]^T
+        $$</p>
+    <p>Wektor wyników:
+        $$
+        y = f(x_j), j = 0, 1, ..., N
+        $$</p>
+    <p>W tak zapisanym zadaniu chcemy minimalizować funkcję:</p>
+    <p>$$
+        H(a) = (||y - Aa||_2)^2
+        $$</p>
+    <p>Dalej będziemy rozwiązywać zadanie <strong>LZNK</strong></p>
+    <p>$$
+        A a = y
+        $$</p>
+    <p>Program wyliczający macierz $A$:</p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">A</span> = <span class="hljs-title">applyFunction</span><span class="hljs-params">(x, n)</span></span>
+    A = <span class="hljs-built_in">zeros</span>(<span class="hljs-built_in">length</span>(x), n + <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span> : <span class="hljs-built_in">length</span>(x)
+        <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span> = <span class="hljs-number">0</span> : n
+            A(<span class="hljs-built_in">i</span>, <span class="hljs-built_in">j</span> + <span class="hljs-number">1</span>) = x(<span class="hljs-built_in">i</span>)^<span class="hljs-built_in">j</span>;
+        <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2 id="rozwi%C4%85zanie-z-wykorzystaniem-uk%C5%82adu-r%C3%B3wna%C5%84-normalnych">Rozwiązanie z wykorzystaniem
+        układu równań normalnych</h2>
+    <p>Rozwiązujemy równanie:</p>
+    <p>$$
+        A^TAa = A^Ty
+        $$</p>
+    <p>Program:</p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">a</span> = <span class="hljs-title">approxNormal</span><span class="hljs-params">(x, y, n)</span></span>
+    A = applyFunction(x, n);
+    a = linsolve(A' * A, A' * y);
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2 id="wykres">Wykres</h2>
+    <p><img src="./plot_1_3_1.png" alt=""></p>
+    <p>Program:</p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">plot_1_3_1</span><span class="hljs-params">()</span></span>
+    degrees = [<span class="hljs-number">3</span> <span class="hljs-number">5</span> <span class="hljs-number">7</span> <span class="hljs-number">9</span> <span class="hljs-number">10</span>];
+    [x, y] = params3();
+
+    tiledlayout(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>);
+
+    nexttile([<span class="hljs-number">1</span> <span class="hljs-number">2</span>]);
+    <span class="hljs-built_in">hold</span> on
+    <span class="hljs-built_in">plot</span>(x, y, <span class="hljs-string">'o'</span>);
+    <span class="hljs-keyword">for</span> d = degrees
+        plotApproximatedPolynomial(x, y, d);
+    <span class="hljs-keyword">end</span>
+    <span class="hljs-built_in">hold</span> off
+    title(<span class="hljs-string">'Układ równań normalnych'</span>);
+    xlabel(<span class="hljs-string">'x'</span>);
+    ylabel(<span class="hljs-string">'y'</span>);
+    <span class="hljs-built_in">legend</span>(<span class="hljs-string">'dane'</span>, <span class="hljs-string">'3'</span>, <span class="hljs-string">'5'</span>, <span class="hljs-string">'7'</span>, <span class="hljs-string">'9'</span>, <span class="hljs-string">'10'</span>);
+
+    nexttile;
+    <span class="hljs-built_in">hold</span> on
+    <span class="hljs-keyword">for</span> d = degrees
+        plotApproximatedError(x, y, d, <span class="hljs-number">2</span>);
+    <span class="hljs-keyword">end</span>
+    <span class="hljs-built_in">hold</span> off
+    title(<span class="hljs-string">'Norma Euklidesowa'</span>);
+    xlabel(<span class="hljs-string">'stopień'</span>);
+    ylabel(<span class="hljs-string">'epsilon'</span>);
+    <span class="hljs-built_in">legend</span>(<span class="hljs-string">'3'</span>, <span class="hljs-string">'5'</span>, <span class="hljs-string">'7'</span>, <span class="hljs-string">'9'</span>, <span class="hljs-string">'10'</span>);
+
+
+    nexttile;
+    <span class="hljs-built_in">hold</span> on
+    <span class="hljs-keyword">for</span> d = degrees
+        plotApproximatedError(x, y, d, Inf);
+    <span class="hljs-keyword">end</span>
+    <span class="hljs-built_in">hold</span> off
+    title(<span class="hljs-string">'Norma Nieskończoność'</span>);
+    xlabel(<span class="hljs-string">'stopień'</span>);
+    ylabel(<span class="hljs-string">'epsilon'</span>);
+    <span class="hljs-built_in">legend</span>(<span class="hljs-string">'3'</span>, <span class="hljs-string">'5'</span>, <span class="hljs-string">'7'</span>, <span class="hljs-string">'9'</span>, <span class="hljs-string">'10'</span>);
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">plotApproximatedPolynomial</span><span class="hljs-params">(x, y, degree)</span></span>
+    minX = <span class="hljs-built_in">min</span>(x);
+    maxX = <span class="hljs-built_in">max</span>(x);
+    sampleX = minX : (maxX - minX) / <span class="hljs-number">1000</span> : maxX;
+    a = approxNormal(x, y, degree);
+    <span class="hljs-built_in">plot</span>(sampleX, polyval(flip(a), sampleX));
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">plotApproximatedError</span><span class="hljs-params">(x, y, degree, n)</span></span>
+    a = approxNormal(x, y, degree);
+    result = polyval(flip(a), x);
+    epsilon = norm(result - y, n);
+    <span class="hljs-built_in">scatter</span>(degree, epsilon);
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2 id="rozwi%C4%85zanie-z-wykorzystaniem-rozk%C5%82adu-svd">Rozwiązanie z wykorzystaniem rozkładu SVD</h2>
+    <p>$$
+        ||y - Aa||_2 = ||y - U \Sigma V^T a||_2 = ||U^Ty - \Sigma (V^T a)||_2 = ||\tilde{y} - \Sigma \tilde{a}||_2
+        $$</p>
+    <p>$$
+        \tilde{y} = U^Ty
+        $$</p>
+    <p>$$
+        \tilde{a} = V^Ta
+        $$</p>
+    <p>Rozwiązanie jednoznaczne o minimalnej normie otrzymamy przyjmując:</p>
+    <p>$$
+        \hat{\tilde{a}} = \begin{bmatrix}
+        \tilde{y}_1 / \sigma_1\\
+        ...\\
+        \tilde{y}_k / \sigma_k\\
+        0\\
+        ... \\
+        0
+        \end{bmatrix}
+        $$</p>
+    <p>gdzie:</p>
+    <p>$k$ - rząd macierzy $A$</p>
+    <p>Algorytm:</p>
+    <p>$$
+        \hat{a} = V\begin{bmatrix}
+        \tilde{y}_1 / \sigma_1\\
+        ...\\
+        \tilde{y}_k / \sigma_k\\
+        0\\
+        ... \\
+        0
+        \end{bmatrix}
+        $$</p>
+    <p>Program:</p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">a</span> = <span class="hljs-title">approxSvd</span><span class="hljs-params">(x, y, n)</span></span>
+    A = applyFunction(x, n);
+    [U, SIGMA, V] = svd(A);
+    s = <span class="hljs-built_in">diag</span>(SIGMA);
+    k = rank(A);
+    y_ = U' * y;
+    a_ = [y_(<span class="hljs-number">1</span>:k, <span class="hljs-number">1</span>) ./ s(<span class="hljs-number">1</span>:k, <span class="hljs-number">1</span>); <span class="hljs-built_in">zeros</span>(n - k, <span class="hljs-number">1</span>)];
+    a = V * a_;
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2 id="wykres">Wykres</h2>
+    <p>Program do generowania wykresów z SVD jest bardzo podobny do tego z układem równań normalnych.</p>
+    <p><img src="./plot_1_3_2.png" alt=""></p>
+    <h2 id="wnioski">Wnioski</h2>
+    <p>Obie metody z wykorzystaniem układu równań normalnych oraz rozkładu SVD poradziły sobie bardzo dobrze z tym
+        zadaniem.</p>
+    <p>W przypadku aproksymowania funkcją wielomianową o wyższych stopniach widać, że funkcja bardzo dostosowuje się do
+        danych. Błąd aproksymacji jest lepszy jednak występuje przeuczenie.</p>
+    <p>W przypadku tych danych wydaje się, że najlepiej aproksymuje funkcja o stopniu 7 - nie widać jeszcze zbytniego
+        przeuczenia, a błąd jest mniejszy niż aproksymacja funkcjami o niższych stopniach.</p>
+    <p>Wielomiany o stopniach 3 oraz 5 także poradziły sobie całkiem nieźle.</p>
+
+</body>
+
+</html>
