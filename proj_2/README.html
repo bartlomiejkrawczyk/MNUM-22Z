@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>README.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+    <script type="text/javascript"
+        src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        </script>
+
+    <style>
+        /* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+        /*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+        body {
+            font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+            font-size: var(--vscode-markdown-font-size, 14px);
+            padding: 0 26px;
+            line-height: var(--vscode-markdown-line-height, 22px);
+            word-wrap: break-word;
+        }
+
+        #code-csp-warning {
+            position: fixed;
+            top: 0;
+            right: 0;
+            color: white;
+            margin: 16px;
+            text-align: center;
+            font-size: 12px;
+            font-family: sans-serif;
+            background-color: #444444;
+            cursor: pointer;
+            padding: 6px;
+            box-shadow: 1px 1px 1px rgba(0, 0, 0, .25);
+        }
+
+        #code-csp-warning:hover {
+            text-decoration: none;
+            background-color: #007acc;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, .25);
+        }
+
+        body.scrollBeyondLastLine {
+            margin-bottom: calc(100vh - 22px);
+        }
+
+        body.showEditorSelection .code-line {
+            position: relative;
+        }
+
+        body.showEditorSelection .code-active-line:before,
+        body.showEditorSelection .code-line:hover:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: -12px;
+            height: 100%;
+        }
+
+        body.showEditorSelection li.code-active-line:before,
+        body.showEditorSelection li.code-line:hover:before {
+            left: -30px;
+        }
+
+        .vscode-light.showEditorSelection .code-active-line:before {
+            border-left: 3px solid rgba(0, 0, 0, 0.15);
+        }
+
+        .vscode-light.showEditorSelection .code-line:hover:before {
+            border-left: 3px solid rgba(0, 0, 0, 0.40);
+        }
+
+        .vscode-light.showEditorSelection .code-line .code-line:hover:before {
+            border-left: none;
+        }
+
+        .vscode-dark.showEditorSelection .code-active-line:before {
+            border-left: 3px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .vscode-dark.showEditorSelection .code-line:hover:before {
+            border-left: 3px solid rgba(255, 255, 255, 0.60);
+        }
+
+        .vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+            border-left: none;
+        }
+
+        .vscode-high-contrast.showEditorSelection .code-active-line:before {
+            border-left: 3px solid rgba(255, 160, 0, 0.7);
+        }
+
+        .vscode-high-contrast.showEditorSelection .code-line:hover:before {
+            border-left: 3px solid rgba(255, 160, 0, 1);
+        }
+
+        .vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+            border-left: none;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        a:focus,
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: 1px solid -webkit-focus-ring-color;
+            outline-offset: -1px;
+        }
+
+        hr {
+            border: 0;
+            height: 2px;
+            border-bottom: 2px solid;
+        }
+
+        h1 {
+            padding-bottom: 0.3em;
+            line-height: 1.2;
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-weight: normal;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        table>thead>tr>th {
+            text-align: left;
+            border-bottom: 1px solid;
+        }
+
+        table>thead>tr>th,
+        table>thead>tr>td,
+        table>tbody>tr>th,
+        table>tbody>tr>td {
+            padding: 5px 10px;
+        }
+
+        table>tbody>tr+tr>td {
+            border-top: 1px solid;
+        }
+
+        blockquote {
+            margin: 0 7px 0 5px;
+            padding: 0 16px 0 10px;
+            border-left-width: 5px;
+            border-left-style: solid;
+        }
+
+        code {
+            font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+            font-size: 1em;
+            line-height: 1.357em;
+        }
+
+        body.wordWrap pre {
+            white-space: pre-wrap;
+        }
+
+        pre:not(.hljs),
+        pre.hljs code>div {
+            padding: 16px;
+            border-radius: 3px;
+            overflow: auto;
+        }
+
+        pre code {
+            color: var(--vscode-editor-foreground);
+            tab-size: 4;
+        }
+
+        /** Theming */
+
+        .vscode-light pre {
+            background-color: rgba(220, 220, 220, 0.4);
+        }
+
+        .vscode-dark pre {
+            background-color: rgba(10, 10, 10, 0.4);
+        }
+
+        .vscode-high-contrast pre {
+            background-color: rgb(0, 0, 0);
+        }
+
+        .vscode-high-contrast h1 {
+            border-color: rgb(0, 0, 0);
+        }
+
+        .vscode-light table>thead>tr>th {
+            border-color: rgba(0, 0, 0, 0.69);
+        }
+
+        .vscode-dark table>thead>tr>th {
+            border-color: rgba(255, 255, 255, 0.69);
+        }
+
+        .vscode-light h1,
+        .vscode-light hr,
+        .vscode-light table>tbody>tr+tr>td {
+            border-color: rgba(0, 0, 0, 0.18);
+        }
+
+        .vscode-dark h1,
+        .vscode-dark hr,
+        .vscode-dark table>tbody>tr+tr>td {
+            border-color: rgba(255, 255, 255, 0.18);
+        }
+    </style>
+
+    <style>
+        /* Tomorrow Theme */
+        /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+        /* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+        /* Tomorrow Comment */
+        .hljs-comment,
+        .hljs-quote {
+            color: #8e908c;
+        }
+
+        /* Tomorrow Red */
+        .hljs-variable,
+        .hljs-template-variable,
+        .hljs-tag,
+        .hljs-name,
+        .hljs-selector-id,
+        .hljs-selector-class,
+        .hljs-regexp,
+        .hljs-deletion {
+            color: #c82829;
+        }
+
+        /* Tomorrow Orange */
+        .hljs-number,
+        .hljs-built_in,
+        .hljs-builtin-name,
+        .hljs-literal,
+        .hljs-type,
+        .hljs-params,
+        .hljs-meta,
+        .hljs-link {
+            color: #f5871f;
+        }
+
+        /* Tomorrow Yellow */
+        .hljs-attribute {
+            color: #eab700;
+        }
+
+        /* Tomorrow Green */
+        .hljs-string,
+        .hljs-symbol,
+        .hljs-bullet,
+        .hljs-addition {
+            color: #718c00;
+        }
+
+        /* Tomorrow Blue */
+        .hljs-title,
+        .hljs-section {
+            color: #4271ae;
+        }
+
+        /* Tomorrow Purple */
+        .hljs-keyword,
+        .hljs-selector-tag {
+            color: #8959a8;
+        }
+
+        .hljs {
+            display: block;
+            overflow-x: auto;
+            color: #4d4d4c;
+            padding: 0.5em;
+        }
+
+        .hljs-emphasis {
+            font-style: italic;
+        }
+
+        .hljs-strong {
+            font-weight: bold;
+        }
+    </style>
+
+    <style>
+        /*
+ * Markdown PDF CSS
+ */
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+            padding: 0 12px;
+        }
+
+        pre {
+            background-color: #f8f8f8;
+            border: 1px solid #cccccc;
+            border-radius: 3px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+        }
+
+        pre:not(.hljs) {
+            padding: 23px;
+            line-height: 19px;
+        }
+
+        blockquote {
+            background: rgba(127, 127, 127, 0.1);
+            border-color: rgba(0, 122, 204, 0.5);
+        }
+
+        .emoji {
+            height: 1.4em;
+        }
+
+        code {
+            font-size: 14px;
+            line-height: 19px;
+        }
+
+        /* for inline code */
+        :not(pre):not(.hljs)>code {
+            color: #C9AE75;
+            /* Change the old color so it seems less like an error */
+            font-size: inherit;
+        }
+
+        /* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+        .page {
+            page-break-after: always;
+        }
+    </style>
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+
+<body>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+                ? 'dark'
+                : 'default'
+        });
+    </script>
+    <h1 id="metody-numeryczne---projekt-ii">Metody Numeryczne - Projekt II</h1>
+    <pre class="hljs"><code><div>student: Bartłomiej Krawczyk
+indeks: 310774
+</div></code></pre>
+    <h1 id="zadanie-1">Zadanie 1</h1>
+    <h2 id="tre%C5%9B%C4%87">Treść</h2>
+    <p>Proszę znaleźć wszystkie pierwiastki funkcji
+        $f(x) = 2.1 - 2x - e^{-x/2}$ w przedziale $[10, -10]$ używając dla każdego zera:</p>
+    <p>a) własnego solwera z implementacją metody <strong>siecznych</strong></p>
+    <p>b) podanego na stronie przedmiotu solwera <code>newton.m</code> z implementacją metody Newtona</p>
+    <h2 id="funkcja-zadana">Funkcja zadana</h2>
+    <p>$$
+        f(x) = 2.1 - 2x - e^{-x/2}
+        $$</p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">y</span> = <span class="hljs-title">function1</span><span class="hljs-params">(x)</span></span>
+    y = <span class="hljs-number">2.1</span> - <span class="hljs-number">2</span> * x - <span class="hljs-built_in">exp</span>(-x / <span class="hljs-number">2</span>);
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2 id="rozwi%C4%85zanie-a">Rozwiązanie a)</h2>
+    <p>W metodzie siecznych prowadzimy sieczną zawsze między dwoma ostatnio wyznaczonymi punktami. Nie dbamy przy tym o
+        zachowanie przedziału izolacji pierwiastka.</p>
+    <p>W celu wyznaczenia kolejnego punktu wyznaczamy miejsce przecięcia siecznej z prostą $y=0$. Liczymy to korzystając
+        z podobieństwa trójkątów prostokątnych:
+        $$
+        \frac{f(x_n) - f(x_{n-1})}{x_n - x_{n-1}} = \frac{f(x_n) - 0}{x_n - x_{n + 1}}
+        $$
+        wyznaczając $x_{n+1}$ otrzymujemy:
+        $$
+        x_{n+1} = x_n - \frac{f(x_n)(x_n - x_{n-1})}{f(x_n) - f(x_{n-1})} = \frac{x_{n-1}f(x_n) - x_n f(x_{n-1})}{f(x_n)
+        - f(x_{n-1})}
+        $$</p>
+    <h3 id="program">Program</h3>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[xf, ff, iexe, texe]</span> = <span class="hljs-title">secant</span><span class="hljs-params">(f, x, delta, imax)</span></span>
+    <span class="hljs-comment">%</span>
+    <span class="hljs-comment">%   CEL</span>
+    <span class="hljs-comment">%       Poszukiwanie pierwiastka funkcji jednej zmiennej</span>
+    <span class="hljs-comment">%       metoda siecznych</span>
+    <span class="hljs-comment">%  </span>
+    <span class="hljs-comment">%   PARAMETRY WEJSCIOWE</span>
+    <span class="hljs-comment">%       f      -  funkcja dana jako wyrazenie  </span>
+    <span class="hljs-comment">%       x      -  przedział początkowy</span>
+    <span class="hljs-comment">%       delta  -  dokladnosc  </span>
+    <span class="hljs-comment">%       imax   -  maksymalna liczba iteracji</span>
+    <span class="hljs-comment">%</span>
+    <span class="hljs-comment">%   PARAMETRY WYJSCIOWE</span>
+    <span class="hljs-comment">%       xf     -  rozwiazanie </span>
+    <span class="hljs-comment">%       ff     -  wartosc funkcji w xf</span>
+    <span class="hljs-comment">%       iexe   -  liczba iteracji wykonanych</span>
+    <span class="hljs-comment">%       texe   -  czas obliczen [s]</span>
+    tic;
+    <span class="hljs-built_in">i</span> = <span class="hljs-number">0</span>;
+
+    x0 = <span class="hljs-built_in">min</span>(x);
+    x1 = <span class="hljs-built_in">max</span>(x);
+    fx0 = feval(f,x0);
+    fx1 = feval(f, x1);
+
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">abs</span>(fx1) &gt; delta &amp;&amp; <span class="hljs-built_in">i</span> &lt; imax
+         <span class="hljs-built_in">i</span> = <span class="hljs-built_in">i</span> + <span class="hljs-number">1</span>;
+         [x0, fx0, x1, fx1] = nextVal(f, x0, fx0, x1, fx1);
+    <span class="hljs-keyword">end</span>
+
+    texe = toc;
+    iexe = <span class="hljs-built_in">i</span>;
+    
+    xf = x1; 
+    ff = fx1;
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[x0, fx0, x1, fx1]</span> = <span class="hljs-title">nextVal</span><span class="hljs-params">(f, x0, fx0, x1, fx1)</span></span>
+    x = (x0 * fx1 - x1 * fx0) / (fx1 - fx0);
+
+    x0 = x1;
+    fx0 = fx1;
+    x1 = x;
+    fx1 = feval(f, x1);
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2 id="rozwi%C4%85zanie-b">Rozwiązanie b)</h2>
+    <p>Metoda Newtona (stycznych), aproksymuje funkcję korzystając z jej liniowego przybliżenia. Wylicza je poprzez
+        ucięcie rozwinięcia w szereg Taylora w aktualnym punkcie $x_n$</p>
+    <p>$$
+        f(x) \approx f(x_n) + f'(x_n)(x - x_n)
+        $$</p>
+    <p>Kolejny punkt $x_{n+1}$ jest wyliczany z przyrównania do zera aproksymacji liniowej funkcji $f(x)$:</p>
+    <p>$$
+        f(x_n) + f'(x_n)(x_{n+1} - x_n) = 0
+        $$</p>
+    <p>wyznaczając $x_{n+1}$ otrzymujemy:</p>
+    <p>$$
+        x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+        $$</p>
+    <h3 id="program">Program</h3>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[xf, ff, iexe, texe]</span> = <span class="hljs-title">newton</span><span class="hljs-params">(f, x0, delta, imax)</span></span>
+    <span class="hljs-comment">%</span>
+    <span class="hljs-comment">%   CEL</span>
+    <span class="hljs-comment">%       Poszukiwanie pierwiastka funkcji jednej zmiennej</span>
+    <span class="hljs-comment">%       metoda Newtona (stycznych)</span>
+    <span class="hljs-comment">%  </span>
+    <span class="hljs-comment">%   PARAMETRY WEJSCIOWE</span>
+    <span class="hljs-comment">%       f      -  funkcja dana jako wyrazenie  </span>
+    <span class="hljs-comment">%       x0     -  punkt poczatkowy</span>
+    <span class="hljs-comment">%       delta  -  dokladnosc  </span>
+    <span class="hljs-comment">%       imax   -  maksymalna liczba iteracji</span>
+    <span class="hljs-comment">%</span>
+    <span class="hljs-comment">%   PARAMETRY WYJSCIOWE</span>
+    <span class="hljs-comment">%       xf     -  rozwiazanie </span>
+    <span class="hljs-comment">%       ff     -  wartosc funkcji w xf</span>
+    <span class="hljs-comment">%       iexe   -  liczba iteracji wykonanych</span>
+    <span class="hljs-comment">%       texe   -  czas obliczen [s]</span>
+    <span class="hljs-comment">%</span>
+    <span class="hljs-comment">%   PRZYKLADOWE WYWOLANIE</span>
+    <span class="hljs-comment">%       &gt;&gt; [xf, ff, iexe, texe] = newton(@ (x) sin(x), 2, 1e-8, 100)</span>
+    <span class="hljs-comment">%</span>
+    syms X
+    <span class="hljs-comment">% obliczenie pochodnej reprezentowanej jako funkcja anonimowa</span>
+    df = matlabFunction(diff(f(X), X));
+    tic;
+    <span class="hljs-built_in">i</span> = <span class="hljs-number">0</span>;
+    x = x0;
+    fx = feval(f,x);
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">abs</span>(fx) &gt; delta &amp;&amp; <span class="hljs-built_in">i</span> &lt; imax
+         <span class="hljs-built_in">i</span> = <span class="hljs-built_in">i</span> + <span class="hljs-number">1</span>;
+         <span class="hljs-comment">% iteracyjne obliczanie nowego przyblizenia pierwiastka</span>
+         x = x - fx/df(x);
+         fx = feval(f, x);
+    <span class="hljs-keyword">end</span>
+    texe = toc;
+    iexe = <span class="hljs-built_in">i</span>;
+    
+    xf = x; 
+    ff = fx;
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2 id="wyniki">Wyniki</h2>
+    <h3 id="program">Program</h3>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">plot_2_1</span><span class="hljs-params">()</span></span>
+    x = <span class="hljs-number">-10</span> : <span class="hljs-number">0.1</span> : <span class="hljs-number">10</span>;
+    f = @ (x) function1(x);
+    delta = <span class="hljs-number">1e-8</span>;
+    imax = <span class="hljs-number">100</span>;
+
+    y = f(x);
+
+    tiledlayout(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>);
+
+    nexttile;
+    <span class="hljs-built_in">hold</span> on;
+    title(<span class="hljs-string">'Metoda Siecznych'</span>);
+    xlabel(<span class="hljs-string">'x'</span>);
+    ylabel(<span class="hljs-string">'y'</span>);
+    <span class="hljs-built_in">plot</span>(x, y);
+    <span class="hljs-built_in">plot</span>(x, <span class="hljs-built_in">zeros</span>(<span class="hljs-built_in">length</span>(x), <span class="hljs-number">1</span>));
+    [xf, ff] = zerosSecant(f, [<span class="hljs-number">-10</span> : <span class="hljs-number">1</span> : <span class="hljs-number">0</span>; <span class="hljs-number">0</span> : <span class="hljs-number">1</span> : <span class="hljs-number">10</span>]', delta, imax);
+    <span class="hljs-built_in">scatter</span>(xf, ff);
+    <span class="hljs-built_in">hold</span> off;
+
+    fprintf(<span class="hljs-string">'\n'</span>);
+
+    nexttile;
+    <span class="hljs-built_in">hold</span> on;
+    title(<span class="hljs-string">'Metoda Newtona'</span>);
+    xlabel(<span class="hljs-string">'x'</span>);
+    ylabel(<span class="hljs-string">'y'</span>);
+    <span class="hljs-built_in">plot</span>(x, y);
+    <span class="hljs-built_in">plot</span>(x, <span class="hljs-built_in">zeros</span>(<span class="hljs-built_in">length</span>(x), <span class="hljs-number">1</span>));
+    [xf, ff] = zerosNewton(f, <span class="hljs-number">-10</span> : <span class="hljs-number">2</span> : <span class="hljs-number">10</span>, delta, imax);
+    <span class="hljs-built_in">scatter</span>(xf, ff);
+    <span class="hljs-built_in">hold</span> off;
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h3 id="wykres">Wykres</h3>
+    <p><img src="./plot_2_1.png" alt=""></p>
+    <h3 id="metoda-siecznych">Metoda Siecznych</h3>
+    <p><strong>Program</strong></p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[x, y]</span> = <span class="hljs-title">zerosSecant</span><span class="hljs-params">(f, pp, delta, imax)</span></span>
+    [n, ~] = <span class="hljs-built_in">size</span>(pp);
+
+    x = <span class="hljs-built_in">zeros</span>(n, <span class="hljs-number">1</span>);
+    y = <span class="hljs-built_in">zeros</span>(n, <span class="hljs-number">1</span>);
+
+    fprintf(<span class="hljs-string">'pp\t\t\t\t\t\t|\tf(pp)\t\t\t\t\t|\tpk\t\t\t|\tf(pk)\t\t\t|\tIterations\t|\tTime\n'</span>);
+    fprintf(<span class="hljs-string">'-\t\t\t\t\t\t|\t-\t\t\t\t\t\t|\t-\t\t\t|\t-\t\t\t\t|\t-\t\t\t|\t-\n'</span>);
+
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span> : n
+        [xf, ff, iexe, texe] = secant(f, pp(<span class="hljs-built_in">i</span>, :), delta, imax);
+        x(<span class="hljs-built_in">i</span>) = xf;
+        y(<span class="hljs-built_in">i</span>) = ff;
+
+        fprintf(<span class="hljs-string">'[%f, %f]\t|\t[%f, %f]\t|\t%f\t|\t%.10f\t|\t%.0f\t\t\t|\t%f s\t\n'</span>, ...
+            [pp(<span class="hljs-built_in">i</span>, <span class="hljs-number">1</span>), pp(<span class="hljs-built_in">i</span>, <span class="hljs-number">2</span>), f(pp(<span class="hljs-built_in">i</span>, <span class="hljs-number">1</span>)), f(pp(<span class="hljs-built_in">i</span>, <span class="hljs-number">2</span>)), xf, ff, iexe, texe]);
+    <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <p><strong>Wynik</strong></p>
+    <table>
+        <thead>
+            <tr>
+                <th>pp</th>
+                <th>f(pp)</th>
+                <th>pk</th>
+                <th>f(pk)</th>
+                <th>Iterations</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>[-10.000000, 0.000000]</td>
+                <td>[-126.313159, 1.100000]</td>
+                <td>0.697154</td>
+                <td>-0.0000000008</td>
+                <td>5</td>
+                <td>0.000016 s</td>
+            </tr>
+            <tr>
+                <td>[-9.000000, 1.000000]</td>
+                <td>[-69.917131, -0.506531]</td>
+                <td>0.697154</td>
+                <td>-0.0000000000</td>
+                <td>5</td>
+                <td>0.000009 s</td>
+            </tr>
+            <tr>
+                <td>[-8.000000, 2.000000]</td>
+                <td>[-36.498150, -2.267879]</td>
+                <td>0.697154</td>
+                <td>-0.0000000090</td>
+                <td>5</td>
+                <td>0.000003 s</td>
+            </tr>
+            <tr>
+                <td>[-7.000000, 3.000000]</td>
+                <td>[-17.015452, -4.123130]</td>
+                <td>0.697154</td>
+                <td>-0.0000000000</td>
+                <td>6</td>
+                <td>0.000003 s</td>
+            </tr>
+            <tr>
+                <td>[-6.000000, 4.000000]</td>
+                <td>[-5.985537, -6.035335]</td>
+                <td>NaN</td>
+                <td>NaN</td>
+                <td>4</td>
+                <td>0.000002 s</td>
+            </tr>
+            <tr>
+                <td>[-5.000000, 5.000000]</td>
+                <td>[-0.082494, -7.982085]</td>
+                <td>-4.979683</td>
+                <td>-0.0000000001</td>
+                <td>7</td>
+                <td>0.000003 s</td>
+            </tr>
+            <tr>
+                <td>[-4.000000, 6.000000]</td>
+                <td>[2.710944, -9.949787]</td>
+                <td>0.697154</td>
+                <td>0.0000000000</td>
+                <td>7</td>
+                <td>0.000003 s</td>
+            </tr>
+            <tr>
+                <td>[-3.000000, 7.000000]</td>
+                <td>[3.618311, -11.930197]</td>
+                <td>0.697154</td>
+                <td>-0.0000000000</td>
+                <td>6</td>
+                <td>0.000003 s</td>
+            </tr>
+            <tr>
+                <td>[-2.000000, 8.000000]</td>
+                <td>[3.381718, -13.918316]</td>
+                <td>0.697154</td>
+                <td>-0.0000000000</td>
+                <td>6</td>
+                <td>0.000003 s</td>
+            </tr>
+            <tr>
+                <td>[-1.000000, 9.000000]</td>
+                <td>[2.451279, -15.911109]</td>
+                <td>0.697154</td>
+                <td>0.0000000004</td>
+                <td>5</td>
+                <td>0.000002 s</td>
+            </tr>
+            <tr>
+                <td>[0.000000, 10.000000]</td>
+                <td>[1.100000, -17.906738]</td>
+                <td>0.697154</td>
+                <td>0.0000000000</td>
+                <td>5</td>
+                <td>0.000002 s</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 id="metoda-newtona">Metoda Newtona</h3>
+    <p><strong>Program</strong></p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[x, y]</span> = <span class="hljs-title">zerosNewton</span><span class="hljs-params">(f, pp, delta, imax)</span></span>
+    n = <span class="hljs-built_in">length</span>(pp);
+
+    x = <span class="hljs-built_in">zeros</span>(n, <span class="hljs-number">1</span>);
+    y = <span class="hljs-built_in">zeros</span>(n, <span class="hljs-number">1</span>);
+
+    fprintf(<span class="hljs-string">'pp\t\t\t|\tf(pp)\t\t|\tpk\t\t\t|\tf(pk)\t\t\t|\tIterations\t|\tTime\n'</span>);
+    fprintf(<span class="hljs-string">'-\t\t\t|\t-\t\t\t|\t-\t\t\t|\t-\t\t\t\t|\t-\t\t\t|\t-\n'</span>);
+
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span> : n
+        [xf, ff, iexe, texe] = newton(f, pp(<span class="hljs-built_in">i</span>), delta, imax);
+        x(<span class="hljs-built_in">i</span>) = xf;
+        y(<span class="hljs-built_in">i</span>) = ff;
+
+        fprintf(<span class="hljs-string">'%f\t|\t%f\t|\t%f\t|\t%.10f\t|\t%.0f\t\t\t|\t%f s\t\n'</span>, [pp(<span class="hljs-built_in">i</span>), f(pp(<span class="hljs-built_in">i</span>)), xf, ff, iexe, texe]);
+    <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <p><strong>Wynik</strong></p>
+    <table>
+        <thead>
+            <tr>
+                <th>pp</th>
+                <th>f(pp)</th>
+                <th>pk</th>
+                <th>f(pk)</th>
+                <th>Iterations</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>-10.000000</td>
+                <td>-126.313159</td>
+                <td>-4.979683</td>
+                <td>-0.0000000005</td>
+                <td>7</td>
+                <td>0.000013 s</td>
+            </tr>
+            <tr>
+                <td>-8.000000</td>
+                <td>-36.498150</td>
+                <td>-4.979683</td>
+                <td>-0.0000000000</td>
+                <td>6</td>
+                <td>0.000009 s</td>
+            </tr>
+            <tr>
+                <td>-6.000000</td>
+                <td>-5.985537</td>
+                <td>-4.979683</td>
+                <td>-0.0000000000</td>
+                <td>5</td>
+                <td>0.000012 s</td>
+            </tr>
+            <tr>
+                <td>-4.000000</td>
+                <td>2.710944</td>
+                <td>-4.979683</td>
+                <td>-0.0000000001</td>
+                <td>5</td>
+                <td>0.000009 s</td>
+            </tr>
+            <tr>
+                <td>-2.000000</td>
+                <td>3.381718</td>
+                <td>0.697154</td>
+                <td>-0.0000000000</td>
+                <td>5</td>
+                <td>0.000010 s</td>
+            </tr>
+            <tr>
+                <td>0.000000</td>
+                <td>1.100000</td>
+                <td>0.697154</td>
+                <td>-0.0000000004</td>
+                <td>3</td>
+                <td>0.000008 s</td>
+            </tr>
+            <tr>
+                <td>2.000000</td>
+                <td>-2.267879</td>
+                <td>0.697154</td>
+                <td>-0.0000000021</td>
+                <td>3</td>
+                <td>0.000009 s</td>
+            </tr>
+            <tr>
+                <td>4.000000</td>
+                <td>-6.035335</td>
+                <td>0.697154</td>
+                <td>-0.0000000000</td>
+                <td>4</td>
+                <td>0.000016 s</td>
+            </tr>
+            <tr>
+                <td>6.000000</td>
+                <td>-9.949787</td>
+                <td>0.697154</td>
+                <td>-0.0000000000</td>
+                <td>4</td>
+                <td>0.000025 s</td>
+            </tr>
+            <tr>
+                <td>8.000000</td>
+                <td>-13.918316</td>
+                <td>0.697154</td>
+                <td>-0.0000000000</td>
+                <td>4</td>
+                <td>0.000012 s</td>
+            </tr>
+            <tr>
+                <td>10.000000</td>
+                <td>-17.906738</td>
+                <td>0.697154</td>
+                <td>-0.0000000000</td>
+                <td>4</td>
+                <td>0.000009 s</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 id="komentarz">Komentarz</h3>
+    <p>Obie metody poradziły sobie ze znalezieniem miejsc zerowych funkcji. Obie metody znalazły miejsce zerowe w
+        podobnej liczbie iteracji. Metoda siecznych jest minimalnie szybsza jeśli chodzi o czas wykonania.</p>
+    <p>Metoda siecznych może zawieść gdy:</p>
+    <ul>
+        <li>wartości funkcji w kolejnych punktach są zbliżone - możliwe jest, że znacznie oddalimy się od początkowego
+            przedziału - mianownik $f(x_n)-f(x_{n-1})$ będzie bliski 0
+            <ul>
+                <li>tak się dzieje np. w przypadku przyjęcia punktów początkowych [-6.000000, 4.000000], już w pierwszej
+                    iteracji algorytmu osiągamy $x_2 = -1.2080e+03$, znacznie oddalone od przyjętego przedziału, w
+                    kolejnych iteracjach osiągamy na zmianę $-1.2080e+03$ oraz $4$, aż obie wartości $x_n$ oraz
+                    $x_{n-1}$ są równe 4, wtedy dochodzimy do dzielenia przez $f(4) - f(4) = 0$, które zwraca wartość
+                    nie określoną Nan</li>
+            </ul>
+        </li>
+        <li>na przedziale testowanym w pewnym punkcie pochodna funkcji jest równa 0 - z tego samego powodu co wyżej</li>
+    </ul>
+    <p>Metoda Newtona może zawieść gdy:</p>
+    <ul>
+        <li>stosujemy ją w punkcie zbytnio oddalonym od rozwiązania (poza obszarem atrakcji pierwiastka)</li>
+        <li>w okolicy punktu testowanego pochodna funkcji jest równa 0 - jeśli trafimy w taki punktu, algorytm może
+            znacznie oddalić się od pierwiastka funkcji</li>
+    </ul>
+    <h1 id="zadanie-2">Zadanie 2</h1>
+    <h2 id="tre%C5%9B%C4%87">Treść</h2>
+    <p>Używając metody <strong>Müllera MM1</strong> proszę znaleźć wszystkie pierwiastki wielomianu czwartego stopnia:
+    </p>
+    <p>$$
+        f(x) = a_4x^4 + a_3x^3 + a_2x^2 + a_1x + a_0
+        $$</p>
+    $$
+    \begin{bmatrix}
+    a_4 &amp; a_3 &amp; a_2 &amp; a_1 &amp; a_0\\
+    \end{bmatrix}
+    \begin{bmatrix}
+    -1 &amp; 1.5 &amp; 1.5 &amp; 0.5 &amp; 1\\
+    \end{bmatrix}
+    $$
+    <h2 id="rozwi%C4%85zanie">Rozwiązanie</h2>
+    <h2 id="wyliczanie-warto%C5%9Bci-wielomianu-w-punkcie-x">Wyliczanie wartości wielomianu w punkcie x</h2>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">y</span> = <span class="hljs-title">horner</span><span class="hljs-params">(a, x)</span></span>
+    n = <span class="hljs-built_in">length</span>(a) - <span class="hljs-number">1</span>;
+    y = <span class="hljs-built_in">repmat</span>(a(<span class="hljs-number">1</span>), <span class="hljs-built_in">size</span>(x));
+
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">2</span> : n + <span class="hljs-number">1</span>
+        y = y .* x + a(<span class="hljs-built_in">i</span>);
+    <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2 id="metoda-m%C3%BCllera-mm1">Metoda Müllera MM1</h2>
+    <p>Kolejne iteracje bazują na trzech ostatnich punktach: $x_0, x_1, x_2$. Gdzie zakładamy, że $x_2$ to ostatnie
+        przybliżenie pierwiastka $\alpha$.</p>
+    <p>Przez te punkty prowadzimy parabolę, a kolejne przybliżenia $\alpha$ wyznaczamy korzystając z wyliczonego
+        pierwiastka paraboli.</p>
+    <p>W celu wyliczenia paraboli $y(z) = az^2 + bz + c$ wprowadzamy zmienną przyrostową $z$.
+        $$
+        z = \begin{bmatrix}
+        x_0 - x_2 \\
+        x_1 - x_2 \\
+        0
+        \end{bmatrix}
+        $$</p>
+    <p>Dalej rozwiązujemy układ równań z 3 niewiadomymi (a, b, c):</p>
+    <p>$$
+        az_0^2 + bz_0 + c = y(z_0) = f(x_0) \\
+        az_1^2 + bz_1 + c = y(z_1) = f(x_1) \\
+        c = y(z_2) = f(x_2)
+        $$</p>
+    <p>I kolejno wyznaczamy wzory dla parametrów paraboli:</p>
+    <p>$$
+        c = f(x_2)
+        $$</p>
+    <p>Podstawiamy wyliczone $c$ do układu równań.</p>
+    <p>$$
+        az_0^2 + bz_0 = f(x_0) - f(x_2) \\
+        az_1^2 + bz_1 = f(x_1) - f(x_2)
+        $$</p>
+    <p>Aby uprościć wzory wprowadzam jeszcze jedną zmienną $p$:
+        $$
+        p = \begin{bmatrix}
+        f(x_0) - f(x_2) \\
+        f(x_1) - f(x_2)
+        \end{bmatrix}
+        $$</p>
+    <p>I wyliczamy wzór na b oraz a:
+        $$
+        b = \frac{z_0^2 p_1 - p_0 z_1^2}{z_0 z_1 (z_0 - z_1)}
+        $$</p>
+    <p>$$
+        a = \frac{z_1 p_0 - p_1 z_1}{z_0 z_1 (z_0 - z_1)}
+        $$</p>
+    <p>Przez te trzy punkty prowadzimy parabolę, a do kolejnego przybliżenia $\alpha$ bierzemy pierwiastek paraboli o
+        mniejszym module:</p>
+    <p>$$
+        x_3 = x_2 + z_{min}
+        $$</p>
+    <p>gdzie $z_{min}$ wyliczamy:</p>
+    <p>$$
+        \begin{equation}
+        z_{min} = \begin{cases}
+        \frac{-2c}{b+\sqrt{b^2-4ac}}, &amp; \text{dla $|b+\sqrt{b^2-4ac}|\ge |b-\sqrt{b^2-4ac}|$}\\
+        \frac{-2c}{b-\sqrt{b^2-4ac}}, &amp; \text{w pozostałych przypadkach}
+        \end{cases}
+        \end{equation}
+        $$</p>
+    <p>W kolejnej iteracji odrzucamy spośród $x_0, x_1, x_2$ punkt położony najdalej od ostatnio wyznaczonego
+        przybliżenia $x_3$.</p>
+    <p><strong>Program</strong></p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[xf, ff, iexe, texe]</span> = <span class="hljs-title">mm1</span><span class="hljs-params">(a, x, delta, imax)</span></span>
+    <span class="hljs-comment">%</span>
+    <span class="hljs-comment">%   CEL</span>
+    <span class="hljs-comment">%       Poszukiwanie pierwiastka wielomianu</span>
+    <span class="hljs-comment">%       metoda Mullera MM1</span>
+    <span class="hljs-comment">%  </span>
+    <span class="hljs-comment">%   PARAMETRY WEJSCIOWE</span>
+    <span class="hljs-comment">%       a      -  wektor współczynników wielomianu </span>
+    <span class="hljs-comment">%       x      -  wektor wartości początkowych - 3-elementowy</span>
+    <span class="hljs-comment">%       delta  -  dokladnosc  </span>
+    <span class="hljs-comment">%       imax   -  maksymalna liczba iteracji</span>
+    <span class="hljs-comment">%</span>
+    <span class="hljs-comment">%   PARAMETRY WYJSCIOWE</span>
+    <span class="hljs-comment">%       xf     -  rozwiazanie </span>
+    <span class="hljs-comment">%       ff     -  wartosc funkcji w xf</span>
+    <span class="hljs-comment">%       iexe   -  liczba iteracji wykonanych</span>
+    <span class="hljs-comment">%       texe   -  czas obliczen [s]</span>
+    tic;
+    <span class="hljs-built_in">i</span> = <span class="hljs-number">0</span>;
+
+    x0 = x(<span class="hljs-number">1</span>);
+    x1 = x(<span class="hljs-number">2</span>);
+    x2 = x(<span class="hljs-number">3</span>);
+    fx0 = horner(a, x0);
+    fx1 = horner(a, x1);
+    fx2 = horner(a, x2);
+
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">abs</span>(fx2) &gt; delta &amp;&amp; <span class="hljs-built_in">i</span> &lt; imax
+         <span class="hljs-built_in">i</span> = <span class="hljs-built_in">i</span> + <span class="hljs-number">1</span>;
+         [x0, fx0, x1, fx1, x2, fx2] = nextVal(a, x0, fx0, x1, fx1, x2, fx2);
+    <span class="hljs-keyword">end</span>
+
+    texe = toc;
+    iexe = <span class="hljs-built_in">i</span>;
+    
+    xf = x2; 
+    ff = fx2;
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[x0, fx0, x1, fx1, x2, fx2]</span> = <span class="hljs-title">nextVal</span><span class="hljs-params">(a, x0, fx0, x1, fx1, x2, fx2)</span></span>
+    <span class="hljs-comment">% Wyliczanie współczynników funkcji kwadratowej</span>
+    
+    z = [x0 - x2; x1 - x2]; <span class="hljs-comment">% zmienne przyrostowe</span>
+    p = [fx0 - fx2; fx1 - fx2]; <span class="hljs-comment">% zmienna pomocnicza - prawa strona układu równań</span>
+
+    C = fx2;
+    m = (z(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>) * z(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>) * (z(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>) - z(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>)));
+    B = (z(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)^<span class="hljs-number">2</span> * p(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>) - p(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>) * z(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>)^<span class="hljs-number">2</span>) / m;
+    A = (z(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>) * p(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>) - p(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>) * z(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)) / m;
+
+    <span class="hljs-comment">% Wyliczanie pierwiastków funkcji kwadratowej</span>
+    s = <span class="hljs-built_in">sqrt</span>(B ^ <span class="hljs-number">2</span> - <span class="hljs-number">4</span> * A * C);
+    d_p = B + s;
+    d_m = B - s;
+
+    z_p = <span class="hljs-number">-2</span> * C / (d_p);
+    z_m = <span class="hljs-number">-2</span> * C / (d_m);
+
+    <span class="hljs-comment">% Wyliczenie kolejnego przybliżenia pierwiastka funkcji</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">abs</span>(d_p) &gt;= <span class="hljs-built_in">abs</span>(d_m))
+        z_min = z_p;
+    <span class="hljs-keyword">else</span>
+        z_min = z_m;
+    <span class="hljs-keyword">end</span>
+
+    x3 = x2 + z_min;
+
+    <span class="hljs-comment">% Odrzucenie jednego z dotychczasowych punktów x0, x1 lub x2</span>
+    <span class="hljs-comment">% (punktu najdalej położonego od x3)</span>
+    X = [x0, fx0, <span class="hljs-built_in">abs</span>(x3 - x0); 
+        x1, fx1, <span class="hljs-built_in">abs</span>(x3 - x1); 
+        x2, fx2, <span class="hljs-built_in">abs</span>(x3 - x2)];
+
+    [~, idx] = <span class="hljs-built_in">max</span>(X(:, <span class="hljs-number">3</span>));
+    
+    X(idx, :) = [];
+    
+    x0 = X(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+    fx0 = X(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>);
+    
+    x1 = X(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>);
+    fx1 = X(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>);
+
+    x2 = x3;
+    fx2 = horner(a, x2);
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h3 id="deflacja-czynnikiem-liniowym-z-wykorzystaniem-schematu-hornera">Deflacja czynnikiem liniowym z
+        wykorzystaniem schematu Hornera</h3>
+    <p>Jesteśmy w stanie zapisać wielomian w postaci iloczynu $(x-\alpha)$ oraz pewnej funkcji $Q(x)$, która jest
+        wielomianem o stopień niższym niż funkcja $f(x)$.
+        $$
+        f(x) = a_n x^n + a_{n-1} x^{n-1} + ... + a_1 x + a_0 = (x - \alpha)Q(x)
+        $$</p>
+    <p>Gdzie $\alpha$ to pierwiastek funkcji $f(x)$, a $Q(x)$:
+        $$
+        Q(x) = q_n x^{n-1} + ... + q_2 x + q_1
+        $$</p>
+    <p>Wyznaczamy $Q(x)$ korzystając ze schematu Hornera:</p>
+    <p>$$
+        q_{n+1} \stackrel{def}{=} 0
+        $$</p>
+    <p>$$
+        q_{i} = a_i + q_{i+1}\alpha \\
+        \text{gdzie} \ i = 0, 1, ..., n - 1
+        $$</p>
+    <p><strong>Program</strong></p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">q</span> = <span class="hljs-title">divHorner</span><span class="hljs-params">(a, alpha)</span></span>
+    n = <span class="hljs-built_in">length</span>(a);
+    q = <span class="hljs-built_in">zeros</span>(n - <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+
+    q(<span class="hljs-number">1</span>) = a(<span class="hljs-number">1</span>);
+
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">2</span> : n - <span class="hljs-number">1</span>
+        q(<span class="hljs-built_in">i</span>) = a(<span class="hljs-built_in">i</span>) + q(<span class="hljs-built_in">i</span> - <span class="hljs-number">1</span>) * alpha;
+    <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <p>Następnie jesteśmy w stanie dalej liczyć pierwiastki funkcji $Q(x)$, które będą również pierwiastkami funkcji
+        $f(x)$. Postępujemy tak do osiągnięcia wszystkich pierwiastków, za każdym razem wyliczając pierwiastki dla
+        wielomianu niższego stopnia.</p>
+    <p><strong>Program</strong></p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[xf, ff, iexe, texe]</span> = <span class="hljs-title">allMM1</span><span class="hljs-params">(a, x, delta, imax)</span></span>
+    <span class="hljs-comment">%</span>
+    <span class="hljs-comment">%   CEL</span>
+    <span class="hljs-comment">%       Poszukiwanie wszystkich pierwiastków wielomianu</span>
+    <span class="hljs-comment">%       metoda Mullera MM1</span>
+    <span class="hljs-comment">%  </span>
+    <span class="hljs-comment">%   PARAMETRY WEJSCIOWE</span>
+    <span class="hljs-comment">%       a      -  wektor współczynników wielomianu </span>
+    <span class="hljs-comment">%       x      -  wektor wartości początkowych - 3-elementowy</span>
+    <span class="hljs-comment">%       delta  -  dokladnosc  </span>
+    <span class="hljs-comment">%       imax   -  maksymalna liczba iteracji</span>
+    <span class="hljs-comment">%</span>
+    <span class="hljs-comment">%   PARAMETRY WYJSCIOWE</span>
+    <span class="hljs-comment">%       xf     -  rozwiazania </span>
+    <span class="hljs-comment">%       ff     -  wartosci funkcji w xf</span>
+    <span class="hljs-comment">%       iexe   -  liczba iteracji wykonanych dla każdego rozwiązania</span>
+    <span class="hljs-comment">%       texe   -  czas obliczen [s] każdego rozwiązania</span>
+    n = <span class="hljs-built_in">length</span>(a) - <span class="hljs-number">1</span>;
+    xf = <span class="hljs-built_in">zeros</span>(n, <span class="hljs-number">1</span>);
+    ff = <span class="hljs-built_in">zeros</span>(n, <span class="hljs-number">1</span>);
+    iexe = <span class="hljs-built_in">zeros</span>(n, <span class="hljs-number">1</span>);
+    texe = <span class="hljs-built_in">zeros</span>(n, <span class="hljs-number">1</span>);
+
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span> : n - <span class="hljs-number">1</span>
+        [xf1, ff1, iexe1, texe1] = mm1(a, x, delta, imax);
+        a = divHorner(a, xf1);
+
+        xf(<span class="hljs-built_in">i</span>) = xf1;
+        ff(<span class="hljs-built_in">i</span>) = ff1;
+        iexe(<span class="hljs-built_in">i</span>) = iexe1;
+        texe(<span class="hljs-built_in">i</span>) = texe1;
+    <span class="hljs-keyword">end</span>
+    
+    tic;
+    xf(n) = -a(<span class="hljs-number">2</span>) / a(<span class="hljs-number">1</span>);
+    ttmp = toc;
+    ff(n) = horner(a, xf(n));
+    iexe(n) = <span class="hljs-number">0</span>;
+    texe(n) = ttmp;
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2 id="wyniki">Wyniki</h2>
+    <p><strong>Program</strong></p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">plot_2_2</span><span class="hljs-params">()</span></span>
+    x = <span class="hljs-number">-2</span> : <span class="hljs-number">0.1</span> : <span class="hljs-number">3</span>;
+    a = [<span class="hljs-number">-1</span> <span class="hljs-number">1.5</span> <span class="hljs-number">1.5</span> <span class="hljs-number">0.5</span> <span class="hljs-number">1</span>];
+    pp = [<span class="hljs-number">-2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">0</span>];
+    delta = <span class="hljs-number">1e-8</span>;
+    imax = <span class="hljs-number">100</span>;
+
+    y = horner(a, x);
+    
+    <span class="hljs-built_in">hold</span> on;
+    title(<span class="hljs-string">'Metoda Mullera MM1'</span>);
+    xlabel(<span class="hljs-string">'x'</span>);
+    ylabel(<span class="hljs-string">'y'</span>);
+    <span class="hljs-built_in">plot</span>(x, y);
+    <span class="hljs-built_in">plot</span>(x, <span class="hljs-built_in">zeros</span>(<span class="hljs-built_in">length</span>(x), <span class="hljs-number">1</span>));
+    [xf, ff, iexe, texe] = allMM1(a, pp, delta, imax);
+    <span class="hljs-built_in">scatter</span>(xf, ff);
+    <span class="hljs-built_in">hold</span> off;
+
+    fprintf(<span class="hljs-string">'x\t\t\t\t\t|\tf(x)\t\t\t\t|\tIterations\t|\tTime\n'</span>);
+    fprintf(<span class="hljs-string">'-\t\t\t\t\t|\t-\t\t\t\t\t|\t-\t\t\t|\t-\n'</span>);
+
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span> : <span class="hljs-built_in">length</span>(xf)
+
+        fprintf(<span class="hljs-string">'%f%+fj\t|\t%f%+fj\t|\t%.0f\t\t\t|\t%f s\n'</span>, ...
+            [<span class="hljs-built_in">real</span>(xf(<span class="hljs-built_in">i</span>)), <span class="hljs-built_in">imag</span>(xf(<span class="hljs-built_in">i</span>)), <span class="hljs-built_in">real</span>(ff(<span class="hljs-built_in">i</span>)), <span class="hljs-built_in">imag</span>(ff(<span class="hljs-built_in">i</span>)), iexe(<span class="hljs-built_in">i</span>), texe(<span class="hljs-built_in">i</span>)]);
+    <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <p><strong>Wykres:</strong></p>
+    <p><img src="./plot_2_2.png" alt=""></p>
+    <p><strong>Uwaga:</strong> Na wykresie jest tylko pokazana część rzeczywista rozwiązania</p>
+    <pre class="hljs"><code><div>Warning: Using only the real component of complex data. 
+&gt; In matlab.graphics.chart.internal.getRealData (line 52)
+In scatter&gt;matrixScatter (line 163)
+In scatter (line 58)
+In plot_2_2 (line 17) 
+</div></code></pre>
+    <p><strong>Tabela:</strong></p>
+    <table>
+        <thead>
+            <tr>
+                <th>x</th>
+                <th>f(x)</th>
+                <th>Iterations</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>-0.903510+0.000000j</td>
+                <td>-0.000000+0.000000j</td>
+                <td>9</td>
+                <td>0.000837 s</td>
+            </tr>
+            <tr>
+                <td>0.041916+0.689475j</td>
+                <td>-0.000000-0.000000j</td>
+                <td>6</td>
+                <td>0.000414 s</td>
+            </tr>
+            <tr>
+                <td>0.041916-0.689475j</td>
+                <td>0.000000+0.000000j</td>
+                <td>1</td>
+                <td>0.000077 s</td>
+            </tr>
+            <tr>
+                <td>2.319678+0.000000j</td>
+                <td>0.000000+0.000000j</td>
+                <td>0</td>
+                <td>0.000196 s</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 id="komentarz">Komentarz</h3>
+    <p>Metoda Mullera MM1 dobrze poradziła sobie ze znajdowaniem wszystkich pierwiastków wielomianu, nawet tych
+        zespolonych.</p>
+    <p>Najwięcej iteracji wymagało pierwsze rozwiązanie dla wielomianu 4 stopnia. W przypadku wielomianu 2 stopnia od
+        razu policzony został jeden z pierwiastków. Wielomian 1 stopnia policzyłem bez korzystania z funkcji
+        <code>mm1</code>, ponieważ można to rozwiązać jednym dzieleniem.
+    </p>
+
+</body>
+
+</html>
