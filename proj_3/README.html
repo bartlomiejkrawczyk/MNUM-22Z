@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>README.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+    <script type="text/javascript"
+        src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        </script>
+
+    <style>
+        /* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+        /*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+        body {
+            font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+            font-size: var(--vscode-markdown-font-size, 14px);
+            padding: 0 26px;
+            line-height: var(--vscode-markdown-line-height, 22px);
+            word-wrap: break-word;
+        }
+
+        #code-csp-warning {
+            position: fixed;
+            top: 0;
+            right: 0;
+            color: white;
+            margin: 16px;
+            text-align: center;
+            font-size: 12px;
+            font-family: sans-serif;
+            background-color: #444444;
+            cursor: pointer;
+            padding: 6px;
+            box-shadow: 1px 1px 1px rgba(0, 0, 0, .25);
+        }
+
+        #code-csp-warning:hover {
+            text-decoration: none;
+            background-color: #007acc;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, .25);
+        }
+
+        body.scrollBeyondLastLine {
+            margin-bottom: calc(100vh - 22px);
+        }
+
+        body.showEditorSelection .code-line {
+            position: relative;
+        }
+
+        body.showEditorSelection .code-active-line:before,
+        body.showEditorSelection .code-line:hover:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: -12px;
+            height: 100%;
+        }
+
+        body.showEditorSelection li.code-active-line:before,
+        body.showEditorSelection li.code-line:hover:before {
+            left: -30px;
+        }
+
+        .vscode-light.showEditorSelection .code-active-line:before {
+            border-left: 3px solid rgba(0, 0, 0, 0.15);
+        }
+
+        .vscode-light.showEditorSelection .code-line:hover:before {
+            border-left: 3px solid rgba(0, 0, 0, 0.40);
+        }
+
+        .vscode-light.showEditorSelection .code-line .code-line:hover:before {
+            border-left: none;
+        }
+
+        .vscode-dark.showEditorSelection .code-active-line:before {
+            border-left: 3px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .vscode-dark.showEditorSelection .code-line:hover:before {
+            border-left: 3px solid rgba(255, 255, 255, 0.60);
+        }
+
+        .vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+            border-left: none;
+        }
+
+        .vscode-high-contrast.showEditorSelection .code-active-line:before {
+            border-left: 3px solid rgba(255, 160, 0, 0.7);
+        }
+
+        .vscode-high-contrast.showEditorSelection .code-line:hover:before {
+            border-left: 3px solid rgba(255, 160, 0, 1);
+        }
+
+        .vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+            border-left: none;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        a:focus,
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: 1px solid -webkit-focus-ring-color;
+            outline-offset: -1px;
+        }
+
+        hr {
+            border: 0;
+            height: 2px;
+            border-bottom: 2px solid;
+        }
+
+        h1 {
+            padding-bottom: 0.3em;
+            line-height: 1.2;
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-weight: normal;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        table>thead>tr>th {
+            text-align: left;
+            border-bottom: 1px solid;
+        }
+
+        table>thead>tr>th,
+        table>thead>tr>td,
+        table>tbody>tr>th,
+        table>tbody>tr>td {
+            padding: 5px 10px;
+        }
+
+        table>tbody>tr+tr>td {
+            border-top: 1px solid;
+        }
+
+        blockquote {
+            margin: 0 7px 0 5px;
+            padding: 0 16px 0 10px;
+            border-left-width: 5px;
+            border-left-style: solid;
+        }
+
+        code {
+            font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+            font-size: 1em;
+            line-height: 1.357em;
+        }
+
+        body.wordWrap pre {
+            white-space: pre-wrap;
+        }
+
+        pre:not(.hljs),
+        pre.hljs code>div {
+            padding: 16px;
+            border-radius: 3px;
+            overflow: auto;
+        }
+
+        pre code {
+            color: var(--vscode-editor-foreground);
+            tab-size: 4;
+        }
+
+        /** Theming */
+
+        .vscode-light pre {
+            background-color: rgba(220, 220, 220, 0.4);
+        }
+
+        .vscode-dark pre {
+            background-color: rgba(10, 10, 10, 0.4);
+        }
+
+        .vscode-high-contrast pre {
+            background-color: rgb(0, 0, 0);
+        }
+
+        .vscode-high-contrast h1 {
+            border-color: rgb(0, 0, 0);
+        }
+
+        .vscode-light table>thead>tr>th {
+            border-color: rgba(0, 0, 0, 0.69);
+        }
+
+        .vscode-dark table>thead>tr>th {
+            border-color: rgba(255, 255, 255, 0.69);
+        }
+
+        .vscode-light h1,
+        .vscode-light hr,
+        .vscode-light table>tbody>tr+tr>td {
+            border-color: rgba(0, 0, 0, 0.18);
+        }
+
+        .vscode-dark h1,
+        .vscode-dark hr,
+        .vscode-dark table>tbody>tr+tr>td {
+            border-color: rgba(255, 255, 255, 0.18);
+        }
+    </style>
+
+    <style>
+        /* Tomorrow Theme */
+        /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+        /* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+        /* Tomorrow Comment */
+        .hljs-comment,
+        .hljs-quote {
+            color: #8e908c;
+        }
+
+        /* Tomorrow Red */
+        .hljs-variable,
+        .hljs-template-variable,
+        .hljs-tag,
+        .hljs-name,
+        .hljs-selector-id,
+        .hljs-selector-class,
+        .hljs-regexp,
+        .hljs-deletion {
+            color: #c82829;
+        }
+
+        /* Tomorrow Orange */
+        .hljs-number,
+        .hljs-built_in,
+        .hljs-builtin-name,
+        .hljs-literal,
+        .hljs-type,
+        .hljs-params,
+        .hljs-meta,
+        .hljs-link {
+            color: #f5871f;
+        }
+
+        /* Tomorrow Yellow */
+        .hljs-attribute {
+            color: #eab700;
+        }
+
+        /* Tomorrow Green */
+        .hljs-string,
+        .hljs-symbol,
+        .hljs-bullet,
+        .hljs-addition {
+            color: #718c00;
+        }
+
+        /* Tomorrow Blue */
+        .hljs-title,
+        .hljs-section {
+            color: #4271ae;
+        }
+
+        /* Tomorrow Purple */
+        .hljs-keyword,
+        .hljs-selector-tag {
+            color: #8959a8;
+        }
+
+        .hljs {
+            display: block;
+            overflow-x: auto;
+            color: #4d4d4c;
+            padding: 0.5em;
+        }
+
+        .hljs-emphasis {
+            font-style: italic;
+        }
+
+        .hljs-strong {
+            font-weight: bold;
+        }
+    </style>
+
+    <style>
+        /*
+ * Markdown PDF CSS
+ */
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+            padding: 0 12px;
+        }
+
+        pre {
+            background-color: #f8f8f8;
+            border: 1px solid #cccccc;
+            border-radius: 3px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+        }
+
+        pre:not(.hljs) {
+            padding: 23px;
+            line-height: 19px;
+        }
+
+        blockquote {
+            background: rgba(127, 127, 127, 0.1);
+            border-color: rgba(0, 122, 204, 0.5);
+        }
+
+        .emoji {
+            height: 1.4em;
+        }
+
+        code {
+            font-size: 14px;
+            line-height: 19px;
+        }
+
+        /* for inline code */
+        :not(pre):not(.hljs)>code {
+            color: #C9AE75;
+            /* Change the old color so it seems less like an error */
+            font-size: inherit;
+        }
+
+        /* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+        .page {
+            page-break-after: always;
+        }
+    </style>
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+
+<body>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+                ? 'dark'
+                : 'default'
+        });
+    </script>
+    <h1 id="metody-numeryczne---projekt-iii">Metody Numeryczne - Projekt III</h1>
+    <pre class="hljs"><code><div>student: Bartłomiej Krawczyk
+indeks: 310774
+</div></code></pre>
+    <h1 id="zadanie-1">Zadanie 1</h1>
+    <h2 id="tre%C5%9B%C4%87">Treść</h2>
+    <p>Ruch punktu na płaszczyźnie ($x_1$, $x_2$) jest opisany równaniami:</p>
+    <p>$$
+        \frac{dx_1}{dt} = x_2 + x_1 (0.3 - x_1^2 - x_2^2)
+        $$</p>
+    <p>$$
+        \frac{dx_1}{dt} = - x_1 + x_2 (0.3 - x_1^2 - x_2^2)
+        $$</p>
+    <p>Należy obliczyć przebieg trajektorii ruchu tego punktu w przedziale [0, 20] dla warunków początkowych: $x_1(0) =
+        0$, $x_2(0) = 13$.</p>
+    <p>Rozwiązanie proszę znaleźć korzystając z zaimplementowanej przez siebie w języku Matlaba w formie funkcji
+        (możliwie uniwersalnej, czyli solwera, o odpowiednich parametrach wejścia i wyjścia) metody Dormand-Prince'a
+        czwartego rzędu przy zmiennym kroku z szacowaniem błędu techniką pary metod włożonych (DorPri45).</p>
+    <h3 id="r%C3%B3wnania-trajektorii">Równania trajektorii</h3>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dxdt</span> = <span class="hljs-title">trajectory</span><span class="hljs-params">(t, x)</span></span>
+    dx1dt = x(<span class="hljs-number">2</span>) + x(<span class="hljs-number">1</span>) * (<span class="hljs-number">0.3</span> - x(<span class="hljs-number">1</span>)^<span class="hljs-number">2</span> - x(<span class="hljs-number">2</span>)^<span class="hljs-number">2</span>);
+    dx2dt = -x(<span class="hljs-number">1</span>) + x(<span class="hljs-number">2</span>) * (<span class="hljs-number">0.3</span> - x(<span class="hljs-number">1</span>)^<span class="hljs-number">2</span> - x(<span class="hljs-number">2</span>)^<span class="hljs-number">2</span>);
+
+    dxdt = [dx1dt; dx2dt];
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2 id="opis-algorytmu">Opis algorytmu</h2>
+    <h3 id="metoda-dormand-princea">Metoda Dormand-Prince'a</h3>
+    <p>Metoda Dormand-Prince'a bierze pod uwagę parę metod włożonych - dwie metody Rungego-Kutty - 4 oraz 5 rzędu.</p>
+    <ul>
+        <li>
+            <p>Metoda RK rzędu 4 (6 etapowa):
+                $$
+                x_{n+1} = x_n + h * \sum_{i=1}^6 w_i^* k_i
+                $$
+                $$
+                k_1 = f(t_n, x_n)
+                $$
+                $$
+                k_i = f(t_n + c_i h, x_n + h \sum_{j=1}^{i-1} a_{ij}k_j), \text{dla i=2,3,...6}
+                $$</p>
+        </li>
+        <li>
+            <p>Metoda RK rzędu 5 (7 etapowa):
+                $$
+                x_{n+1} = x_n + h * \sum_{i=1}^{7} w_i^* k_i
+                $$
+                $$
+                k_1 = f(t_n, x_n)
+                $$
+                $$
+                k_i = f(t_n + c_i h, x_n + h \sum_{j=1}^{i-1} a_{ij}k_j), \text{dla i=2,3,...7}
+                $$</p>
+        </li>
+    </ul>
+    <p>W obu metodach współczynniki $w_i^*$ i $w_i$ są różne, ale równe są współczynniki $c_i$ oraz $a_{ij}$.</p>
+    <p>$$
+        C = \begin{bmatrix}
+        0 &amp; 1/5 &amp; 3/10 &amp; 4/5 &amp; 8/9 &amp; 1 &amp; 1 \\
+        \end{bmatrix}
+        $$</p>
+    <p>$$
+        A = \begin{bmatrix}
+        0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+        1/5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+        3/40 &amp; 9/4 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+        44/45 &amp; -56/15 &amp; 32/9 &amp; 0 &amp; 0 &amp; 0 \\
+        19372/6561 &amp; -25360/2187 &amp; 64448/6561 &amp; -212/729 &amp; 0 &amp; 0 \\
+        9017/3168 &amp; -355/33 &amp; 46732/5247 &amp; 49/176 &amp; -5103/18656 &amp; 0 \\
+        35/384 &amp; 0 &amp; 500/1113 &amp; 125/192 &amp; -2187/6784 &amp; 11/84 \\
+        \end{bmatrix}
+        $$</p>
+    <p>$$
+        W^* = \begin{bmatrix}
+        35/384 &amp; 0 &amp; 500/1113 &amp; 125/192 &amp; -2187/6784 &amp; 11/84 \\
+        \end{bmatrix}
+        $$</p>
+    <p>$$
+        W = \begin{bmatrix}
+        5179/57600 &amp; 0 &amp; 7571/16695 &amp; 393/640 &amp; -92097/339200 &amp; 187/2100 &amp; 1/40 \\
+        \end{bmatrix}
+        $$</p>
+    <p>Dzięki temu współczynniki $k_i$ w obu przypadkach są wyliczane ze wzorów:</p>
+    <p>$$
+        k_{1} = h f(t_{n}, x_{n})
+        $$</p>
+    <p>$$
+        k_{2} = h f(t_{n}+\frac{1}{5} h, x_{n}+\frac{1}{5} k_{1})
+        $$</p>
+    <p>$$
+        k_{3} = h f(t_{n}+\frac{3}{10} h, x_{n}+\frac{3}{40} k_{1}+\frac{9}{40} k_{2})
+        $$</p>
+    <p>$$
+        k_{4} = h f(t_{n}+\frac{4}{5} h, x_{n}+\frac{44}{45} k_{1}-\frac{56}{15} k_{2}+\frac{32}{9} k_{3})
+        $$</p>
+    <p>$$
+        k_{5} = h f(t_{n}+\frac{8}{9} h, x_{n}+\frac{19372}{6561} k_{1}-\frac{25360}{2187} k_{2}+\frac{64448}{6561}
+        k_{3}-\frac{212}{729} k_{4})
+        $$</p>
+    <p>$$
+        k_{6} = h f(t_{n}+h, x_{n}+\frac{9017}{3168} k_{1}-\frac{355}{33} k_{2}-\frac{46732}{5247} k_{3}+\frac{49}{176}
+        k_{4}-\frac{5103}{18656} k_{5})
+        $$</p>
+    <p>$$
+        k_{7} = h f(t_{n}+h, x_{n}+\frac{35}{384} k_{1}+\frac{500}{1113} k_{3}+\frac{125}{192} k_{4}-\frac{2187}{6784}
+        k_{5}+\frac{11}{84} k_{6})
+        $$</p>
+    <p>Wartość w kolejnym kroku metody RK rzędu 4 jest wyliczana jako:</p>
+    <p>$$
+        x_{n+1}=x_{n}+\frac{35}{384} k_{1}+\frac{500}{1113} k_{3}+\frac{125}{192} k_{4}-\frac{2187}{6784}
+        k_{5}+\frac{11}{84} k_{6}
+        $$</p>
+    <p>Następnie wyliczamy wartość w kolejnym punkcie z wykorzystaniem metody RK rzędu 5:</p>
+    <p>$$
+        z_{n+1}=x_{n}+\frac{5179}{57600} k_{1}+\frac{7571}{16695} k_{3}+\frac{393}{640} k_{4}-\frac{92097}{339200}
+        k_{5}+\frac{187}{2100} k_{6}+\frac{1}{40} k_{7}
+        $$</p>
+    <p>Po odjęciu stronami powyższych równań otrzymujemy oszacowanie błędu metody rzędu 4:</p>
+    <p>$$
+        \delta_n(h)=h(z_{n+1}-x_{n+1})=h*(-\frac{71}{57600} k_{1}(h)+\frac{71}{16695} k_{3}(h)-\frac{71}{1920}
+        k_{4}(h)+\frac{17253}{339200} k_{5}(h)-\frac{22}{525} k_{6}(h)+\frac{1}{40} k_{7}(h))
+        $$</p>
+    <p><strong>Program:</strong></p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[x2, delta]</span> = <span class="hljs-title">nextValue</span><span class="hljs-params">(f, t, x1, h)</span></span>
+    k1 = h * f(t, x1);
+    k2 = h * f(t + <span class="hljs-number">1</span>/<span class="hljs-number">5</span> * h,     x1 + <span class="hljs-number">1</span>/<span class="hljs-number">5</span> * k1);
+    k3 = h * f(t + <span class="hljs-number">3</span>/<span class="hljs-number">10</span> * h,    x1 + <span class="hljs-number">3</span>/<span class="hljs-number">40</span> * k1          + <span class="hljs-number">9</span>/<span class="hljs-number">40</span> * k2);
+    k4 = h * f(t + <span class="hljs-number">4</span>/<span class="hljs-number">5</span> * h,     x1 + <span class="hljs-number">44</span>/<span class="hljs-number">45</span> * k1         - <span class="hljs-number">56</span>/<span class="hljs-number">15</span> * k2        + <span class="hljs-number">32</span>/<span class="hljs-number">9</span> * k3);
+    k5 = h * f(t + <span class="hljs-number">8</span>/<span class="hljs-number">9</span> * h,     x1 + <span class="hljs-number">19372</span>/<span class="hljs-number">6561</span> * k1    - <span class="hljs-number">25360</span>/<span class="hljs-number">2187</span> * k2   + <span class="hljs-number">64448</span>/<span class="hljs-number">6561</span> * k3   - <span class="hljs-number">212</span>/<span class="hljs-number">729</span> * k4);
+    k6 = h * f(t + h,           x1 + <span class="hljs-number">9017</span>/<span class="hljs-number">3168</span> * k1     - <span class="hljs-number">355</span>/<span class="hljs-number">33</span> * k2       + <span class="hljs-number">46732</span>/<span class="hljs-number">5247</span> * k3   + <span class="hljs-number">49</span>/<span class="hljs-number">176</span> * k4       - <span class="hljs-number">5103</span>/<span class="hljs-number">18656</span> * k5);
+    k7 = h * f(t + h,           x1 + <span class="hljs-number">35</span>/<span class="hljs-number">384</span> * k1                            + <span class="hljs-number">500</span>/<span class="hljs-number">1113</span> * k3     + <span class="hljs-number">125</span>/<span class="hljs-number">192</span> * k4      - <span class="hljs-number">2187</span>/<span class="hljs-number">6784</span> * k5    + <span class="hljs-number">11</span>/<span class="hljs-number">84</span> * k6);
+
+    x2 = x1 + <span class="hljs-number">35</span>/<span class="hljs-number">384</span> * k1 + <span class="hljs-number">500</span>/<span class="hljs-number">1113</span> * k3 + <span class="hljs-number">125</span>/<span class="hljs-number">192</span> * k4 - <span class="hljs-number">2187</span>/<span class="hljs-number">6784</span> * k5 + <span class="hljs-number">11</span>/<span class="hljs-number">84</span> * k6;
+    delta = h * (<span class="hljs-number">-71</span>/<span class="hljs-number">57600</span> * k1 + <span class="hljs-number">71</span>/<span class="hljs-number">16695</span> * k3 - <span class="hljs-number">71</span>/<span class="hljs-number">1920</span> * k4 + <span class="hljs-number">17253</span>/<span class="hljs-number">339200</span> * k5 - <span class="hljs-number">22</span>/<span class="hljs-number">525</span> * k6 + <span class="hljs-number">1</span>/<span class="hljs-number">40</span> * k7);
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h3 id="wyznaczanie-zmienionej-d%C5%82ugo%C5%9Bci-kroku">Wyznaczanie zmienionej długości kroku</h3>
+    <p>W trakcie wyznaczania kolejnego kroku $h_{n+1}$ bierze się pod uwagę niedokładności oszacowania błędu, a także
+        stosuje się współczynnik bezpieczeństwa $s$:</p>
+    <p>$$
+        h_{n+1} = s * \alpha * h_n, \text{ gdzie s &lt; 1}
+        $$</p>
+    <p>dla metody Dormand-Prince'a przyjmę $s \approx 0.9$, a współczynnik modyfikacji kroku $\alpha$ wylicza się ze
+        wzoru:</p>
+    <p>$$
+        \alpha = (\frac{\varepsilon}{|\delta_n(h)|})^{\frac{1}{5}}
+        $$</p>
+    <p>gdzie:</p>
+    <p>$$
+        \varepsilon = |x_n| * \varepsilon_w + \varepsilon_b \\
+        \varepsilon_w \text{ - dokładność względna} \\
+        \varepsilon_b \text{ - dokładność bezwzględna}
+        $$</p>
+    <p><strong>Program:</strong></p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">alpha</span> = <span class="hljs-title">calculateAlpha</span><span class="hljs-params">(x, epsilonW, epsilonB, delta)</span></span>
+    epsilon = norm(x) * epsilonW + epsilonB;
+
+    alpha = (epsilon / norm(delta))^(<span class="hljs-number">1</span>/<span class="hljs-number">5</span>);
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2 id="podstawowa-realizacja-metod-rk-oraz-rkf">Podstawowa realizacja metod RK oraz RKF</h2>
+    <p><strong>Program</strong></p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[tout, xout, hout, dout]</span> = <span class="hljs-title">dorpri45</span><span class="hljs-params">(dxdt, t0, tmax, x0, h0, hmin, epsilonW, epsilonB)</span></span>
+    s = <span class="hljs-number">0.9</span>;
+
+    x1 = x0;
+    t1 = t0;
+    h1 = h0;
+
+    tout = t1;
+    xout = x1';
+    hout = h1;
+    dout = [<span class="hljs-number">0</span> <span class="hljs-number">0</span>];
+    n = <span class="hljs-number">1</span>;
+
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">true</span>
+        [x2, delta] = nextValue(dxdt, t1, x1, h1);
+        alpha = calculateAlpha(x1, epsilonW, epsilonB, delta);
+
+        salpha = s * alpha;
+        h2prop = salpha * h1;
+
+        <span class="hljs-keyword">if</span> salpha &gt;= <span class="hljs-number">1</span>
+            <span class="hljs-keyword">if</span> t1 + h1 &gt;= tmax
+                <span class="hljs-comment">% osiągnięty koniec przedziału -&gt; kończymy program</span>
+                <span class="hljs-keyword">return</span>;
+            <span class="hljs-keyword">else</span>
+                <span class="hljs-comment">% aktualizacja wartości funkcji w kolejnych krokach</span>
+                t2 = t1 + h1;
+                <span class="hljs-comment">% stosuję heurystyczne ograniczenie maksymalnego wzrostu</span>
+                <span class="hljs-comment">% długości kroku h_n w jednej iteracji do wartości co</span>
+                <span class="hljs-comment">% najwyżej \beta h_n</span>
+                h2 = <span class="hljs-built_in">min</span>([h2prop, <span class="hljs-number">5</span> * h1, tmax - t1]);
+                n = n + <span class="hljs-number">1</span>;
+
+                tout(n) = t2;
+                xout(n, :) = x2';
+                hout(n) = h2;
+                dout(n, :) = delta';
+
+                t1 = t2;
+                x1 = x2;
+                h1 = h2;
+            <span class="hljs-keyword">end</span>
+        <span class="hljs-keyword">else</span>
+            <span class="hljs-comment">% w tej iteracji krok był za duży, należy zminiejszyć krok</span>
+            <span class="hljs-keyword">if</span> h2prop &lt; hmin
+                <span class="hljs-comment">% osiągnięty krok jest mniejszy niż zadany najmniejszy krok</span>
+                <span class="hljs-built_in">disp</span>(<span class="hljs-string">"Niemożliwe rozwiązanie z zadaną dokładnością"</span>);
+                <span class="hljs-keyword">return</span>;
+            <span class="hljs-keyword">else</span>
+                <span class="hljs-comment">% zmniejszenie kroku</span>
+                h1 = h2prop;
+            <span class="hljs-keyword">end</span>
+        <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2 id="por%C3%B3wnanie-rozwi%C4%85zania-z-wykorzystaniem-solwera-ode45-matlaba">Porównanie rozwiązania z
+        wykorzystaniem solwera ode45 Matlaba</h2>
+    <p><strong>Wykres</strong></p>
+    <p><img src="./plot_3_1.png" alt=""></p>
+    <p><strong>Ilość iteracji</strong></p>
+    <table>
+        <thead>
+            <tr>
+                <th>function</th>
+                <th>iterations</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>ode45</td>
+                <td>169</td>
+            </tr>
+            <tr>
+                <td>dorpri45</td>
+                <td>160</td>
+            </tr>
+        </tbody>
+    </table>
+    <p><strong>Komentarz:</strong></p>
+    <ul>
+        <li>dla przyjętych parametrów ($h_{min}, \varepsilon_w, \varepsilon_b$) rozwiązania praktycznie się nie różnią
+        </li>
+        <li>tak się, złożyło, że z danymi parametrami moja implementacja osiąga rozwiązanie w mniejszej ilości iteracji
+        </li>
+    </ul>
+    <p><strong>Program:</strong></p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">plot_3_1</span><span class="hljs-params">()</span></span>
+    x0_1 = <span class="hljs-number">0</span>;
+    x0_2 = <span class="hljs-number">13</span>;
+    x0 = [x0_1; x0_2];
+    time_span = [<span class="hljs-number">0</span> <span class="hljs-number">20</span>];
+    h0 = <span class="hljs-number">1e-4</span>;
+    hmin = <span class="hljs-number">1e-6</span>;
+    epsilonW = <span class="hljs-number">1e-8</span>;
+    epsilonB = <span class="hljs-number">1e-8</span>;
+
+
+    [tode, xode] = ode45(@trajectory, time_span, x0);
+    [tdp, xdp, ~, ~] = dorpri45(@trajectory, time_span(<span class="hljs-number">1</span>), time_span(<span class="hljs-number">2</span>), x0, h0, hmin, epsilonW, epsilonB);
+
+    fprintf(<span class="hljs-string">'function\t|\titerations\n'</span>);
+    fprintf(<span class="hljs-string">'-\t\t\t|\t-\n'</span>);
+    todesize = <span class="hljs-built_in">size</span>(tode);
+    tdpsize = <span class="hljs-built_in">size</span>(tdp);
+    fprintf(<span class="hljs-string">'ode45\t\t|\t%0.f\n'</span>, [todesize(<span class="hljs-number">1</span>)]);
+    fprintf(<span class="hljs-string">'dorpri45\t|\t%0.f\n'</span>, [tdpsize(<span class="hljs-number">1</span>)]);
+
+    tiledlayout(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>);
+    
+    <span class="hljs-comment">% Trajektoria x_1(t)</span>
+    nexttile;
+    <span class="hljs-built_in">hold</span> on;
+    title(<span class="hljs-string">'Trajektoria x_1(t)'</span>);
+    xlabel(<span class="hljs-string">'t'</span>);
+    ylabel(<span class="hljs-string">'x_1(t)'</span>);
+    <span class="hljs-built_in">plot</span>(tode, xode(:, <span class="hljs-number">1</span>));
+    <span class="hljs-built_in">plot</span>(tdp, xdp(:, <span class="hljs-number">1</span>));
+    <span class="hljs-built_in">legend</span>(<span class="hljs-string">'ode45'</span>, <span class="hljs-string">'dorpri45'</span>);
+    <span class="hljs-built_in">hold</span> off;
+
+    <span class="hljs-comment">% Trajektoria na płaszczyźnie (x_1, x_2)</span>
+    nexttile([<span class="hljs-number">2</span>, <span class="hljs-number">1</span>]);
+    <span class="hljs-built_in">hold</span> on;
+    title(<span class="hljs-string">'Trajektoria (x_1, x_2)'</span>);
+    xlabel(<span class="hljs-string">'x_1'</span>);
+    ylabel(<span class="hljs-string">'x_2'</span>);
+    <span class="hljs-built_in">plot</span>(xode(:, <span class="hljs-number">1</span>), xode(:, <span class="hljs-number">2</span>));
+    <span class="hljs-built_in">plot</span>(xdp(:, <span class="hljs-number">1</span>), xdp(:, <span class="hljs-number">2</span>));
+    <span class="hljs-built_in">legend</span>(<span class="hljs-string">'ode45'</span>, <span class="hljs-string">'dorpri45'</span>);
+    <span class="hljs-built_in">hold</span> off;
+
+    <span class="hljs-comment">% Trajektoria x_2(t)</span>
+    nexttile;
+    <span class="hljs-built_in">hold</span> on;
+    title(<span class="hljs-string">'Trajektoria x_2(t)'</span>);
+    xlabel(<span class="hljs-string">'t'</span>);
+    ylabel(<span class="hljs-string">'x_2(t)'</span>);
+    <span class="hljs-built_in">plot</span>(tode, xode(:, <span class="hljs-number">2</span>));
+    <span class="hljs-built_in">plot</span>(tdp, xdp(:, <span class="hljs-number">2</span>));
+    <span class="hljs-built_in">legend</span>(<span class="hljs-string">'ode45'</span>, <span class="hljs-string">'dorpri45'</span>);
+    <span class="hljs-built_in">hold</span> off;
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2
+        id="rozwi%C4%85zanie-z-r%C3%B3%C5%BCnymi-parametrami-minimalnego-kroku-dok%C5%82adno%C5%9Bci-wzgl%C4%99dnej-oraz-bezwzgl%C4%99dnej">
+        Rozwiązanie z różnymi parametrami minimalnego kroku, dokładności względnej oraz bezwzględnej</h2>
+    <p><img src="./plot_3_3.png" alt=""></p>
+    <p><strong>Ilość iteracji</strong></p>
+    <table>
+        <thead>
+            <tr>
+                <th>h_{min}</th>
+                <th>e_w</th>
+                <th>e_b</th>
+                <th>iterations</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>0.000001</td>
+                <td>0.000001</td>
+                <td>0.000001</td>
+                <td>78</td>
+            </tr>
+            <tr>
+                <td>0.000010</td>
+                <td>0.000010</td>
+                <td>0.000010</td>
+                <td>56</td>
+            </tr>
+            <tr>
+                <td>0.010000</td>
+                <td>0.010000</td>
+                <td>0.010000</td>
+                <td>25</td>
+            </tr>
+            <tr>
+                <td>0.000010</td>
+                <td>0.000001</td>
+                <td>0.100000</td>
+                <td>54</td>
+            </tr>
+            <tr>
+                <td>0.001000</td>
+                <td>0.100000</td>
+                <td>0.000001</td>
+                <td>37</td>
+            </tr>
+        </tbody>
+    </table>
+    <p><strong>Komentarz:</strong></p>
+    <p>Minimalny krok $h_{min}$:</p>
+    <ul>
+        <li>ustala w jakich minimalnych odstępach należy ustalać kolejne wartości funkcji</li>
+        <li>jeśli jest przekroczone algorytm kończy działanie z błędem</li>
+        <li>jest wykorzystywane w momencie gdy utyka w pewnym momencie i jedynie są zmniejszane kroki</li>
+    </ul>
+    <p>Dokładność względna:</p>
+    <ul>
+        <li>ustala na jak duży błąd między rzeczywistym rozwiązaniem a ustalonym pozwalamy</li>
+        <li>jest zależna od wartości funkcji w danym punkcie</li>
+        <li>dla dużych wartości przeważa dokładność względna nad bezwzględną</li>
+    </ul>
+    <p>Dokładność bezwzględna:</p>
+    <ul>
+        <li>ustala na jak duży błąd między rzeczywistym rozwiązaniem a ustalonym pozwalamy</li>
+        <li>dla wartości zbliżonych do 0 to dokładność bezwzględna ma większe znaczenie</li>
+    </ul>
+    <p><strong>Program:</strong></p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">plot_3_3</span><span class="hljs-params">()</span></span>
+    x0_1 = <span class="hljs-number">0</span>;
+    x0_2 = <span class="hljs-number">13</span>;
+    x0 = [x0_1; x0_2];
+    time_span = [<span class="hljs-number">0</span> <span class="hljs-number">20</span>];
+
+    parameters = [
+        <span class="hljs-number">1e-6</span>    <span class="hljs-number">1e-6</span>    <span class="hljs-number">1e-6</span>
+        <span class="hljs-number">1e-5</span>    <span class="hljs-number">1e-5</span>    <span class="hljs-number">1e-5</span>
+        <span class="hljs-number">1e-2</span>    <span class="hljs-number">1e-2</span>    <span class="hljs-number">1e-2</span>
+        <span class="hljs-number">1e-5</span>    <span class="hljs-number">1e-6</span>    <span class="hljs-number">1e-1</span>
+        <span class="hljs-number">1e-3</span>    <span class="hljs-number">1e-1</span>    <span class="hljs-number">1e-6</span>
+    ];
+
+    [n, ~] = <span class="hljs-built_in">size</span>(parameters);
+
+    ts = {};
+    xs = {};
+    hs = {};
+    ds = {};
+    legends = {};
+    fprintf(<span class="hljs-string">'h_{min}\t\t|\te_w\t\t\t|\te_b\t\t\t|\titerations\n'</span>);
+    fprintf(<span class="hljs-string">'-\t\t\t|\t-\t\t\t|\t-\t\t\t|\t-\n'</span>);
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span> : n
+        [tdp, xdp, hdp, ddp] = dorpri45(@trajectory, time_span(<span class="hljs-number">1</span>), time_span(<span class="hljs-number">2</span>), x0, <span class="hljs-number">1e-4</span>, parameters(<span class="hljs-built_in">i</span>, <span class="hljs-number">1</span>), parameters(<span class="hljs-built_in">i</span>, <span class="hljs-number">2</span>), parameters(<span class="hljs-built_in">i</span>, <span class="hljs-number">3</span>));
+        ts{<span class="hljs-built_in">i</span>} = tdp;
+        xs{<span class="hljs-built_in">i</span>} = xdp;
+        hs{<span class="hljs-built_in">i</span>} = hdp;
+        ds{<span class="hljs-built_in">i</span>} = ddp;
+        legends{<span class="hljs-built_in">i</span>} = sprintf(<span class="hljs-string">'h_{min} = %f e_w = %f e_b = %f'</span>, [parameters(<span class="hljs-built_in">i</span>, <span class="hljs-number">1</span>), parameters(<span class="hljs-built_in">i</span>, <span class="hljs-number">2</span>), parameters(<span class="hljs-built_in">i</span>, <span class="hljs-number">3</span>)]);
+        tsize = <span class="hljs-built_in">size</span>(tdp);
+        fprintf(<span class="hljs-string">'%f\t|\t%f\t|\t%f\t|\t%0.f\n'</span>, [parameters(<span class="hljs-built_in">i</span>, <span class="hljs-number">1</span>), parameters(<span class="hljs-built_in">i</span>, <span class="hljs-number">2</span>), parameters(<span class="hljs-built_in">i</span>, <span class="hljs-number">3</span>), tsize(<span class="hljs-number">1</span>)]);
+    <span class="hljs-keyword">end</span>
+
+
+    tiledlayout(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>);
+    
+    <span class="hljs-comment">% Trajektoria x_1(t)</span>
+    nexttile;
+    <span class="hljs-built_in">hold</span> on;
+    title(<span class="hljs-string">'Trajektoria x_1(t)'</span>);
+    xlabel(<span class="hljs-string">'t'</span>);
+    ylabel(<span class="hljs-string">'x_1(t)'</span>);
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span> : n
+        <span class="hljs-built_in">plot</span>(ts{<span class="hljs-built_in">i</span>}, xs{<span class="hljs-built_in">i</span>}(:, <span class="hljs-number">1</span>));
+    <span class="hljs-keyword">end</span>
+    <span class="hljs-built_in">legend</span>(legends);
+    <span class="hljs-built_in">hold</span> off;
+
+    <span class="hljs-comment">% Trajektoria na płaszczyźnie (x_1, x_2)</span>
+    nexttile([<span class="hljs-number">2</span>, <span class="hljs-number">1</span>]);
+    <span class="hljs-built_in">hold</span> on;
+    title(<span class="hljs-string">'Trajektoria (x_1, x_2)'</span>);
+    xlabel(<span class="hljs-string">'x_1'</span>);
+    ylabel(<span class="hljs-string">'x_2'</span>);
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span> : n
+        <span class="hljs-built_in">plot</span>(xs{<span class="hljs-built_in">i</span>}(:, <span class="hljs-number">1</span>), xs{<span class="hljs-built_in">i</span>}(:, <span class="hljs-number">2</span>));
+    <span class="hljs-keyword">end</span>
+    <span class="hljs-built_in">legend</span>(legends);
+    <span class="hljs-built_in">hold</span> off;
+
+    <span class="hljs-comment">% Trajektoria x_2(t)</span>
+    nexttile;
+    <span class="hljs-built_in">hold</span> on;
+    title(<span class="hljs-string">'Trajektoria x_2(t)'</span>);
+    xlabel(<span class="hljs-string">'t'</span>);
+    ylabel(<span class="hljs-string">'x_2(t)'</span>);
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span> : n
+        <span class="hljs-built_in">plot</span>(ts{<span class="hljs-built_in">i</span>}, xs{<span class="hljs-built_in">i</span>}(:, <span class="hljs-number">2</span>));
+    <span class="hljs-keyword">end</span>
+    <span class="hljs-built_in">legend</span>(legends);
+    <span class="hljs-built_in">hold</span> off;
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2 id="wykresy">Wykresy</h2>
+    <p><img src="./plot_3_2.png" alt=""></p>
+    <p><strong>Komentarz:</strong></p>
+    <ul>
+        <li>algorytm wystartował z niewielkim zadanym krokiem</li>
+        <li>początkowo krok szybko się zwiększa</li>
+        <li>po kilku iteracjach krok w czasie się stabilizuje i pozostaje na poziomie około 0.15</li>
+    </ul>
+    <p><strong>Program:</strong></p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">plot_3_2</span><span class="hljs-params">()</span></span>
+    x0_1 = <span class="hljs-number">0</span>;
+    x0_2 = <span class="hljs-number">13</span>;
+    x0 = [x0_1; x0_2];
+    time_span = [<span class="hljs-number">0</span> <span class="hljs-number">20</span>];
+    h0 = <span class="hljs-number">1e-4</span>;
+    hmin = <span class="hljs-number">1e-6</span>;
+    epsilonW = <span class="hljs-number">1e-8</span>;
+    epsilonB = <span class="hljs-number">1e-8</span>;
+
+
+    [tdp, ~, hdp, ddp] = dorpri45(@trajectory, time_span(<span class="hljs-number">1</span>), time_span(<span class="hljs-number">2</span>), x0, h0, hmin, epsilonW, epsilonB);
+    
+    tiledlayout(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>);
+    
+    <span class="hljs-comment">% Zależność długości kroku od czasu</span>
+    nexttile;
+    <span class="hljs-built_in">hold</span> on;
+    title(<span class="hljs-string">'Zależność długości kroku od czasu'</span>);
+    xlabel(<span class="hljs-string">'t'</span>);
+    ylabel(<span class="hljs-string">'h(t)'</span>);
+    <span class="hljs-built_in">plot</span>(tdp, hdp);
+    <span class="hljs-built_in">hold</span> off;
+
+    <span class="hljs-comment">% Zależność estymaty błędu od czasu</span>
+    nexttile;
+    <span class="hljs-built_in">hold</span> on;
+    title(<span class="hljs-string">'Zależność estymaty błędu od czasu'</span>);
+    xlabel(<span class="hljs-string">'t'</span>);
+    ylabel(<span class="hljs-string">'delta_n(t)'</span>);
+    <span class="hljs-built_in">plot</span>(tdp, ddp(:, <span class="hljs-number">1</span>));
+    <span class="hljs-built_in">plot</span>(tdp, ddp(:, <span class="hljs-number">2</span>));
+    <span class="hljs-built_in">hold</span> off;
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <h2 id="wnioski">Wnioski</h2>
+    <p><strong>Ocena poprawności wyników</strong></p>
+    <p>Wyniki obu metod zwracają zbliżone rezultaty. Na pierwszym wykresie przebiegi praktycznie się pokrywają.</p>
+    <p><strong>Ocena efektywności algorytmów</strong></p>
+    <p>Obie metody znalazły rozwiązanie w stosunkowo niewielkiej ilości kroków.</p>
+    <p><strong>Która metoda lepsza?</strong></p>
+    <p>Obie metody poradziły sobie bardzo dobrze z obliczaniem przebiegu trajektorii.</p>
+    <p><strong>Która metoda szybsza?</strong></p>
+    <p>Obie metody korzystając z implementacji metody Dormand-Prince'a. Metoda matlaba jest zoptymalizowana pod ten
+        język przez co czas wykonania jest nieco szybszy.</p>
+    <p>Ilość iteracji mojej implementacji jest bardzo zależna od parametrów wejściowych. Dla przyjętych parametrów moja
+        implementacja za każdym razem korzystała z mniejszej ilości iteracji niż metoda matlaba <code>ode45</code>.</p>
+
+</body>
+
+</html>
