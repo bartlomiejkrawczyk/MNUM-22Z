@@ -236,7 +236,7 @@ function [tout, xout, hout, dout] = dorpri45(dxdt, tspan, x0, h0, hmin, epsilonW
     tout = t1;
     xout = x1';
     hout = h1;
-    dout = [0 0];
+    dout = zeros(length(x0));
     n = 1;
 
     while true
