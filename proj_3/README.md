@@ -180,7 +180,7 @@ $$
 \varepsilon_b \text{ - dokładność bezwzględna}
 $$
 
-**Uwaga:** Jako, że w książce nie było sprecyzowane w jaki sposób należy traktować wartość bezwględną w przypadku wektora $\delta_n(h)$ lub $x_n$ to założyłem, że skorzystam zamiast wartości bezwględnej z normy Euklidesowej dla wektorów, która w przypadku liczb jest równa wartości bezwzględnej z tej liczby.
+**Uwaga:** Jako, że w książce nie było sprecyzowane w jaki sposób należy traktować wartość bezwględną w przypadku wektora $\delta_n(h)$ lub $x_n$ to założyłem, że skorzystam z normy Euklidesowej dla wektorów, która w przypadku liczb jest równa wartości bezwzględnej z tej liczby.
 
 **Program:**
 
