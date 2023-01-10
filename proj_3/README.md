@@ -40,7 +40,7 @@ Metoda Dormand-Prince'a bierze pod uwagę parę metod włożonych - dwie metody 
 
 - Metoda RK rzędu 4 (6 etapowa):
 $$
-x_{n+1} = x_n + h * \sum_{i=1}^6 w_i^* k_i
+x_{n+1} = x_n + h \sum_{i=1}^6 w_i^* k_i
 $$
 $$
 k_1 = f(t_n, x_n)
@@ -51,7 +51,7 @@ $$
 
 - Metoda RK rzędu 5 (7 etapowa):
 $$
-x_{n+1} = x_n + h * \sum_{i=1}^{7} w_i^* k_i
+x_{n+1} = x_n + h \sum_{i=1}^{7} w_i^* k_i
 $$
 $$
 k_1 = f(t_n, x_n)
@@ -163,7 +163,7 @@ end
 W trakcie wyznaczania kolejnego kroku $h_{n+1}$ bierze się pod uwagę niedokładności oszacowania błędu, a także stosuje się współczynnik bezpieczeństwa $s$:
 
 $$
-h_{n+1} = s * \alpha * h_n, \text{ gdzie s < 1}
+h_{n+1} = s \alpha h_n, \text{ gdzie s < 1}
 $$
 
 dla metody Dormand-Prince'a przyjmę $s \approx 0.9$, a współczynnik modyfikacji kroku $\alpha$ wylicza się ze wzoru:
@@ -175,7 +175,7 @@ $$
 gdzie:
 
 $$
-\varepsilon = |x_n| * \varepsilon_w + \varepsilon_b \\
+\varepsilon = |x_n| \varepsilon_w + \varepsilon_b \\
 \varepsilon_w \text{ - dokładność względna} \\
 \varepsilon_b \text{ - dokładność bezwzględna}
 $$
