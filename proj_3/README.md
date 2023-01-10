@@ -180,6 +180,8 @@ $$
 \varepsilon_b \text{ - dokładność bezwzględna}
 $$
 
+**Uwaga:** Jako, że w książce nie było sprecyzowane w jaki sposób należy traktować wartość bezwględną w przypadku wektora $\delta_n(h)$ lub $x_n$ to założyłem, że skorzystam zamiast wartości bezwględnej z normy Euklidesowej dla wektorów, która w przypadku liczb jest równa wartości bezwzględnej z tej liczby.
+
 **Program:**
 
 ```matlab
@@ -194,11 +196,41 @@ end
 
 **Program**
 ```matlab
-function [tout, xout, hout, dout] = dorpri45(dxdt, t0, tmax, x0, h0, hmin, epsilonW, epsilonB)
+function [tout, xout, hout, dout] = dorpri45(dxdt, tspan, x0, h0, hmin, epsilonW, epsilonB)
+    %
+    %   CEL
+    %       Wyznaczanie rozwiązania układu równań różniczkowych zwyczajnych
+    %       przy podanej wartości rozwiązania w punkcie początkowym
+    %  
+    %   PARAMETRY WEJSCIOWE
+    %       dxdt   -  funkcja przyjmująca jako parametry czas oraz wartości
+    %                 w punkcie, a zwracająca pochodną dx/dt 
+    %       t0     -  wektor dwu wartościowy - przedział poszukiwania
+    %                 rozwiązania
+    %       x0     -  wektor punktów startowych  
+    %       h0     -  początkowa wartość kroku
+    %       hmin   -  ustalona minimalna wielkość kroku - poniżej tego
+    %                 kroku kończymy program - uznajemy, że nie da się
+    %                 znaleźć wyniku z zadaną dokładnością
+    %       epsilonW - wartość dozwolonego błędu względnego
+    %       epsilonB - wartość dozwolonego błędu bezwzględnego
+    %
+    %   PARAMETRY WYJSCIOWE
+    %       tout   -  wektor kolejnych wartości czasu t 
+    %       xout   -  macierz kolejnych wartości x w kolejnych iteracjach
+    %                 algorytmu
+    %       hout   -  wektor kroków w kolejnych iteracjach algorytmu
+    %       dout   -  macierz szacowanych błędów dla wartości x w kolejnych
+    %                 iteracjach algorytmu
+    %
+    %   PRZYKLADOWE WYWOLANIE
+    %       >> [tout, xout, hout, dout] = dorpri45(@trajectory, [0 20], [0; 13], 1e-4, 1e-6, 1e-8, 1e-8)
+    %
     s = 0.9;
 
     x1 = x0;
-    t1 = t0;
+    t1 = tspan(1);
+    tmax = tspan(2);
     h1 = h0;
 
     tout = t1;
@@ -227,9 +259,9 @@ function [tout, xout, hout, dout] = dorpri45(dxdt, t0, tmax, x0, h0, hmin, epsil
                 h2 = min([h2prop, 5 * h1, tmax - t1]);
                 n = n + 1;
 
-                tout(n) = t2;
+                tout(n, 1) = t2;
                 xout(n, :) = x2';
-                hout(n) = h2;
+                hout(n, 1) = h2;
                 dout(n, :) = delta';
 
                 t1 = t2;
@@ -264,10 +296,18 @@ end
 | ode45    | 169        |
 | dorpri45 | 160        |
 
+**Porównanie czasu**
+```
+ode45:
+Elapsed time is 0.001873 seconds.
+dorpri45:
+Elapsed time is 0.002709 seconds.
+```
+
 **Komentarz:**
 
 - dla przyjętych parametrów ($h_{min}, \varepsilon_w, \varepsilon_b$) rozwiązania praktycznie się nie różnią
-- tak się, złożyło, że z danymi parametrami moja implementacja osiąga rozwiązanie w mniejszej ilości iteracji
+- tak się, złożyło, że z danymi parametrami moja implementacja osiąga rozwiązanie w mniejszej ilości iteracji lecz trochę dłuższym czasie
 
 **Program:**
 
@@ -282,9 +322,14 @@ function plot_3_1()
     epsilonW = 1e-8;
     epsilonB = 1e-8;
 
-
+    disp("ode45:");
+    tic;
     [tode, xode] = ode45(@trajectory, time_span, x0);
-    [tdp, xdp, ~, ~] = dorpri45(@trajectory, time_span(1), time_span(2), x0, h0, hmin, epsilonW, epsilonB);
+    toc
+    disp("dorpri45:");
+    tic;
+    [tdp, xdp, ~, ~] = dorpri45(@trajectory, time_span, x0, h0, hmin, epsilonW, epsilonB);
+    toc
 
     fprintf('function\t|\titerations\n');
     fprintf('-\t\t\t|\t-\n');
@@ -386,7 +431,7 @@ function plot_3_3()
     fprintf('h_{min}\t\t|\te_w\t\t\t|\te_b\t\t\t|\titerations\n');
     fprintf('-\t\t\t|\t-\t\t\t|\t-\t\t\t|\t-\n');
     for i = 1 : n
-        [tdp, xdp, hdp, ddp] = dorpri45(@trajectory, time_span(1), time_span(2), x0, 1e-4, parameters(i, 1), parameters(i, 2), parameters(i, 3));
+        [tdp, xdp, hdp, ddp] = dorpri45(@trajectory, time_span, x0, 1e-4, parameters(i, 1), parameters(i, 2), parameters(i, 3));
         ts{i} = tdp;
         xs{i} = xdp;
         hs{i} = hdp;
@@ -445,6 +490,7 @@ end
 - algorytm wystartował z niewielkim zadanym krokiem
 - początkowo krok szybko się zwiększa
 - po kilku iteracjach krok w czasie się stabilizuje i pozostaje na poziomie około 0.15
+- szacowane błędy rozwiązań oscylują w okolicy 0
 
 **Program:**
 ```matlab
@@ -459,7 +505,7 @@ function plot_3_2()
     epsilonB = 1e-8;
 
 
-    [tdp, ~, hdp, ddp] = dorpri45(@trajectory, time_span(1), time_span(2), x0, h0, hmin, epsilonW, epsilonB);
+    [tdp, ~, hdp, ddp] = dorpri45(@trajectory, time_span, x0, h0, hmin, epsilonW, epsilonB);
     
     tiledlayout(2, 1);
     
@@ -500,6 +546,6 @@ Obie metody poradziły sobie bardzo dobrze z obliczaniem przebiegu trajektorii.
 
 **Która metoda szybsza?**
 
-Obie metody korzystając z implementacji metody Dormand-Prince'a. Metoda matlaba jest zoptymalizowana pod ten język przez co czas wykonania jest nieco szybszy.
+Obie metody korzystając z implementacji metody Dormand-Prince'a. Metoda matlaba jest zoptymalizowana pod ten język przez co czas wykonania jest nieco krótszy.
 
 Ilość iteracji mojej implementacji jest bardzo zależna od parametrów wejściowych. Dla przyjętych parametrów moja implementacja za każdym razem korzystała z mniejszej ilości iteracji niż metoda matlaba `ode45`.
