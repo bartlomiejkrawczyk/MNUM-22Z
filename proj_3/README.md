@@ -138,7 +138,7 @@ $$
 Po odjęciu stronami powyższych równań otrzymujemy oszacowanie błędu metody rzędu 4:
 
 $$
-\delta_n(h)=h(z_{n+1}-x_{n+1})=h*(-\frac{71}{57600} k_{1}(h)+\frac{71}{16695} k_{3}(h)-\frac{71}{1920} k_{4}(h)+\frac{17253}{339200} k_{5}(h)-\frac{22}{525} k_{6}(h)+\frac{1}{40} k_{7}(h))
+\delta_n(h)=h(z_{n+1}-x_{n+1})=h(-\frac{71}{57600} k_{1}(h)+\frac{71}{16695} k_{3}(h)-\frac{71}{1920} k_{4}(h)+\frac{17253}{339200} k_{5}(h)-\frac{22}{525} k_{6}(h)+\frac{1}{40} k_{7}(h))
 $$
 
 **Program:**
@@ -169,26 +169,24 @@ $$
 dla metody Dormand-Prince'a przyjmę $s \approx 0.9$, a współczynnik modyfikacji kroku $\alpha$ wylicza się ze wzoru:
 
 $$
-\alpha = (\frac{\varepsilon}{|\delta_n(h)|})^{\frac{1}{5}}
+\alpha = min_{1\le i\le k}(\frac{\varepsilon_i}{|\delta_n(h)_i|})^{\frac{1}{5}}, i = 1, 2, ..., k
 $$
 
 gdzie:
 
 $$
-\varepsilon = |x_n| \varepsilon_w + \varepsilon_b \\
+\varepsilon_i = |(x_i)_n| \varepsilon_w + \varepsilon_b \\
 \varepsilon_w \text{ - dokładność względna} \\
 \varepsilon_b \text{ - dokładność bezwzględna}
 $$
-
-**Uwaga:** Jako, że w książce nie było sprecyzowane w jaki sposób należy traktować wartość bezwględną w przypadku wektora $\delta_n(h)$ lub $x_n$ to założyłem, że skorzystam z normy Euklidesowej dla wektorów, która w przypadku liczb jest równa wartości bezwzględnej z tej liczby.
 
 **Program:**
 
 ```matlab
 function alpha = calculateAlpha(x, epsilonW, epsilonB, delta)
-    epsilon = norm(x) * epsilonW + epsilonB;
+    epsilon = abs(x) * epsilonW + epsilonB;
 
-    alpha = (epsilon / norm(delta))^(1/5);
+    alpha = min((epsilon ./ abs(delta)) .^ (1/5));
 end
 ```
 
@@ -291,17 +289,17 @@ end
 
 **Ilość iteracji**
 
-| function | iterations |
-|----------|------------|
-| ode45    | 169        |
-| dorpri45 | 160        |
+function|iterations
+-|-
+ode45|169
+dorpri45|160
 
 **Porównanie czasu**
 ```
 ode45:
-Elapsed time is 0.001873 seconds.
+Elapsed time is 0.002367 seconds.
 dorpri45:
-Elapsed time is 0.002709 seconds.
+Elapsed time is 0.006475 seconds.
 ```
 
 **Komentarz:**
@@ -381,13 +379,13 @@ end
 
 **Ilość iteracji**
 
-| h_{min}  | e_w      | e_b      | iterations |
-|----------|----------|----------|------------|
-| 0.000001 | 0.000001 | 0.000001 | 78         |
-| 0.000010 | 0.000010 | 0.000010 | 56         |
-| 0.010000 | 0.010000 | 0.010000 | 25         |
-| 0.000010 | 0.000001 | 0.100000 | 54         |
-| 0.001000 | 0.100000 | 0.000001 | 37         |
+h_{min} | e_w | e_b | iterations
+-|-|-|-
+0.000001 | 0.000001 | 0.000001 | 78
+0.000010 | 0.000010 | 0.000010 | 56
+0.010000 | 0.010000 | 0.010000 | 24
+0.000010 | 0.000001 | 0.100000 | 45
+0.001000 | 0.010000 | 0.000001 | 25
 
 **Komentarz:**
 
@@ -418,7 +416,7 @@ function plot_3_3()
         1e-5    1e-5    1e-5
         1e-2    1e-2    1e-2
         1e-5    1e-6    1e-1
-        1e-3    1e-1    1e-6
+        1e-3    1e-2    1e-6
     ];
 
     [n, ~] = size(parameters);
@@ -489,7 +487,7 @@ end
 **Komentarz:**
 - algorytm wystartował z niewielkim zadanym krokiem
 - początkowo krok szybko się zwiększa
-- po kilku iteracjach krok w czasie się stabilizuje i pozostaje na poziomie około 0.15
+- po kilku iteracjach krok w czasie zaczyna się stabilizować w okolicy wartości 0.15, jednak nie pozostaje stały
 - szacowane błędy rozwiązań oscylują w okolicy 0
 
 **Program:**

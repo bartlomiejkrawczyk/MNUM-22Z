@@ -4,13 +4,13 @@
 <head>
     <title>README.md</title>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
     <script type="text/javascript"
         src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
         </script>
-
     <style>
         /* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
         /*---------------------------------------------------------------------------------------------
@@ -407,7 +407,7 @@ indeks: 310774
         <li>
             <p>Metoda RK rzędu 4 (6 etapowa):
                 $$
-                x_{n+1} = x_n + h * \sum_{i=1}^6 w_i^* k_i
+                x_{n+1} = x_n + h \sum_{i=1}^6 w_i^* k_i
                 $$
                 $$
                 k_1 = f(t_n, x_n)
@@ -419,7 +419,7 @@ indeks: 310774
         <li>
             <p>Metoda RK rzędu 5 (7 etapowa):
                 $$
-                x_{n+1} = x_n + h * \sum_{i=1}^{7} w_i^* k_i
+                x_{n+1} = x_n + h \sum_{i=1}^{7} w_i^* k_i
                 $$
                 $$
                 k_1 = f(t_n, x_n)
@@ -493,7 +493,7 @@ indeks: 310774
         $$</p>
     <p>Po odjęciu stronami powyższych równań otrzymujemy oszacowanie błędu metody rzędu 4:</p>
     <p>$$
-        \delta_n(h)=h(z_{n+1}-x_{n+1})=h*(-\frac{71}{57600} k_{1}(h)+\frac{71}{16695} k_{3}(h)-\frac{71}{1920}
+        \delta_n(h)=h(z_{n+1}-x_{n+1})=h(-\frac{71}{57600} k_{1}(h)+\frac{71}{16695} k_{3}(h)-\frac{71}{1920}
         k_{4}(h)+\frac{17253}{339200} k_{5}(h)-\frac{22}{525} k_{6}(h)+\frac{1}{40} k_{7}(h))
         $$</p>
     <p><strong>Program:</strong></p>
@@ -514,39 +514,69 @@ indeks: 310774
     <p>W trakcie wyznaczania kolejnego kroku $h_{n+1}$ bierze się pod uwagę niedokładności oszacowania błędu, a także
         stosuje się współczynnik bezpieczeństwa $s$:</p>
     <p>$$
-        h_{n+1} = s * \alpha * h_n, \text{ gdzie s &lt; 1}
+        h_{n+1} = s \alpha h_n, \text{ gdzie s &lt; 1}
         $$</p>
     <p>dla metody Dormand-Prince'a przyjmę $s \approx 0.9$, a współczynnik modyfikacji kroku $\alpha$ wylicza się ze
         wzoru:</p>
     <p>$$
-        \alpha = (\frac{\varepsilon}{|\delta_n(h)|})^{\frac{1}{5}}
+        \alpha = min_{1\le i\le k}(\frac{\varepsilon_i}{|\delta_n(h)_i|})^{\frac{1}{5}}, i = 1, 2, ..., k
         $$</p>
     <p>gdzie:</p>
     <p>$$
-        \varepsilon = |x_n| * \varepsilon_w + \varepsilon_b \\
+        \varepsilon_i = |(x_i)_n| \varepsilon_w + \varepsilon_b \\
         \varepsilon_w \text{ - dokładność względna} \\
         \varepsilon_b \text{ - dokładność bezwzględna}
         $$</p>
     <p><strong>Program:</strong></p>
     <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">alpha</span> = <span class="hljs-title">calculateAlpha</span><span class="hljs-params">(x, epsilonW, epsilonB, delta)</span></span>
-    epsilon = norm(x) * epsilonW + epsilonB;
+    epsilon = <span class="hljs-built_in">abs</span>(x) * epsilonW + epsilonB;
 
-    alpha = (epsilon / norm(delta))^(<span class="hljs-number">1</span>/<span class="hljs-number">5</span>);
+    alpha = <span class="hljs-built_in">min</span>((epsilon ./ <span class="hljs-built_in">abs</span>(delta)) .^ (<span class="hljs-number">1</span>/<span class="hljs-number">5</span>));
 <span class="hljs-keyword">end</span>
 </div></code></pre>
     <h2 id="podstawowa-realizacja-metod-rk-oraz-rkf">Podstawowa realizacja metod RK oraz RKF</h2>
     <p><strong>Program</strong></p>
-    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[tout, xout, hout, dout]</span> = <span class="hljs-title">dorpri45</span><span class="hljs-params">(dxdt, t0, tmax, x0, h0, hmin, epsilonW, epsilonB)</span></span>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[tout, xout, hout, dout]</span> = <span class="hljs-title">dorpri45</span><span class="hljs-params">(dxdt, tspan, x0, h0, hmin, epsilonW, epsilonB)</span></span>
+    <span class="hljs-comment">%</span>
+    <span class="hljs-comment">%   CEL</span>
+    <span class="hljs-comment">%       Wyznaczanie rozwiązania układu równań różniczkowych zwyczajnych</span>
+    <span class="hljs-comment">%       przy podanej wartości rozwiązania w punkcie początkowym</span>
+    <span class="hljs-comment">%  </span>
+    <span class="hljs-comment">%   PARAMETRY WEJSCIOWE</span>
+    <span class="hljs-comment">%       dxdt   -  funkcja przyjmująca jako parametry czas oraz wartości</span>
+    <span class="hljs-comment">%                 w punkcie, a zwracająca pochodną dx/dt </span>
+    <span class="hljs-comment">%       t0     -  wektor dwu wartościowy - przedział poszukiwania</span>
+    <span class="hljs-comment">%                 rozwiązania</span>
+    <span class="hljs-comment">%       x0     -  wektor punktów startowych  </span>
+    <span class="hljs-comment">%       h0     -  początkowa wartość kroku</span>
+    <span class="hljs-comment">%       hmin   -  ustalona minimalna wielkość kroku - poniżej tego</span>
+    <span class="hljs-comment">%                 kroku kończymy program - uznajemy, że nie da się</span>
+    <span class="hljs-comment">%                 znaleźć wyniku z zadaną dokładnością</span>
+    <span class="hljs-comment">%       epsilonW - wartość dozwolonego błędu względnego</span>
+    <span class="hljs-comment">%       epsilonB - wartość dozwolonego błędu bezwzględnego</span>
+    <span class="hljs-comment">%</span>
+    <span class="hljs-comment">%   PARAMETRY WYJSCIOWE</span>
+    <span class="hljs-comment">%       tout   -  wektor kolejnych wartości czasu t </span>
+    <span class="hljs-comment">%       xout   -  macierz kolejnych wartości x w kolejnych iteracjach</span>
+    <span class="hljs-comment">%                 algorytmu</span>
+    <span class="hljs-comment">%       hout   -  wektor kroków w kolejnych iteracjach algorytmu</span>
+    <span class="hljs-comment">%       dout   -  macierz szacowanych błędów dla wartości x w kolejnych</span>
+    <span class="hljs-comment">%                 iteracjach algorytmu</span>
+    <span class="hljs-comment">%</span>
+    <span class="hljs-comment">%   PRZYKLADOWE WYWOLANIE</span>
+    <span class="hljs-comment">%       &gt;&gt; [tout, xout, hout, dout] = dorpri45(@trajectory, [0 20], [0; 13], 1e-4, 1e-6, 1e-8, 1e-8)</span>
+    <span class="hljs-comment">%</span>
     s = <span class="hljs-number">0.9</span>;
 
     x1 = x0;
-    t1 = t0;
+    t1 = tspan(<span class="hljs-number">1</span>);
+    tmax = tspan(<span class="hljs-number">2</span>);
     h1 = h0;
 
     tout = t1;
     xout = x1';
     hout = h1;
-    dout = [<span class="hljs-number">0</span> <span class="hljs-number">0</span>];
+    dout = <span class="hljs-built_in">zeros</span>(<span class="hljs-built_in">length</span>(x0));
     n = <span class="hljs-number">1</span>;
 
     <span class="hljs-keyword">while</span> <span class="hljs-built_in">true</span>
@@ -569,9 +599,9 @@ indeks: 310774
                 h2 = <span class="hljs-built_in">min</span>([h2prop, <span class="hljs-number">5</span> * h1, tmax - t1]);
                 n = n + <span class="hljs-number">1</span>;
 
-                tout(n) = t2;
+                tout(n, <span class="hljs-number">1</span>) = t2;
                 xout(n, :) = x2';
-                hout(n) = h2;
+                hout(n, <span class="hljs-number">1</span>) = h2;
                 dout(n, :) = delta';
 
                 t1 = t2;
@@ -615,12 +645,18 @@ indeks: 310774
             </tr>
         </tbody>
     </table>
+    <p><strong>Porównanie czasu</strong></p>
+    <pre class="hljs"><code><div>ode45:
+Elapsed time is 0.002367 seconds.
+dorpri45:
+Elapsed time is 0.006475 seconds.
+</div></code></pre>
     <p><strong>Komentarz:</strong></p>
     <ul>
         <li>dla przyjętych parametrów ($h_{min}, \varepsilon_w, \varepsilon_b$) rozwiązania praktycznie się nie różnią
         </li>
         <li>tak się, złożyło, że z danymi parametrami moja implementacja osiąga rozwiązanie w mniejszej ilości iteracji
-        </li>
+            lecz trochę dłuższym czasie</li>
     </ul>
     <p><strong>Program:</strong></p>
     <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">plot_3_1</span><span class="hljs-params">()</span></span>
@@ -633,9 +669,14 @@ indeks: 310774
     epsilonW = <span class="hljs-number">1e-8</span>;
     epsilonB = <span class="hljs-number">1e-8</span>;
 
-
+    <span class="hljs-built_in">disp</span>(<span class="hljs-string">"ode45:"</span>);
+    tic;
     [tode, xode] = ode45(@trajectory, time_span, x0);
-    [tdp, xdp, ~, ~] = dorpri45(@trajectory, time_span(<span class="hljs-number">1</span>), time_span(<span class="hljs-number">2</span>), x0, h0, hmin, epsilonW, epsilonB);
+    toc
+    <span class="hljs-built_in">disp</span>(<span class="hljs-string">"dorpri45:"</span>);
+    tic;
+    [tdp, xdp, ~, ~] = dorpri45(@trajectory, time_span, x0, h0, hmin, epsilonW, epsilonB);
+    toc
 
     fprintf(<span class="hljs-string">'function\t|\titerations\n'</span>);
     fprintf(<span class="hljs-string">'-\t\t\t|\t-\n'</span>);
@@ -711,19 +752,19 @@ indeks: 310774
                 <td>0.010000</td>
                 <td>0.010000</td>
                 <td>0.010000</td>
-                <td>25</td>
+                <td>24</td>
             </tr>
             <tr>
                 <td>0.000010</td>
                 <td>0.000001</td>
                 <td>0.100000</td>
-                <td>54</td>
+                <td>45</td>
             </tr>
             <tr>
                 <td>0.001000</td>
-                <td>0.100000</td>
+                <td>0.010000</td>
                 <td>0.000001</td>
-                <td>37</td>
+                <td>25</td>
             </tr>
         </tbody>
     </table>
@@ -757,7 +798,7 @@ indeks: 310774
         <span class="hljs-number">1e-5</span>    <span class="hljs-number">1e-5</span>    <span class="hljs-number">1e-5</span>
         <span class="hljs-number">1e-2</span>    <span class="hljs-number">1e-2</span>    <span class="hljs-number">1e-2</span>
         <span class="hljs-number">1e-5</span>    <span class="hljs-number">1e-6</span>    <span class="hljs-number">1e-1</span>
-        <span class="hljs-number">1e-3</span>    <span class="hljs-number">1e-1</span>    <span class="hljs-number">1e-6</span>
+        <span class="hljs-number">1e-3</span>    <span class="hljs-number">1e-2</span>    <span class="hljs-number">1e-6</span>
     ];
 
     [n, ~] = <span class="hljs-built_in">size</span>(parameters);
@@ -770,7 +811,7 @@ indeks: 310774
     fprintf(<span class="hljs-string">'h_{min}\t\t|\te_w\t\t\t|\te_b\t\t\t|\titerations\n'</span>);
     fprintf(<span class="hljs-string">'-\t\t\t|\t-\t\t\t|\t-\t\t\t|\t-\n'</span>);
     <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span> : n
-        [tdp, xdp, hdp, ddp] = dorpri45(@trajectory, time_span(<span class="hljs-number">1</span>), time_span(<span class="hljs-number">2</span>), x0, <span class="hljs-number">1e-4</span>, parameters(<span class="hljs-built_in">i</span>, <span class="hljs-number">1</span>), parameters(<span class="hljs-built_in">i</span>, <span class="hljs-number">2</span>), parameters(<span class="hljs-built_in">i</span>, <span class="hljs-number">3</span>));
+        [tdp, xdp, hdp, ddp] = dorpri45(@trajectory, time_span, x0, <span class="hljs-number">1e-4</span>, parameters(<span class="hljs-built_in">i</span>, <span class="hljs-number">1</span>), parameters(<span class="hljs-built_in">i</span>, <span class="hljs-number">2</span>), parameters(<span class="hljs-built_in">i</span>, <span class="hljs-number">3</span>));
         ts{<span class="hljs-built_in">i</span>} = tdp;
         xs{<span class="hljs-built_in">i</span>} = xdp;
         hs{<span class="hljs-built_in">i</span>} = hdp;
@@ -826,7 +867,9 @@ indeks: 310774
     <ul>
         <li>algorytm wystartował z niewielkim zadanym krokiem</li>
         <li>początkowo krok szybko się zwiększa</li>
-        <li>po kilku iteracjach krok w czasie się stabilizuje i pozostaje na poziomie około 0.15</li>
+        <li>po kilku iteracjach krok w czasie zaczyna się stabilizować w okolicy wartości 0.15, jednak nie pozostaje
+            stały</li>
+        <li>szacowane błędy rozwiązań oscylują w okolicy 0</li>
     </ul>
     <p><strong>Program:</strong></p>
     <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">plot_3_2</span><span class="hljs-params">()</span></span>
@@ -840,7 +883,7 @@ indeks: 310774
     epsilonB = <span class="hljs-number">1e-8</span>;
 
 
-    [tdp, ~, hdp, ddp] = dorpri45(@trajectory, time_span(<span class="hljs-number">1</span>), time_span(<span class="hljs-number">2</span>), x0, h0, hmin, epsilonW, epsilonB);
+    [tdp, ~, hdp, ddp] = dorpri45(@trajectory, time_span, x0, h0, hmin, epsilonW, epsilonB);
     
     tiledlayout(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>);
     
@@ -873,7 +916,7 @@ indeks: 310774
     <p>Obie metody poradziły sobie bardzo dobrze z obliczaniem przebiegu trajektorii.</p>
     <p><strong>Która metoda szybsza?</strong></p>
     <p>Obie metody korzystając z implementacji metody Dormand-Prince'a. Metoda matlaba jest zoptymalizowana pod ten
-        język przez co czas wykonania jest nieco szybszy.</p>
+        język przez co czas wykonania jest nieco krótszy.</p>
     <p>Ilość iteracji mojej implementacji jest bardzo zależna od parametrów wejściowych. Dla przyjętych parametrów moja
         implementacja za każdym razem korzystała z mniejszej ilości iteracji niż metoda matlaba <code>ode45</code>.</p>
 
